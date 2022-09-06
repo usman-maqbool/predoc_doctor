@@ -54,3 +54,12 @@ class DashBoardPageView(View):
         }
 
         return render(request,'dashboard.html', context)
+
+
+
+class StartHerePageView(View):
+    def get(self,request):
+        context = {
+            "title":"Start Here"
+        }
+        return render(request, 'start_here.html' , context)

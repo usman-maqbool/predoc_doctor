@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+<style>
+    .user-inner-text{
+        height: 20%;
+    }
+
+    
+      .results tr[visible='false'],
+      .no-result{
+        display:none;
+      }
+
+      .results tr[visible='true']{
+        display:table-row;
+      }
+
+      .counter{
+        padding:8px; 
+        color:#ccc;
+      }
+      ::-webkit-scrollbar {
+  width: 5px;
+}
+
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+.custom_table {
+    font-size: 15px;
+    height: 400px;
+    overflow-y: scroll;
+    
+  }
+  .custom_table::-webkit-scrollbar {
+    display: none;
+} 
+
+    </style>
+    
+{% endblock extra_css %}
+
+{% block content %}
+
+                        
+    <main class="main" id="top"></main>
+
+    <div class="container-fluid" data-layout="container-fluid">
+       
+        {% include 'layout/side_nav.html' %}
+        <div class="content">
+          {% include 'layout/header.html' %}
+          <div class="text-left mt-4">
+           
+        
+            <div class="">
+              <h1 class="m-4 pt-4 h1 text-white"> All Patient </h1>
+              <div class="d-flex justify-content-end my-2">
+                <span class="counter pull-right"></span>
+                <div class="">
+                    <input type="text" id="myInput" class="search form-control"  placeholder="Search By Name">
+                  </div>
+              </div>
+              <div class="table-responsive-sm table-responsive-md table-responsive-lg  custom_table" >
+                      
+                <table class="table table-striped results table-dark table-hover"  >
+                      <thead >
+                        <tr class="text-center">
+                          <th scope="col">Name</th>
+                          <th scope="col">DOB</th>
+                          <th scope="col">Age</th>
+                          <th scope="col">Last Saw Dr</th>
+                          <th scope="col">Last See Dr</th>
+                          <th scope="col">Last Answere</th>
+                        </tr>
+  
+                      </thead>
+                      <tbody>
+                        <tr class="text-center">
+                          <th scope="row" class="cursor-pointer">
+                            <a data-toggle="modal" data-target="#exampleModal"> Mark</a>
+                          </th>
+                          <td>18/7/1995</td>
+                          <td>26</td>
+                          <td>Berger</td>
+                          <td>Conom</td>
+                          <td>12/52</td>
+                        </tr>
+                        
+                      
+  
+                      </tbody>
+                </table>
+              </div>
+            </div>
+
+
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-scrollable" id="style-4" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="text-dark m-4">
+                  <h2 class="text-dark">Current Patient</h2>
+                  <h4 class=" mt-4 text-dark">Elon Musk</h4>
+                  <h4 class="text-dark"> DOB 01/01/1971</h4>
+                  <h4 class="text-dark">52 Years Old male</h4>
+                  </div>
+              
+              <div class="mt-6 mx-4">
+                  <div>
+                      <div class="col col-lg-12 ">
+                          <div class="border overflow-auto bg-light user-inner-text" style="height: 40%;">
+                              <div class="mx-4">
+                                  <p class="h5 text-uppercase">PC</p>
+                                  <p class="h5  text-capitalize my-4">Back Pain</p>
+                                  <!-- Cause -->
+                                  <p class="h5  text-uppercase mt-4">hpc</p>
+                                  <p class="h6  my-2" >Sudden onset</p>
+                                  <p class="h6  my-2" >" I was at work lifting a Tesla tyre and felt my back go "</p>
+                                  <p class="h6  my-2" >left sided.</p>
+                                  <p class="h6  my-2" >lumbar</p>
+                                  <p class="h6  my-2" >no radiculopathy</p>
+                                  <!-- Dissease -->
+                                  <p class="h5  text-uppercase mt-4">Pmh</p>
+                                  <p class="h6  my-2" >Lumbar discectomy 2016, Dr. Matt Rackham, Ashford Hospital</p>
+                                  <p class="h6  my-2" >Hypertension</p>
+                                  <p class="h6  my-2" >Hypercholesterolaemia</p>
+                                  <p class="h6  my-2" >Autism Spectrum Disorder</p>
+                                  <!-- Medicine -->
+                                  <p class="h5  text-uppercase mt-4">Medications</p>
+                                  <p class="h6  my-2" >Perindopril 5mg mane</p>
+                                  <p class="h6  my-2" >Rosuvastatin 40mg mane</p>
+                              </div>
+                          </div>
+                          <div class="mt-4">
+                            <p class="h6">
+                                <span class="text-primary border-bottom border-primary">Question and Answere</span> - 
+                                view the original phrasing and answers                                
+                            </p>
+                        </div>
+                      </div>
+                        
+                  </div>
+              </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+          </div>
+
+          </div>
+        
+        
+        </div>
+
+
+    </div>
+
+{% endblock content %}
+
+{% block extra_javascript %}
+<script>
+    $(document).ready(function() {
+  $(".search").keyup(function () {
+    var searchTerm = $(".search").val();
+    var listItem = $('.results tbody').children('tr');
+    var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
+    
+  $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
+        return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+    }
+  });
+    
+  $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function(e){
+    $(this).attr('visible','false');
+  });
+
+  $(".results tbody tr:containsi('" + searchSplit + "')").each(function(e){
+    $(this).attr('visible','true');
+  });
+
+  var jobCount = $('.results tbody tr[visible="true"]').length;
+    $('.counter').text(jobCount + ' item');
+
+  if(jobCount == '0') {$('.no-result').show();}
+    else {$('.no-result').hide();}
+		  });
+});
+</script>
+{% endblock extra_javascript %}

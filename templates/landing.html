@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+ {% block content %} 
+
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    {% include 'top_nav.html' %}
+   
+    <main class="main" id="top">
+
+   
+      <!-- ============================================-->
+      <!-- <section> begin ============================-->
+      <section class="py-0 overflow-hidden" id="banner">
+
+        <div class="bg-holder overlay" style=" background-image: linear-gradient(to right, #0F2027 , #203A43 ,#2C5364);background-position: center bottom;">
+        </div>
+        <!--/.bg-holder-->
+
+        <div class="container">
+          <div class="row  align-items-center pt-8 pt-lg-10 pb-lg-9 pb-xl-0">
+            <div class="col-md-11 col-lg-8 col-xl-4 pb-7 text-left">
+              <h1 class="text-white font-weight-light">PreDoc</h1>
+              <h5 class="lead text-white opacity-75">PreDoc is currently available on selected doctors</h5><br>
+               <h5 class="lead text-white opacity-75"> Please Check back soon for more info <a href="{% url 'contactus' %}">contact us</a></h5>
+              <a class="btn btn-outline-light border-2x rounded-pill btn-lg mt-4 fs-0 py-2" href="#!">Start with Predoc<span class="fas fa-play" data-fa-transform="shrink-6 down-1 right-5"></span></a>
+            </div>
+           
+          </div>
+        </div>
+      
+
+      </section>
+      <!-- <section> close ============================-->
+      <!-- ============================================-->
+
+
+
+
+
+        {% include 'fotter.html' %}
+        {% include 'bottom_fotter.html' %}
+
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+
+
+
+
+  {% endblock content %}
+

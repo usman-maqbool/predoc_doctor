@@ -43,13 +43,17 @@
 }
 .custom_table {
     font-size: 15px;
-    height: 400px;
+    height: 50%;
     overflow-y: scroll;
     
   }
   .custom_table::-webkit-scrollbar {
     display: none;
 } 
+/* table tbody tr:nth-child(odd) td,
+.table tbody tr:nth-child(odd) th {
+  background-color: #f2f2f2;
+} */
 
     </style>
     
@@ -76,11 +80,11 @@
                     <input type="text" id="myInput" class="search form-control"  placeholder="Search By Name">
                   </div>
               </div>
-              <div class="table-responsive-sm table-responsive-md table-responsive-lg  custom_table" >
+              <div class="table-responsive-sm table-responsive-md  table-responsive-lg  custom_table" >
                       
-                <table class="table table-striped results table-dark table-hover"  >
+                <table class="table table-striped results  table-dark tabled-hovedr"  id="myTable"  >
                       <thead >
-                        <tr class="text-center">
+                        <tr class="text-center text-white font-weight-bold">
                           <th scope="col">Name</th>
                           <th scope="col">DOB</th>
                           <th scope="col">Age</th>
@@ -91,7 +95,7 @@
   
                       </thead>
                       <tbody>
-                        <tr class="text-center">
+                        <tr class="text-center text-white">
                           <th scope="row" class="cursor-pointer">
                             <a data-toggle="modal" data-target="#exampleModal"> Mark</a>
                           </th>
@@ -101,25 +105,7 @@
                           <td>Conom</td>
                           <td>12/52</td>
                         </tr>
-                        <tr class="text-center">
-                          <th scope="row" class="cursor-pointer">
-                            <a data-toggle="modal" data-target="#exampleModal"> Mark</a>
-                          </th>
-                          <td>18/7/1995</td>
-                          <td>26</td>
-                          <td>Berger</td>
-                          <td>Conom</td>
-                          <td>12/52</td>
-                        </tr> <tr class="text-center">
-                          <th scope="row" class="cursor-pointer">
-                            <a data-toggle="modal" data-target="#exampleModal"> Mark</a>
-                          </th>
-                          <td>18/7/1995</td>
-                          <td>26</td>
-                          <td>Berger</td>
-                          <td>Conom</td>
-                          <td>12/52</td>
-                        </tr> <tr class="text-center">
+                        <tr class="text-center text-white">
                           <th scope="row" class="cursor-pointer">
                             <a data-toggle="modal" data-target="#exampleModal"> Mark</a>
                           </th>
@@ -129,7 +115,7 @@
                           <td>Conom</td>
                           <td>12/52</td>
                         </tr>
-                        <tr class="text-center">
+                        <tr class="text-center text-white">
                           <th scope="row" class="cursor-pointer">
                             <a data-toggle="modal" data-target="#exampleModal"> Mark</a>
                           </th>
@@ -139,7 +125,7 @@
                           <td>Conom</td>
                           <td>12/52</td>
                         </tr>
-                        <tr class="text-center">
+                        <tr class="text-center text-white">
                           <th scope="row" class="cursor-pointer">
                             <a data-toggle="modal" data-target="#exampleModal"> Mark</a>
                           </th>
@@ -149,7 +135,7 @@
                           <td>Conom</td>
                           <td>12/52</td>
                         </tr>
-                        <tr class="text-center">
+                        <tr class="text-center text-white">
                           <th scope="row" class="cursor-pointer">
                             <a data-toggle="modal" data-target="#exampleModal"> Mark</a>
                           </th>
@@ -159,31 +145,60 @@
                           <td>Conom</td>
                           <td>12/52</td>
                         </tr>
-                        <tr class="text-center">
-                          <th scope="row" class="cursor-pointer">
-                            <a data-toggle="modal" data-target="#exampleModal"> Mark</a>
-                          </th>
-                          <td>18/7/1995</td>
-                          <td>26</td>
-                          <td>Berger</td>
-                          <td>Conom</td>
-                          <td>12/52</td>
-                        </tr>
-                        <tr class="text-center">
-                          <th scope="row" class="cursor-pointer">
-                            <a data-toggle="modal" data-target="#exampleModal"> Mark</a>
-                          </th>
-                          <td>18/7/1995</td>
-                          <td>26</td>
-                          <td>Berger</td>
-                          <td>Conom</td>
-                          <td>12/52</td>
-                        </tr>
-                      
   
                       </tbody>
                 </table>
+                
               </div>
+              <div class="d-flex justify-content-end">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li class="page-item">
+                      <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                    </li>
+                    <li class="page-item  active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                      <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+
+              <!-- <div>
+                <table class="table table-fluid" id="myTable">
+                  <thead>
+                  <tr><th>Name</th><th>Email</th><th>Password</th></tr>
+                  </thead>
+                  <tbody>
+                  <tr><td>Daniel Danny</td><td>danny.daniel@gmail.com</td><td>Pass1234</td></tr>
+                  <tr><td>Samuel</td><td>samuel@gmail.com</td><td>Pass1234</td></tr>
+                  <tr><td>Jack</td><td>jack@gmail.com</td><td>Pass1234</td></tr>
+                  <tr><td>Eureka</td><td>eureka@gmail.com</td><td>Pass1234</td></tr>
+                  <tr><td>Pinky</td><td>pinky@gmail.com</td><td>Pass1234</td></tr>
+                  <tr><td>Mishti</td><td>mishti@gmail.com</td><td>Pass1234</td></tr>
+                  <tr><td>Puneet</td><td>puneet@gmail.com</td><td>Pass1234</td></tr>
+                  <tr><td>Nick</td><td>nick@gmail.com</td><td>Pass1234</td></tr>
+                  <tr><td>Danika</td><td>danika@gmail.com</td><td>Pass1234</td></tr>
+                  <tr><td>Vishakha</td><td>vishakha@gmail.com</td><td>Pass1234</td></tr>
+                  <tr><td>Nitin</td><td>ni3@gmail.com</td><td>Pass1234</td></tr>
+                  <tr><td>Latika</td><td>latika@gmail.com</td><td>Pass1234</td></tr>
+                  <tr><td>Kaavya</td><td>kaavya@gmail.com</td><td>Pass1234</td></tr>
+                  <tr><td>Ishika</td><td>ishika@gmail.com</td><td>Pass1234</td></tr>
+                  <tr><td>Veronika</td><td>veronika@gmail.com</td><td>Pass1234</td></tr>
+                  </tbody>
+                  </table>
+              </div> -->
+
+
+
             </div>
 
 
@@ -252,12 +267,10 @@
             </div>
 
           </div>
-          
+          {% include 'seconed_fotter.html' %}
+          {% include 'bottom_fotter.html' %}          
         </div>
         
-        <div class="">
-          {% include 'bottom_fotter.html' %}
-        </div>
         
 
       </div>
@@ -293,4 +306,10 @@
 		  });
 });
 </script>
+
+<script>
+  $(document).ready( function () {
+  $('#myTable').DataTable();
+} );
+  </script>
 {% endblock extra_javascript %}

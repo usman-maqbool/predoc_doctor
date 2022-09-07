@@ -1,4 +1,5 @@
 from multiprocessing import context
+import re
 from turtle import title
 from django.shortcuts import render
 from django.views import View
@@ -63,3 +64,29 @@ class StartHerePageView(View):
             "title":"Start Here"
         }
         return render(request, 'start_here.html' , context)
+
+
+class TermsAndCondtionPageView(View):
+    def get(self,request):
+        context={
+            "title":"Terms and Condition"
+        }
+
+        return render(request, 'terms_condition.html', context)
+
+
+class PrivacyPolicyPageView(View):
+    def get(self,request):
+        context = {
+            "title":"Privacy Policy"
+        }
+
+        return render(request, 'privacy_policy.html', context)
+
+
+
+class SampleView(View):
+    def get(self,request):
+      
+
+        return render(request, 'sample.html',{})

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <main class="main">
+        {% include 'top_nav.html' %}
+        <div class="container">
+            <div class="mt-8">
+                <div class="text-center">
+                    <p class="display-2 text-white">Terms and Condition</p>
+                </div>
+                <div class=" col-8 m-4">
+                    
+                    <h3 class="text-white">Definition</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sit. Consequuntur quaerat dolorem consectetur laborum earum! Blanditiis ipsa quisquam et praesentium omnis delectus nemo ipsum, a sed at repudiandae nesciunt?</p>
+                    <h3 class="text-white">Term 1</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sit. Consequuntur quaerat dolorem consectetur laborum earum! Blanditiis ipsa quisquam et praesentium omnis delectus nemo ipsum, a sed at repudiandae nesciunt?</p>
+                    <h3 class="text-white">Term 2</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sit. Consequuntur quaerat dolorem consectetur laborum earum! Blanditiis ipsa quisquam et praesentium omnis delectus nemo ipsum, a sed at repudiandae nesciunt?</p>
+                    <h3 class="text-white">Condition 1</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sit. Consequuntur quaerat dolorem consectetur laborum earum! Blanditiis ipsa quisquam et praesentium omnis delectus nemo ipsum, a sed at repudiandae nesciunt?</p>
+                    <h3 class="text-white">Condition 2</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, sit. Consequuntur quaerat dolorem consectetur laborum earum! Blanditiis ipsa quisquam et praesentium omnis delectus nemo ipsum, a sed at repudiandae nesciunt?</p>
+            
+
+
+
+                    <form class="">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
+                            <label class="form-check-label" for="exampleCheck1">I have read and accept the terms of contract</label>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="my-3 btn btn-outline-danger">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% include 'seconed_fotter.html' %}
+        {% include 'bottom_fotter.html' %}
+
+    </main>
+
+
+
+{% endblock content %}
+
+{% block extra_javascript %}
+
+<script>
+    var btn = document.querySelectorAll("form .btn")[0];
+
+var checkBox = document.getElementById("exampleCheck1");
+btn.disabled = !checkBox.checked;
+
+checkBox.addEventListener("change",checkTerms);
+
+function checkTerms(){
+	if(this.checked){
+		btn.disabled = false;
+	}else{
+		btn.disabled = true;
+	}
+}
+
+
+
+
+</script>
+
+{% endblock extra_javascript %}

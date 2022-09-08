@@ -3,6 +3,10 @@ import re
 from turtle import title
 from django.shortcuts import render
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
+
 # Create your views here.
 
 class LandingPageView(View):
@@ -15,12 +19,12 @@ class LandingPageView(View):
 
 
 
-class LogInPageView(View):
-    def get(self,request):
-        context={
-            "title":"LogIn"
-        }
-        return render(request, 'accounts/login.html' ,context)
+# class LogInPageView(View):
+#     def get(self,request):
+#         context={
+#             "title":"LogIn"
+#         }
+#         return render(request, 'accounts/login.html' ,context)
 
 
 class SignUpPageView(View):
@@ -48,7 +52,7 @@ class ContactUsPageView(View):
         return render(request, 'contact_us.html', context)
 
 
-class DashBoardPageView(View):
+class DashBoardPageView(LoginRequiredMixin,View):
     def get(self,request):
         context={
             "title":"Dashboard"
@@ -58,7 +62,7 @@ class DashBoardPageView(View):
 
 
 
-class StartHerePageView(View):
+class StartHerePageView(LoginRequiredMixin,View):
     def get(self,request):
         context = {
             "title":"Start Here"

@@ -1,31 +1,24 @@
 
-from multiprocessing import context
-from tkinter import E
 from django.shortcuts import render,redirect
 from django.views import View
+
 from django.views.generic.edit import CreateView
-from django.contrib.auth import authenticate,login, logout
-from django.contrib.auth import get_user_model
-from .forms import SignUpForm , LoginForm ,RecoverPasswordForm
+from django.contrib.auth import authenticate,login, logout,get_user_model
+from .forms import SignUpForm , LoginForm ,ForgetPasswordForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.contrib.auth.models import auth
 from .models import UserModel 
-from django.template.loader import render_to_string
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
-
-# from .sendemail import account_activation_token
-# from django.utils.encoding import force_text
-from django.utils.encoding import force_str
-from django.utils.http import urlsafe_base64_decode
-from django.core.mail import send_mail, BadHeaderError
 from django.db.models.query_utils import Q
-import uuid
-
+from django.core.mail import send_mail, BadHeaderError
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.models import User
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
-# from .sendemail import send_foregt_password_email
+from django.utils.encoding import force_bytes
+
+
 User = get_user_model()
 
 # Create your views here.
@@ -69,76 +62,73 @@ class LogOutPageView(View):
         messages.info(request, 'You Sucessfully logged out')
         return redirect('login')
 
-class ForgetSuccesFullMessagePAgeView(View):
+# class ForgetPasswordPageView(View):
+#     def get(self,request):
+#         context = {
+#             'title':"Forget Password",
+#             'form':ForgetPasswordForm
+            
+#         }
+#         return render(request, 'accounts/forget_password.html', context)
+
+
+
+def password_reset_request(request, *args, **kwargs):
+	if request.method == "POST":
+		password_reset_form = PasswordResetForm(request.POST)
+		if password_reset_form.is_valid():
+			data = password_reset_form.cleaned_data['email']
+			associated_users = UserModel.objects.filter(Q(email=data))
+			if associated_users.exists():
+				for user in associated_users:
+					subject = "Password Reset Requested"
+					email_template_name = "accounts/reset_email.txt"
+					c = {
+					"email":user.email,
+					'domain':'127.0.0.1:8000',
+					'site_name': 'Website',
+					"uid": urlsafe_base64_encode(force_bytes(user.pk)),
+					"user": user,
+					'token': default_token_generator.make_token(user),
+					'protocol': 'http',
+					}
+					email = render_to_string(email_template_name, c)
+					try:
+						send_mail(subject, email, 'admin@example.com' , [user.email], fail_silently=False)
+					except BadHeaderError:
+						messages.error (request,'Inavlid email')
+                        # return redirect('forget_password')
+					return redirect ("reset_password_done")
+	password_reset_form = PasswordResetForm()
+	return render(request, "accounts/forget_password.html", context={"password_reset_form":password_reset_form})
+
+class ResetPasswordDonePageView(View):
     def get(self,request):
-        context={
-            "title":"Success Full Message"
-        }
-
-        return render(request , 'accounts/forgot-successfull-message.html', context)
-class ResetForgotPasswordPAgeView(View):
-    def get(self,request):
-        context={
-            "title":"Reset Password"
-        }
-
-        return render(request , 'accounts/reset_password.html', context)
-
-        
-class ForgetPasswordPageView(View):
-    template_name = 'accounts/forget_password.html'
-    def get(self, request):
-
         context = {
-
-            'form' :RecoverPasswordForm
+            "title":"Rest Password Done"
         }
-        return render(request, 'accounts/forget_password.html', context)
+        return render(request, 'accounts/reset-password-done.html',context)
 
-    def post(self,request):
-        email = request.POST.get("email", "default value")
-        if User.objects.filter(email=email).exists():
-            obj = User.objects.filter(email=email)
-            for i in obj:
-                user_details = {'username':i.username }
-                username = user_details['username']
-            password_reset_form = RecoverPasswordForm(request.POST)
-            if password_reset_form.is_valid():
-                data = password_reset_form.cleaned_data['email']
-                associated_users = User.objects.filter(Q(email=data))
-                if associated_users.exists():
-                    for user in associated_users:
-                        subject = "Password Reset Requested"
-                        email_template_name = "accounts/reset_email.txt"
-                        c = {
-                            "username": user.username,
-                            "email": user.email,
-                            'domain': '127.0.0.1:8000',
-                            'site_name': 'Website',
-                            "uid": urlsafe_base64_encode(force_bytes(user.pk)),
-                            "user": user,
-                            'token': default_token_generator.make_token(user),
-                            'protocol': 'http',
-                        }
-                        email = render_to_string(email_template_name, c)
-                        try:
-                            send_mail(subject, email, 'admin@example.com',
-                            [user.email], fail_silently=False)
-                        except BadHeaderError:
-                            messages.info(request, "Email Doesn't Exists ")
-                            return redirect('forget_password')
-                        return redirect("forgot-successfull-message")
-                password_reset_form = RecoverPasswordForm()
-                return render(request,"accounts/forget_password.html", context={"password_reset_form": password_reset_form})
-            else:
-                messages.info(request, 'Please Enter Your Email')
-                return redirect('accounts/forget_password')
-        else:
-            messages.info(request, "Email doesn't  exist")
-            return redirect('accounts/forget_password')
+class ResetPasswordConfirmPageView(View):
+    def get(self,request):
+        context={
+            'title': "Generate Password"
+        }
+        return render(request, 'accounts/password_reset_confirm.html', context)
 
-       
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -44,7 +44,7 @@ class LoginForm(forms.Form):
 
 
 
-class RecoverPasswordForm(forms.Form):
+class ForgetPasswordForm(forms.Form):
     email=forms.EmailField(label='Email',widget=forms.EmailInput(attrs={'placeholder': 'Enter your email', 'id':'user_email', 'class':'form-control'}),max_length=50,required=True)
     class Meta:
         models= UserModel

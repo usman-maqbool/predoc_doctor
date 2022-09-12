@@ -20,14 +20,6 @@ class LandingPageView(View):
 
 
 
-class ResetPasswordPageView(View):
-    def get(self,request):
-        context={
-            "title":"Reset Password"
-        }
-
-        return render(request , 'accounts/reset_password.html', context)
-
 
 class ContactUsPageView(View):
     def get(self,request):

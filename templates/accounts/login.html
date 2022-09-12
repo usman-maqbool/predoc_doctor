@@ -42,18 +42,20 @@
                       {% csrf_token %}
                       <div class="form-group">
                         <label class="text-dark" for="card-email">Email</label>
-                        <input class="form-control" required name="username" type="text" />
+                        <!-- <input class="form-control" required name="username" type="text" /> -->
+                        {{loginform.email}}
                       </div>
                       <div class="form-group">
                         <div class="d-flex justify-content-between">
-                          <label class="text-dark" for="card-password">Password</label><a class="fs--1" href="{% url 'reset_password' %}">Forgot Password?</a>
+                          <label class="text-dark" for="card-password">Password</label><a class="fs--1" href="{% url 'forget_password' %}">Forgot Password?</a>
                         </div>
-                        <input class="form-control" required name="password" type="password" />
-                      </div>
-                      <!-- <div class="custom-control custom-checkbox">
+                        {{loginform.password}}
+                        <!-- <input class="form-control" required name="password" type="password" /> -->
+                      </div>        
+                      <div class="custom-control custom-checkbox">
                         <input class="custom-control-input" type="checkbox" id="card-checkbox" checked="checked" />
                         <label class="custom-control-label text-dark" for="card-checkbox">Remember me</label>
-                      </div> -->
+                      </div>
                       <div class="form-group">
                         <button class="btn btn-dark btn-block mt-3" type="submit" name="submit">Log in</button>
                       </div>

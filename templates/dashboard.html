@@ -69,6 +69,14 @@
         {% include 'layout/side_nav.html' %}
         <div class="content">
           {% include 'layout/header.html' %}
+          {% for message in messages %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endfor %}
           <div class="text-left mt-4">
            
         

@@ -1,10 +1,11 @@
+from email import message
 from multiprocessing import context
 import re
 from turtle import title
 from django.shortcuts import render
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.contrib import messages
 
 
 # Create your views here.
@@ -18,21 +19,6 @@ class LandingPageView(View):
 
 
 
-
-# class LogInPageView(View):
-#     def get(self,request):
-#         context={
-#             "title":"LogIn"
-#         }
-#         return render(request, 'accounts/login.html' ,context)
-
-
-class SignUpPageView(View):
-    def get(self,request):
-        context={
-            "title":"SignUp"
-        }
-        return render(request, 'accounts/sign_up.html', context)
 
 class ResetPasswordPageView(View):
     def get(self,request):
@@ -57,7 +43,7 @@ class DashBoardPageView(LoginRequiredMixin,View):
         context={
             "title":"Dashboard"
         }
-
+        messages.success(request,'User Successfully Logged In')
         return render(request,'dashboard.html', context)
 
 

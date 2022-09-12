@@ -58,9 +58,13 @@
                         </div>
                         </div>
                     </li> -->
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}" role="button">Logout</a></li>
+                    {% else %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'login' %}" role="button">LogIn</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'sign_up' %}" role="button">SignUp</a></li>
-                    </ul>
+                    {% endif %}    
+                </ul>
                 </div>
                 </div>
             </nav>

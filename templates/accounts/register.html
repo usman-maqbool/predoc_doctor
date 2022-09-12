@@ -34,27 +34,24 @@
                       {% csrf_token %}
                         <!-- {{ form.as_p }} -->
                         <!-- <button type="submit">Register</button> -->
-                      
                       <div class="form-group">
-                        <label class="text-dark" for="card-email">Email</label>
-                        <!-- <input required class="form-control" type="email" name="username" /> -->
-                        {{form.email}}
+                        <label class="text-dark" for="card-name">Name</label>
+                        <input required class="form-control" type="text" name="username" />
+                        
                       </div>
                       <div class="form-group">
-                        <label class="text-dark" for="card-name">Username</label>
-                        <!-- <input required class="form-control" type="text" id="card-name" /> -->
-                        {{form.username}}
+                        <label class="text-dark" for="card-email">Email</label>
+                        <input required class="form-control" type="email" name="email" />
+                        
                       </div>
                       <div class="form-row">
                         <div class="form-group col-6">
                           <label class="text-dark" for="card-password">Password</label>
-                          <!-- <input required class="form-control" type="password" name="password" /> -->
-                          {{form.password1}}
+                          <input required class="form-control" type="password" name="password1" />
                         </div>
                         <div class="form-group col-6">
                           <label class="text-dark" for="card-confirm-password">Confirm Password</label>
-                          <!-- <input required class="form-control" type="password" id="card-confirm-password" /> -->
-                          {{form.password2}}
+                          <input required class="form-control" type="password" name="password2" />
                         </div>
                       </div>
                       <div class="custom-control custom-checkbox">

@@ -1,18 +1,18 @@
 
 from django.shortcuts import render,redirect
 from django.views import View
-
+# from django.http import HttpResponse
 from django.views.generic.edit import CreateView
 from django.contrib.auth import authenticate,login, logout,get_user_model
 from .forms import SignUpForm , LoginForm ,ForgetPasswordForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
-from django.contrib.auth.models import auth
+# from django.contrib.auth.models import auth
 from .models import UserModel 
 from django.db.models.query_utils import Q
 from django.core.mail import send_mail, BadHeaderError
-from django.contrib.auth.forms import SetPasswordForm
-from django.contrib.auth.models import User
+# from django.contrib.auth.forms import SetPasswordForm
+# from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
@@ -62,31 +62,6 @@ class LogOutPageView(View):
         messages.info(request, 'You Sucessfully logged out')
         return redirect('login')
 
-# class ForgetPasswordPageView(View):
-#     def get(self,request):
-#         context = {
-#             'title':"Forget Password",
-#             'form':ForgetPasswordForm
-            
-#         }
-#         return render(request, 'accounts/forget_password.html', context)
-
-
-# class RecoverPasswordPageView(View):
-#     def get(self,request):
-#         context = {
-#             'title':"Forget Password",
-            
-#         }
-#         return render(request, 'accounts/forget_password.html', context)
-
-#     def post(self,request,*args, **kwargs):
-#    		password_reset_form = PasswordResetForm(request.POST)
-#         if password_reset_form.is_valid():
-
-
-
-
 def password_reset_request(request, *args, **kwargs):
 	if request.method == "POST":
 		password_reset_form = ForgetPasswordForm(request.POST)
@@ -111,8 +86,9 @@ def password_reset_request(request, *args, **kwargs):
 						send_mail(subject, email, 'admin@example.com' , [user.email], fail_silently=False)
 					except BadHeaderError:
 						messages.error (request,'Inavlid email')
-                        # return redirect('forget_password')
+                        # return HttpResponse('Invalid header found.')
 					return redirect ("reset_password_done")
+                    
 	password_reset_form = ForgetPasswordForm()
 	return render(request, "accounts/forget_password.html", context={"password_reset_form":password_reset_form})
 

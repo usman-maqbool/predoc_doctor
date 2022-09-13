@@ -38,7 +38,7 @@ class UserModel(TimeStampMixin ,   AbstractBaseUser):
     last_name     = models.CharField(max_length=255, null=True, blank=True)
     description   = models.CharField(max_length=255, null=True, blank=True)
     about         = models.TextField()
-    location         = models.CharField(max_length=255, null=True, blank=True)
+    location      = models.CharField(max_length=255, null=True, blank=True)
     profile_pic   = models.ImageField( upload_to ='profile_pics' ,   null = True , blank = True )
 
 

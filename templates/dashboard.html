@@ -69,16 +69,10 @@
         {% include 'layout/side_nav.html' %}
         <div class="content">
           {% include 'layout/header.html' %}
-          {% for message in messages %}
-          <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            {{message}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          {% endfor %}
+      
+          {{patients}}
           <div class="text-left mt-4">
-           
+         
         
             <div class="mb-8">
               <h1 class="m-4 pt-4 h1 text-white"> All Patient </h1>
@@ -102,59 +96,22 @@
                         </tr>
   
                       </thead>
+                      
+                      {% for patient in patients %}
                       <tbody>
                         <tr class="text-center text-white">
                           <th scope="row" class="cursor-pointer">
-                            <a data-toggle="modal" data-target="#exampleModal"> Mark</a>
+                            <a data-toggle="modal" data-target="#exampleModal">{{ patient.name }}</a>
                           </th>
-                          <td>18/7/1995</td>
-                          <td>26</td>
-                          <td>Berger</td>
-                          <td>Conom</td>
-                          <td>12/52</td>
+                          <td>{{patient.d_o_b}}</td>
+                          <td>{{patient.age}}</td>
+                          <td>{{patient.last_check_doctor.dr_name}}</td>
+                          <td>{{patient.recent_doctor.dr_name}}</td>
+                          <td>{{patient.last_answere}} </td>
                         </tr>
-                        <tr class="text-center text-white">
-                          <th scope="row" class="cursor-pointer">
-                            <a data-toggle="modal" data-target="#exampleModal"> Mark</a>
-                          </th>
-                          <td>18/7/1995</td>
-                          <td>26</td>
-                          <td>Berger</td>
-                          <td>Conom</td>
-                          <td>12/52</td>
-                        </tr>
-                        <tr class="text-center text-white">
-                          <th scope="row" class="cursor-pointer">
-                            <a data-toggle="modal" data-target="#exampleModal"> Mark</a>
-                          </th>
-                          <td>18/7/1995</td>
-                          <td>26</td>
-                          <td>Berger</td>
-                          <td>Conom</td>
-                          <td>12/52</td>
-                        </tr>
-                        <tr class="text-center text-white">
-                          <th scope="row" class="cursor-pointer">
-                            <a data-toggle="modal" data-target="#exampleModal"> Mark</a>
-                          </th>
-                          <td>18/7/1995</td>
-                          <td>26</td>
-                          <td>Berger</td>
-                          <td>Conom</td>
-                          <td>12/52</td>
-                        </tr>
-                        <tr class="text-center text-white">
-                          <th scope="row" class="cursor-pointer">
-                            <a data-toggle="modal" data-target="#exampleModal"> Mark</a>
-                          </th>
-                          <td>18/7/1995</td>
-                          <td>26</td>
-                          <td>Berger</td>
-                          <td>Conom</td>
-                          <td>12/52</td>
-                        </tr>
-  
+                        
                       </tbody>
+                      {% endfor %}
                 </table>
                 
               </div>
@@ -179,34 +136,6 @@
                   </ul>
                 </nav>
               </div>
-
-              <!-- <div>
-                <table class="table table-fluid" id="myTable">
-                  <thead>
-                  <tr><th>Name</th><th>Email</th><th>Password</th></tr>
-                  </thead>
-                  <tbody>
-                  <tr><td>Daniel Danny</td><td>danny.daniel@gmail.com</td><td>Pass1234</td></tr>
-                  <tr><td>Samuel</td><td>samuel@gmail.com</td><td>Pass1234</td></tr>
-                  <tr><td>Jack</td><td>jack@gmail.com</td><td>Pass1234</td></tr>
-                  <tr><td>Eureka</td><td>eureka@gmail.com</td><td>Pass1234</td></tr>
-                  <tr><td>Pinky</td><td>pinky@gmail.com</td><td>Pass1234</td></tr>
-                  <tr><td>Mishti</td><td>mishti@gmail.com</td><td>Pass1234</td></tr>
-                  <tr><td>Puneet</td><td>puneet@gmail.com</td><td>Pass1234</td></tr>
-                  <tr><td>Nick</td><td>nick@gmail.com</td><td>Pass1234</td></tr>
-                  <tr><td>Danika</td><td>danika@gmail.com</td><td>Pass1234</td></tr>
-                  <tr><td>Vishakha</td><td>vishakha@gmail.com</td><td>Pass1234</td></tr>
-                  <tr><td>Nitin</td><td>ni3@gmail.com</td><td>Pass1234</td></tr>
-                  <tr><td>Latika</td><td>latika@gmail.com</td><td>Pass1234</td></tr>
-                  <tr><td>Kaavya</td><td>kaavya@gmail.com</td><td>Pass1234</td></tr>
-                  <tr><td>Ishika</td><td>ishika@gmail.com</td><td>Pass1234</td></tr>
-                  <tr><td>Veronika</td><td>veronika@gmail.com</td><td>Pass1234</td></tr>
-                  </tbody>
-                  </table>
-              </div> -->
-
-
-
             </div>
 
 

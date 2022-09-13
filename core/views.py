@@ -1,7 +1,4 @@
-from email import message
-from multiprocessing import context
-import re
-from turtle import title
+from .models import Patient
 from django.shortcuts import render
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -17,10 +14,6 @@ class LandingPageView(View):
         }
         return render(request, 'landing.html',context)
 
-
-
-
-
 class ContactUsPageView(View):
     def get(self,request):
         context={
@@ -32,8 +25,11 @@ class ContactUsPageView(View):
 
 class DashBoardPageView(LoginRequiredMixin,View):
     def get(self,request):
+        patients = Patient.objects.all()
+        print(patients,"my model")
         context={
-            "title":"Dashboard"
+            "title":"Dashboard",
+            "patients": patients
         }
         messages.success(request,'User Successfully Logged In')
         return render(request,'dashboard.html', context)

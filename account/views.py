@@ -11,7 +11,7 @@ from django.contrib.auth.models import auth
 from .models import UserModel 
 from django.db.models.query_utils import Q
 from django.core.mail import send_mail, BadHeaderError
-from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
@@ -72,10 +72,24 @@ class LogOutPageView(View):
 #         return render(request, 'accounts/forget_password.html', context)
 
 
+# class RecoverPasswordPageView(View):
+#     def get(self,request):
+#         context = {
+#             'title':"Forget Password",
+            
+#         }
+#         return render(request, 'accounts/forget_password.html', context)
+
+#     def post(self,request,*args, **kwargs):
+#    		password_reset_form = PasswordResetForm(request.POST)
+#         if password_reset_form.is_valid():
+
+
+
 
 def password_reset_request(request, *args, **kwargs):
 	if request.method == "POST":
-		password_reset_form = PasswordResetForm(request.POST)
+		password_reset_form = ForgetPasswordForm(request.POST)
 		if password_reset_form.is_valid():
 			data = password_reset_form.cleaned_data['email']
 			associated_users = UserModel.objects.filter(Q(email=data))
@@ -99,7 +113,7 @@ def password_reset_request(request, *args, **kwargs):
 						messages.error (request,'Inavlid email')
                         # return redirect('forget_password')
 					return redirect ("reset_password_done")
-	password_reset_form = PasswordResetForm()
+	password_reset_form = ForgetPasswordForm()
 	return render(request, "accounts/forget_password.html", context={"password_reset_form":password_reset_form})
 
 class ResetPasswordDonePageView(View):
@@ -110,12 +124,17 @@ class ResetPasswordDonePageView(View):
         return render(request, 'accounts/reset-password-done.html',context)
 
 class ResetPasswordConfirmPageView(View):
-    def get(self,request):
+    def get(self,request, *args , **kwargs):
         context={
             'title': "Generate Password"
         }
+        # messages.success(request,'Your Password is successfully reset')
         return render(request, 'accounts/password_reset_confirm.html', context)
 
+    
+# class ResetPasswordComplete
+
+# class ResetPaswordComplete
 
 
 

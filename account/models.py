@@ -46,7 +46,6 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
     is_staff           = models.BooleanField(default=False)
 
 
-
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
     objects = CustomUserManger()

@@ -38,6 +38,7 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
+    # user_type # add a choices field 
 
 
     USERNAME_FIELD = "email"

@@ -31,21 +31,20 @@ class CustomUserManger(BaseUserManager):
 
 
 
-class UserModel(TimeStampMixin ,   AbstractBaseUser):
-    email         = models.EmailField(max_length=255, unique=True)
+class UserModel(TimeStampMixin, AbstractBaseUser):
+    email = models.EmailField(max_length=255, unique=True)
     username      = models.CharField(max_length=255, null=True, blank=True)
     first_name    = models.CharField(max_length=255, null=True, blank=True)
     last_name     = models.CharField(max_length=255, null=True, blank=True)
     description   = models.CharField(max_length=255, null=True, blank=True)
     about         = models.TextField()
     location      = models.CharField(max_length=255, null=True, blank=True)
-    profile_pic   = models.ImageField( upload_to ='profile_pics' ,   null = True , blank = True )
-
-
+    profile_image = models.ImageField(upload_to ='profile_image', null=True, blank=True)
 
     is_active          = models.BooleanField(default=True)
     is_admin           = models.BooleanField(default=False)
     is_staff           = models.BooleanField(default=False)
+
 
 
     USERNAME_FIELD = "email"

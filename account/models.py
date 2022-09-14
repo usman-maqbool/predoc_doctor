@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from .mixins import TimeStampMixin
+from .users import *
 # from django.contrib.auth import get_user_model
 # User = get_user_model()
 
@@ -39,7 +40,7 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     # user_type # add a choices field 
-
+    type = models.CharField(max_length=10,choices=UserTypeChoice.choices(),null=False,blank=False,default=UserTypeChoice.CUSTOMER .value,)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -47,6 +48,20 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
 
     def __str__(self):
         return self.email
+
+    @property
+    def is_super_admin(self):
+        return self.type == UserTypeChoice.SUPER_ADMIN.value
+
+     
+    @property
+    def is_DOCTOR(self):
+        return self.type == UserTypeChoice.DOCTOR.value
+
+
+    @property
+    def is_CUSTOMER(self):
+        return self.type == UserTypeChoice.CUSTOMER.value
 
     def has_perm(self, perm, obj=None):
         return True
@@ -65,3 +80,5 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
             return f"{self.first_name} {self.last_name}"
         except:
             return self.email
+
+    

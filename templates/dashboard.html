@@ -70,7 +70,7 @@
         <div class="content">
           {% include 'layout/header.html' %}
       
-          {{patients}}
+
           <div class="text-left mt-4">
          
         
@@ -97,17 +97,17 @@
   
                       </thead>
                       
-                      {% for patient in patients %}
+                      {% for appoinment in appoinments %}
                       <tbody>
                         <tr class="text-center text-white">
                           <th scope="row" class="cursor-pointer">
-                            <a data-toggle="modal" data-target="#exampleModal">{{ patient.name }}</a>
+                            <a data-toggle="modal" data-target="#id-{{appoinment.id}}" aria-controls="{{appoinment.id}}">{{ appoinment.patient.patient_first_name }}</a>
                           </th>
-                          <td>{{patient.d_o_b}}</td>
-                          <td>{{patient.age}}</td>
-                          <td>{{patient.last_check_doctor.dr_name}}</td>
-                          <td>{{patient.recent_doctor.dr_name}}</td>
-                          <td>{{patient.last_answere}} </td>
+                          <td>{{appoinment.patient.d_o_b}}</td>
+                          <td>{{appoinment.patient.Age}}</td>
+                          <td>{{appoinment.doctor.first_name}}</td>
+                          <td>{{appoinment.doctor.first_name}}</td>
+                          <td>{{appoinment.date}} </td>
                         </tr>
                         
                       </tbody>
@@ -141,7 +141,8 @@
 
 
           <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+           {% for appoinment in appoinments %}
+            <div class="modal fade" id="id-{{appoinment.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-scrollable" id="style-4" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -153,36 +154,34 @@
                 <div class="modal-body">
                   <div class="text-dark m-4">
                     <h2 class="text-dark">Current Patient</h2>
-                    <h4 class=" mt-4 text-dark">Elon Musk</h4>
-                    <h4 class="text-dark"> DOB 01/01/1971</h4>
-                    <h4 class="text-dark">52 Years Old male</h4>
+                    <h4 class=" mt-4 text-dark">{{appoinment.patient.patient_first_name}} {{patient.patient_last_name}}</h4>
+                    <h4 class="text-dark"> DOB {{appoinment.patient.d_o_b}}</h4>
+                    <h4 class="text-dark">52 Years Old {{appoinment.patient.gender}}</h4>
                     </div>
                 
                 <div class="mt-6 mx-4">
                     <div>
                         <div class="col col-lg-12 ">
-                            <div class="border overflow-auto bg-light user-inner-text" style="height: 40%;">
-                                <div class="mx-4">
-                                    <p class="h5 text-uppercase">PC</p>
-                                    <p class="h5  text-capitalize my-4">Back Pain</p>
-                                    <!-- Cause -->
+                            <div class="bordder overflow-auto bg-lisght user-inner-text" style="height: 40%;">
+                              <div class="mx-4">
+                                    <p class="h5 text-uppercase">{{ appoinment.patient.details.syptoms }}</p>
+                                    <!-- <p class="h5  text-capitalize my-4">Back Pain</p>
                                     <p class="h5  text-uppercase mt-4">hpc</p>
                                     <p class="h6  my-2" >Sudden onset</p>
                                     <p class="h6  my-2" >" I was at work lifting a Tesla tyre and felt my back go "</p>
                                     <p class="h6  my-2" >left sided.</p>
                                     <p class="h6  my-2" >lumbar</p>
                                     <p class="h6  my-2" >no radiculopathy</p>
-                                    <!-- Dissease -->
                                     <p class="h5  text-uppercase mt-4">Pmh</p>
                                     <p class="h6  my-2" >Lumbar discectomy 2016, Dr. Matt Rackham, Ashford Hospital</p>
                                     <p class="h6  my-2" >Hypertension</p>
                                     <p class="h6  my-2" >Hypercholesterolaemia</p>
                                     <p class="h6  my-2" >Autism Spectrum Disorder</p>
-                                    <!-- Medicine -->
                                     <p class="h5  text-uppercase mt-4">Medications</p>
                                     <p class="h6  my-2" >Perindopril 5mg mane</p>
-                                    <p class="h6  my-2" >Rosuvastatin 40mg mane</p>
+                                    <p class="h6  my-2" >Rosuvastatin 40mg mane</p> -->
                                 </div>
+                         
                             </div>
                             <div class="mt-4">
                               <p class="h6">
@@ -202,6 +201,7 @@
               </div>
             </div>
             </div>
+            {% endfor %}
 
           </div>
           {% include 'seconed_fotter.html' %}

@@ -1,4 +1,4 @@
-from .models import Patient
+from .models import Appoinment, Patient
 from django.shortcuts import render
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -26,10 +26,12 @@ class ContactUsPageView(View):
 class DashBoardPageView(LoginRequiredMixin,View):
     def get(self,request):
         patients = Patient.objects.all()
-        print(patients,"my model")
+        appoinments = Appoinment.objects.all()
+
         context={
             "title":"Dashboard",
-            "patients": patients
+            "patients": patients,
+            "appoinments":appoinments
         }
         messages.success(request,'User Successfully Logged In')
         return render(request,'dashboard.html', context)

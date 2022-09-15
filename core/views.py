@@ -62,10 +62,3 @@ class PrivacyPolicyPageView(View):
 
         return render(request, 'privacy_policy.html', context)
 
-
-
-class SampleView(View):
-    def get(self,request):
-      
-
-        return render(request, 'sample.html',{})

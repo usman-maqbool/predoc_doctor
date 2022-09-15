@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import DashBoardPageView, LandingPageView,  PrivacyPolicyPageView, SampleView,ContactUsPageView, StartHerePageView, TermsAndCondtionPageView
+from .views import DashBoardPageView, LandingPageView,  PrivacyPolicyPageView,ContactUsPageView, StartHerePageView, TermsAndCondtionPageView
 
 urlpatterns = [
     path('',LandingPageView.as_view(),name='landing'),
@@ -9,6 +9,5 @@ urlpatterns = [
     path('start/here/',StartHerePageView.as_view(),name='start_here'),
     path('terms/condition',TermsAndCondtionPageView.as_view(),name='terms_condition'),
     path('privacy/policy',PrivacyPolicyPageView.as_view(),name='privacy_policy'),
-    path('sample/',SampleView.as_view(),name='sample'),
 ]
 

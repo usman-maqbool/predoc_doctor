@@ -50,7 +50,7 @@ class LogInPageView(View):
 class SignUpPageView(SuccessMessageMixin,CreateView):
     form_class = SignUpForm
     success_url ='/account/login/'   
-    success_message = "User Succesfully Registerd"
+    success_message = "Succesfully Registerd"
     template_name = 'accounts/sign_up.html'
 
 
@@ -59,7 +59,7 @@ class SignUpPageView(SuccessMessageMixin,CreateView):
 class LogOutPageView(View):
     def get(self,request):
         logout(request)
-        messages.info(request, 'You Sucessfully logged out')
+        messages.info(request, 'Sucessfully logged out')
         return redirect('login')
 
 def password_reset_request(request, *args, **kwargs):
@@ -108,11 +108,6 @@ class ResetPasswordConfirmPageView(View):
         return render(request, 'accounts/password_reset_confirm.html', context)
 
     
-# class ResetPasswordComplete
-
-# class ResetPaswordComplete
-
-
 
 
 

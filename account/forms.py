@@ -6,6 +6,8 @@ from .models import UserModel
 
 # Sign Up Form
 class SignUpForm(UserCreationForm):
+    first_name=forms.CharField(label='FirstName',widget=forms.TextInput(attrs={'placeholder': 'Enter your Firstname', 'id':'first_name', 'class':'form-control'}),max_length=50,required=True,help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.')
+    last_name=forms.CharField(label='Lastname',widget=forms.TextInput(attrs={'placeholder': 'Enter your Lastname', 'id':'last_name', 'class':'form-control'}),max_length=50,required=True,help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.')
     username=forms.CharField(label='Username',widget=forms.TextInput(attrs={'placeholder': 'Enter your Username', 'id':'user_name', 'class':'form-control'}),max_length=50,required=True,help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.')
     email=forms.EmailField(label='Email',widget=forms.EmailInput(attrs={'placeholder': 'Enter your email', 'id':'user_email', 'class':'form-control'}),max_length=50,required=True,help_text='Required.add valid email address')
     password1=forms.CharField(label='Password',widget=forms.PasswordInput(attrs={'placeholder': 'Your Password', 'id':'user_password', 'class':'form-control'}),max_length=50,required=True,help_text='Your password must contain at least 8 characters.')
@@ -13,7 +15,7 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = UserModel
         fields = [
-            'username','email','password1','password2'
+            'first_name','last_name','username','email','password1','password2'
             ]
 
     def clean_email(self):

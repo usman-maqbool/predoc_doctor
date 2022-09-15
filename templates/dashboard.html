@@ -101,10 +101,10 @@
                       <tbody>
                         <tr class="text-center text-white">
                           <th scope="row" class="cursor-pointer">
-                            <a data-toggle="modal" data-target="#id-{{appoinment.id}}" aria-controls="{{appoinment.id}}">{{ appoinment.patient.patient_first_name }}</a>
+                            <a data-toggle="modal" data-target="#id-{{appoinment.id}}" aria-controls="{{appoinment.id}}">{{ appoinment.patient.first_name }}</a>
                           </th>
-                          <td>{{appoinment.patient.d_o_b}}</td>
-                          <td>{{appoinment.patient.Age}}</td>
+                          <td>{{appoinment.patient.dob}}</td>
+                          <td>{{appoinment.patient.age}}</td>
                           <td>{{appoinment.doctor.first_name}}</td>
                           <td>{{appoinment.doctor.first_name}}</td>
                           <td>{{appoinment.date}} </td>
@@ -154,9 +154,9 @@
                 <div class="modal-body">
                   <div class="text-dark m-4">
                     <h2 class="text-dark">Current Patient</h2>
-                    <h4 class=" mt-4 text-dark">{{appoinment.patient.patient_first_name}} {{patient.patient_last_name}}</h4>
-                    <h4 class="text-dark"> DOB {{appoinment.patient.d_o_b}}</h4>
-                    <h4 class="text-dark">52 Years Old {{appoinment.patient.gender}}</h4> 
+                    <h4 class=" mt-4 text-dark">{{appoinment.patient.first_name}} {{patient.patient_last_name}}</h4>
+                    <h4 class="text-dark"> DOB {{appoinment.patient.dob}}</h4>
+                    <h4 class="text-dark">{{appoinment.patient.age}} Years Old {{appoinment.patient.gender}}</h4> 
                     </div>
                 
                 <div class="mt-6 mx-4">
@@ -164,7 +164,7 @@
                         <div class="col col-lg-12 ">
                             <div class="bordder overflow-auto bg-lisght user-inner-text" style="height: 40%;">
                               <div class="mx-4">
-                                    <p class="h5 text-uppercase">{{ appoinment.patient.details.syptoms }}</p>
+                                    <p class="h5 text-uppercase">{{ appoinment.qs.syptoms }}</p>
                                     <!-- <p class="h5  text-capitalize my-4">Back Pain</p>
                                     <p class="h5  text-uppercase mt-4">hpc</p>
                                     <p class="h6  my-2" >Sudden onset</p>

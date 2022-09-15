@@ -6,7 +6,7 @@ from .mixins import TimeStampMixin
 from .users import *
 # from django.contrib.auth import get_user_model
 # User = get_user_model()
-
+from datetime import date
 class CustomUserManger(BaseUserManager):
     def create_user(self, email, full_name=None, username=None, password=None):
         if not email:
@@ -25,7 +25,10 @@ class CustomUserManger(BaseUserManager):
         user.is_staff = True
         user.save(using=self._db)
         return user
-
+GENDER_CHOICES = (
+    ('male', 'male'),
+    ('female', 'female'),
+)
 class UserModel(TimeStampMixin, AbstractBaseUser):
     email = models.EmailField(max_length=255, unique=True)
     username = models.CharField(max_length=255, null=True, blank=True)
@@ -35,12 +38,15 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
     about = models.TextField()
     location = models.CharField(max_length=255, null=True, blank=True)
     profile_image = models.ImageField(upload_to ='profile_image', null=True, blank=True)
+    dob = models.DateField(blank=True,null=True)
+    gender = models.CharField(max_length=10,choices=GENDER_CHOICES,null=True,blank=True)
+    age = models.IntegerField(blank=True, null=True)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     # user_type # add a choices field 
-    type = models.CharField(max_length=10,choices=UserTypeChoice.choices(),null=False,blank=False,default=UserTypeChoice.CUSTOMER .value,)
+    type = models.CharField(max_length=10,choices=UserTypeChoice.choices(),null=False,blank=False,default=UserTypeChoice.DOCTOR .value,)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -62,6 +68,17 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
     @property
     def is_CUSTOMER(self):
         return self.type == UserTypeChoice.CUSTOMER.value
+
+    
+
+    
+    # @property
+    # def age(self):
+        
+    #     today = date.today().strptime(today, '%m/%d/%Y')
+    #     result = today - self.dob 
+    #     # answere = today.year - born.dob - ((today.month, today.day) < (born.month, born.day))
+    #     return result
 
     def has_perm(self, perm, obj=None):
         return True

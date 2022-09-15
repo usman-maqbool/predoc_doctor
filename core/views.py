@@ -25,12 +25,11 @@ class ContactUsPageView(View):
 
 class DashBoardPageView(LoginRequiredMixin,View):
     def get(self,request):
-        patients = Patient.objects.all()
+        # patients = Patient.objects.all()
         appoinments = Appoinment.objects.all()
 
         context={
             "title":"Dashboard",
-            # "patients": patients,
             "appoinments":appoinments
         }
         messages.success(request,'User Successfully Logged In')

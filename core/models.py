@@ -11,7 +11,5 @@ class Appoinment(models.Model):
     doctor = models.ForeignKey(UserModel,on_delete=models.CASCADE,related_name='doctor')
     qs    = models.OneToOneField(Questionire,on_delete=models.CASCADE,null=True,blank=True)
 
-    # patient = models.ForeignKey(Patient,on_delete=models.CASCADE)
-    # doctor = models.ForeignKey(DoctorObject,on_delete=models.CASCADE )
 
 

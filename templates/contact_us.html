@@ -11,7 +11,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 
 
-#contact {
+#contact-contact_us {
   background-image: linear-gradient(to right, #0F2027 , #203A43 ,#2C5364);
   display: flex;
   justify-content: center;
@@ -20,7 +20,7 @@
 
 .contact-box {
   width: clamp(100px, 90%, 1000px);
-  margin: 80px 50px;
+  margin: 0 50px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -71,7 +71,7 @@
 }
 
 
-h2 {
+.contact_page_heading {
   font-family: 'Arimo', sans-serif;
   color: #fff;
   font-size: clamp(30px, 6vw, 60px);
@@ -206,10 +206,10 @@ select+label {
 {% block content %}
 {% include 'top_nav.html' %}
 
-<section id="contact">
+<section id="contact-contact_us">
   <div class="contact-box">
     <div class="contact-links">
-      <h2>CONTACT</h2>
+      <h2 class="contact_page_heading">CONTACT</h2>
       <div class="links">
         <div class="link">
           <!-- <a><img src="{% static 'assets/img/icons/linkedin.png' %}" alt="linkedin"></a> -->
@@ -238,7 +238,6 @@ select+label {
             <option>Investor</option>
             <option>Something else</option>
           </select>
-          <!-- <label for="exampleFormControlSelect1">I am a</label> -->
       
         </div>
         <div class="form-item">
@@ -250,6 +249,6 @@ select+label {
     </div>
   </div>
 </section>
-  {% include 'bottom_fotter.html' %}
+{% include 'seconed_fotter.html' %}
 
   {% endblock content %}

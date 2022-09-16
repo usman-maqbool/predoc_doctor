@@ -23,12 +23,29 @@
 
 <body>
 
- 
-     
-  {% block content %}
-     
-  {% endblock content %}
 
+  <div class="container-fluid" data-layout="container-fluid">
+    {% block sidebar %}   
+    {% include 'layout/side_nav.html' %}
+    {% endblock sidebar %}
+  <div class="content">
+    {% block header %} 
+    {% include 'layout/header.html' %}
+    {% endblock header %}
+  
+  
+  
+  
+    
+    {% block content %}
+  
+      
+  
+  
+    {% endblock content %}
+  </div>
+          
+    </div>
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
     <script src="{% static 'assets/js/popper.min.js' %}"></script>
     <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>

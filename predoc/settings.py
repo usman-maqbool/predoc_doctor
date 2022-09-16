@@ -50,8 +50,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-ROOT_URLCONF = 'doctor_project.urls'
+ROOT_URLCONF = 'predoc.urls'
 import os
 TEMPLATES = [
     {
@@ -69,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'doctor_project.wsgi.application'
+WSGI_APPLICATION = 'predoc.wsgi.application'
 
 
 # Database

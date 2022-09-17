@@ -23,6 +23,7 @@ class ContactUsPageView(View):
         return render(request, 'contact_us.html', context)
 
 
+
 class DashBoardPageView(LoginRequiredMixin,View):
     def get(self,request):
         # patients = Patient.objects.all()

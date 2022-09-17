@@ -1,61 +1,81 @@
+
 {% extends 'landing_base.html' %}
 {% load static %}
 
-{% block extra_css %}
-
-<style>
-  
-</style>
-
-{% endblock extra_css %}
-
 
 {% block content %}
+
 {% include 'top_nav.html' %}
 
-<section id="contact-contact_us">
-  <div class="contact-box">
-    <div class="contact-links">
-      <h2 class="contact_page_heading">CONTACT</h2>
-      <div class="links">
-        <div class="link">
-          <a><img class="contact-image" src="{% static 'assets/img/icons/linkedin.svg' %}" alt="linkedin"></a>
-        </div>
-        <div class="link">
-          <a><img class="contact-image" src="{% static 'assets/img/icons/twitter.svg' %}" alt="email"></a>
+<div class="container-fluid">
+
+      <div class="row min-vh-100 flex-center no-gutters">
+        <div class="col-lg-8 col-xxl-5 py-3">
+          <img class="bg-auth-circle-shape"   src="{% static 'assets/img/icons/bg-shape.png' %}" alt="" width="250">
+          <img class="bg-auth-circle-shape-2" src="{% static 'assets/img/icons/shape-1.png' %}" alt=""  width="150">
+          <div class="card overflow-hidden z-index-1">
+            <div class="card-body p-0">
+              <div class="row no-gutters h-100">
+                <div class="col-md-5 text-white text-center bg-dark">
+                  <div class="position-relative p-4 pt-md-5 pb-md-7">
+                    <div class="bg-holder bg-auth-card-shape" style="background-image:url({% static 'assets/img/icons/half-circle.png' %});">
+                    </div>
+                    <!--/.bg-holder-->
+
+                    <div class="z-index-1 position-relative">
+                        <a class="text-white mb-4 text-sans-serif font-weight-extra-bold fs-4 d-inline-block" href="{% url 'landing' %}">PreDoc</a>
+                      <p class="text-white opacity-75">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur sint eos eius quae praesentium dignissimos?</p>
+                    </div>
+                  </div>
+                  
+                  <div class="mt-3 mb-4 mt-md-4 mb-md-5">
+                    <a><img class="contact-image" src="{% static 'assets/img/icons/linkedin.svg' %}" alt="linkedin"></a>
+                    <a><img class="contact-image" src="{% static 'assets/img/icons/twitter.svg' %}" alt="linkedin"></a>
+                    <p class="mb-0 mt-4 mt-md-5 fs--1 font-weight-semi-bold text-white opacity-75">Read our <a class="text-underline text-white" href="{% url 'terms_condition' %}">terms</a> and <a class="text-underline text-white" href="{% url 'privacy_policy' %}">conditions </a></p>
+                  </div>
+                </div>
+                <div class="col-md-7 d-flex flex-center">
+                  <div class="p-4 p-md-5 flex-grow-1">
+                    <h3>Contact Us</h3>
+                    
+                    <form method="POST"  >
+                        
+
+                        <div class="form-group">
+                            <label class="text-dark">Name</label>
+                            <input class="form-control" required name="name" type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label class="text-dark">Email</label>
+                            <input class="form-control" required name="name" type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label class="text-dark">I am a</label>
+                            <select class="form-control">
+                                <option>Doctor</option>
+                                <option>Patient</option>
+                                <option>Regulator</option>
+                                <option>Investor</option>
+                                <option>Something else</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="text-dark">Message</label>
+                            <textarea class="form-control" rows="3"></textarea>
+                          </div>
+                        
+                        <div class="form-group">
+                          <button class="btn btn-dark btn-block mt-3" type="submit" name="submit">Send Message</button>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      {% include 'seconed_fotter.html' %}
     </div>
-    <div class="contact-form-wrapper">
-      <form>
-        <div class="form-item contact-form-item">
-          <input class="contact-input" type="text" name="sender" required>
-          <label class="contact-label">Name:</label>
-        </div>
-        <div class="form-item contact-form-item">
-          <input class="contact-input" type="text" name="email" required>
-          <label class="contact-label">Email:</label>
-        </div>
-        <div class="form-item contact-form-item">
-          <select required id="exampleFormControlSelect1">
-            <option disabled selected >I am a</option>
-            <option>Doctor</option>
-            <option>Patient</option>
-            <option>Regulator</option>
-            <option>Investor</option>
-            <option>Something else</option>
-          </select>
-      
-        </div>
-        <div class="form-item contact-form-item">
-          <textarea class="" name="message" required></textarea>
-          <label class="contact-label">Message:</label>
-        </div>
-        <button class="btn btn-dark submit-btn-contcat">Send</button>  
-      </form>
-    </div>
-  </div>
-</section>
-{% include 'seconed_fotter.html' %}
 
-  {% endblock content %}
+    {% endblock content %}

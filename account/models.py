@@ -47,6 +47,24 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     # user_type # add a choices field 
     type = models.CharField(max_length=10,choices=UserTypeChoice.choices(),null=False,blank=False,default=UserTypeChoice.DOCTOR .value,)
+    
+    @property
+    def is_super_admin(self):
+        return self.type == UserTypeChoice.SUPER_ADMIN.value
+
+     
+    @property
+    def is_DOCTOR(self):
+        return self.type == UserTypeChoice.DOCTOR.value
+
+
+    @property
+    def is_CUSTOMER(self):
+        return self.type == UserTypeChoice.CUSTOMER.value
+
+    
+
+
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

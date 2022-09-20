@@ -43,7 +43,8 @@ class LogInPageView(View):
             return redirect('dashboard')
         else:
             # Return an 'invalid login' error message.
-            messages.error(request, 'Invalid UserName or Password')
+            # messages.error(request, 'Invalid UserName or Password')
+            messages.error(request, "Invalid Credentials ")
             return redirect('login')
 
 

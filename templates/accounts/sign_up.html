@@ -13,7 +13,7 @@
           <div class="card overflow-hidden z-index-1">
             <div class="card-body p-0">
               <div class="row no-gutters h-100">
-                <div class="col-md-5 text-white text-center bg-dark">
+                <div class="col-md-5 text-white text-center bg-primary">
                   <div class="position-relative p-4 pt-md-5 pb-md-7">
                     <div class="bg-holder bg-auth-card-shape" style="background-image:url({% static 'assets/img/icons/half-circle.png' %});">
                     </div>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-md-7 d-flex flex-center">
                   <div class="p-4 p-md-5 flex-grow-1">
-                    <h3>Register</h3>
+                    <h3 class="text-primary">Register</h3>
                     <form method="POST" class="text-dark">
                       {% csrf_token %}
                         <!-- {{ form.as_p }} -->
@@ -72,7 +72,7 @@
                         <label class="custom-control-label text-dark" for="card-register-checkbox">I accept the <a href="{% url 'terms_condition' %}">terms </a>and <a href="{% url 'privacy_policy' %}">privacy policy</a></label>
                       </div>
                       <div class="form-group">
-                        <button class="btn btn-dark btn-block mt-3" type="submit" >Register</button>
+                        <button class="btn btn-outline-primary btn-block mt-3" type="submit" >Register</button>
                       </div>
                     </form> 
                   </div>

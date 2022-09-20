@@ -1,0 +1,53 @@
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 1px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
+
+:root {
+    
+    --main-bg-gradient:  linear-gradient( #279DD2 , #289DD2 ,#2C5364);
+    --anchor-tags-color: #2c7be5
+  }
+
+body{
+    /* background-image: var(--main-bg-gradient); */
+    background-image: var(--main-bg-gradient);
+    
+}
+a{
+    color: var(--anchor-tags-color);
+    text-decoration: none;
+    background-color: transparent;
+}
+a:hover {
+    color: var(--anchor-tags-color);
+  }
+  
+  a:not([href]):not([class]) {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  a:not([href]):not([class]):hover {
+    color: inherit;
+    text-decoration: none;
+  }

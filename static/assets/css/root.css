@@ -31,7 +31,7 @@
 body{
     /* background-image: var(--main-bg-gradient); */
     background-image: var(--main-bg-gradient);
-    
+    background-repeat:no-repeat ;
 }
 a{
     color: var(--anchor-tags-color);

@@ -38,11 +38,27 @@
             </ul>
           </li>
 
-          <li class="nav-item"><a class="nav-link" href="#">
-              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-comments"></span></span><span class="nav-link-text"> About</span>
+          <li class="nav-item">
+            <a class="nav-link dropdown-indicator" href="#about" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="pages">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fa fa-list"></span></span><span class="nav-link-text">About</span>
               </div>
             </a>
-        </li>
+            <ul class="nav collapse" id="about" data-parent="#navbarVerticalCollapse">
+              <li class="nav-item"><a class="nav-link" href="{% url 'about_us' %}">How It Works</a>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="#">FAQs </a>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="#">Security and Privacy </a>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="#">Compliances</a>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="#">Team</a>
+              </li>
+              
+            </ul>
+          </li>
+
+          
         </ul>
         <div class="navbar-vertical-divider">
           <hr class="navbar-vertical-hr my-2" />

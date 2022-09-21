@@ -60,9 +60,7 @@
                     </li> -->
                     {% if request.user.is_authenticated %}
                     <li class="nav-item text-white"><a class="nav-link" href="{% url 'logout' %}" role="button">Logout</a></li>
-                        {% if user.is_DOCTOR or user.is_super_admin %}
-                    <li class="nav-item text-white"><a class="nav-link" href="{% url 'login' %}" role="button">Teacher LogIn</a></li>
-                        {% endif %}
+                     
 
                     {% else %}
                     <li class="nav-item text-white"><a class="nav-link" href="{% url 'login' %}" role="button">LogIn</a></li>

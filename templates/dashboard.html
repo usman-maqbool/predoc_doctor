@@ -2,10 +2,6 @@
 
 {% load static %}
 
-{% block extra_css %}
-    
-{% endblock extra_css %}
-
 {% block content %}
 
                         
@@ -14,6 +10,65 @@
           <div class="text-left mt-4">
          
         
+            {% for appoinment in appoinments %}
+            <div class="modal fade" id="id-{{appoinment.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-scrollable" id="style-4" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="text-dark">
+                      <h2 class="text-dark">Current Patient</h2>
+                      <h4 class=" mt-4 text-dark">{{ appoinment.patient.first_name }} {{ appoinment.patient.last_name }}</h4>
+                      <h4 class="text-dark"> {{ appoinment.patient.dob }}</h4>
+                      <h4 class="text-dark">{{ appoinment.patient.age }} Years Old {{appoinment.patient.gender}}</h4> 
+                    </div>
+                  
+                    <div class="mt-4 ">
+                          <div class="col col-lg-12 ">
+                              <div class="borddder overflow-auto bg-ldight user-inner-text" style="height:40%">
+                                <div class="mx-4 p-2">
+                                    <!-- <p class="h5 text-uppercase"> pc</p> -->
+                                    <p class="h5 text-capitalize my-4">{{ appoinment.qs.syptoms }}</p>
+                                    <!-- <p class="h5 text-uppercase mt-4">hpc</p>
+                                    <p class="h6 my-2" >Sudden onset</p>
+                                    <p class="h6 my-2" >" I was at work lifting a Tesla tyre and felt my back go "</p>
+                                    <p class="h6 my-2" >left sided.</p>
+                                    <p class="h6 my-2" >lumbar</p>
+                                    <p class="h6 my-2" >no radiculopathy</p>
+                                    <p class="h5 text-uppercase mt-4">Pmh</p>
+                                    <p class="h6 my-2" >Lumbar discectomy 2016, Dr. Matt Rackham, Ashford Hospital</p>
+                                    <p class="h6 my-2" >Hypertension</p>
+                                    <p class="h6 my-2" >Hypercholesterolaemia</p>
+                                    <p class="h6 my-2" >Autism Spectrum Disorder</p>
+                                    <p class="h5 text-uppercase mt-4">Medications</p>
+                                    <p class="h6 my-2" >Perindopril 5mg mane</p>
+                                    <p class="h6 my-2" >Rosuvastatin 40mg mane</p> -->
+                                  </div>
+                              </div>
+                              <div class="mt-4">
+                                <p class="h6 text-white">
+                                    <span class="text-white border-bottom border-white">Question and Answere</span> - 
+                                    view the original phrasing and answers                                
+                                </p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+
             <div class="mb-8">
               <h1 class="m-4 pt-4 h1 text-white"> All Patient </h1>
               <div class="d-flex justify-content-end my-2">
@@ -24,7 +79,7 @@
               </div>
               <div class="table-responsive-sm table-responsive-md  table-responsive-lg  custom_table" >
                       
-                <table class="table table-striped results  table-dark tabled-hovedr"  id="myTable"  >
+                <table class="table table-striped results  table-dark table-hover"  id="myTable"  >
                       <thead >
                         <tr class="text-center text-white font-weight-bold">
                           <th scope="col">Name</th>
@@ -81,67 +136,7 @@
 
 
           <!-- Modal -->
-           {% for appoinment in appoinments %}
-            <div class="modal fade" id="id-{{appoinment.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-scrollable" id="style-4" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="text-dark m-4">
-                    <h2 class="text-dark">Current Patient</h2>
-                    <h4 class=" mt-4 text-dark">{{appoinment.patient.first_name}} {{patient.patient_last_name}}</h4>
-                    <h4 class="text-dark"> DOB {{appoinment.patient.dob}}</h4>
-                    <h4 class="text-dark">{{appoinment.patient.age}} Years Old {{appoinment.patient.gender}}</h4> 
-                    </div>
-                
-                <div class="mt-6 mx-4">
-                    <div>
-                        <div class="col col-lg-12 ">
-                            <div class="bordder overflow-auto bg-lisght user-inner-text" style="height: 40%;">
-                              <div class="mx-4">
-                                    <p class="h5 text-uppercase">{{ appoinment.qs.syptoms }}</p>
-                                    <!-- <p class="h5  text-capitalize my-4">Back Pain</p>
-                                    <p class="h5  text-uppercase mt-4">hpc</p>
-                                    <p class="h6  my-2" >Sudden onset</p>
-                                    <p class="h6  my-2" >" I was at work lifting a Tesla tyre and felt my back go "</p>
-                                    <p class="h6  my-2" >left sided.</p>
-                                    <p class="h6  my-2" >lumbar</p>
-                                    <p class="h6  my-2" >no radiculopathy</p>
-                                    <p class="h5  text-uppercase mt-4">Pmh</p>
-                                    <p class="h6  my-2" >Lumbar discectomy 2016, Dr. Matt Rackham, Ashford Hospital</p>
-                                    <p class="h6  my-2" >Hypertension</p>
-                                    <p class="h6  my-2" >Hypercholesterolaemia</p>
-                                    <p class="h6  my-2" >Autism Spectrum Disorder</p>
-                                    <p class="h5  text-uppercase mt-4">Medications</p>
-                                    <p class="h6  my-2" >Perindopril 5mg mane</p>
-                                    <p class="h6  my-2" >Rosuvastatin 40mg mane</p> -->
-                                </div>
-                         
-                            </div>
-                            <div class="mt-4">
-                              <p class="h6">
-                                  <span class="text-primary border-bottom border-primary">Question and Answere</span> - 
-                                  view the original phrasing and answers                                
-                              </p>
-                          </div>
-                        </div>
-                          
-                    </div>
-                </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-              </div>
-            </div>
-            </div>
-            {% endfor %}
+           
 
           </div>
           {% include 'seconed_fotter.html' %}

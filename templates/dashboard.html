@@ -21,8 +21,8 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    <div class="text-dark">
-                      <h2 class="text-dark">Current Patient</h2>
+                    <div class=" text-heading">
+                      <h2 class="text-heading">Current Patient</h2>
                       <h4 class=" mt-4 text-dark">{{ appoinment.patient.first_name }} {{ appoinment.patient.last_name }}</h4>
                       <h4 class="text-dark"> {{ appoinment.patient.dob }}</h4>
                       <h4 class="text-dark">{{ appoinment.patient.age }} Years Old {{appoinment.patient.gender}}</h4> 
@@ -51,8 +51,8 @@
                                   </div>
                               </div>
                               <div class="mt-4">
-                                <p class="h6 text-white">
-                                    <span class="text-white border-bottom border-white">Question and Answere</span> - 
+                                <p class="h6">
+                                    <span class="text-heading border-bottom border-white">Question and Answere</span> - 
                                     view the original phrasing and answers                                
                                 </p>
                               </div>
@@ -70,7 +70,7 @@
 
 
             <div class="mb-8">
-              <h1 class="m-4 pt-4 h1 text-white"> All Patient </h1>
+              <h1 class="m-4 pt-4 h1 text-heading"> All Patient </h1>
               <div class="d-flex justify-content-end my-2">
                 <span class="counter pull-right"></span>
                 <div class="">
@@ -81,7 +81,7 @@
                       
                 <table class="table table-striped results  table-dark table-hover"  id="myTable"  >
                       <thead >
-                        <tr class="text-center text-white font-weight-bold">
+                        <tr class="text-center text-heading font-weight-bold">
                           <th scope="col">Name</th>
                           <th scope="col">DOB</th>
                           <th scope="col">Age</th>
@@ -94,7 +94,7 @@
                       
                       {% for appoinment in appoinments %}
                       <tbody>
-                        <tr class="text-center text-white">
+                        <tr class="text-center text-heading">
                           <th scope="row" class="cursor-pointer">
                             <a data-toggle="modal" data-target="#id-{{appoinment.id}}" aria-controls="{{appoinment.id}}">{{ appoinment.patient.first_name }}</a>
                           </th>

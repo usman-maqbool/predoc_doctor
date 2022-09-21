@@ -24,19 +24,25 @@
 
 :root {
     
-    --main-bg-gradient:  linear-gradient( #279DD2 , #289DD2 ,#2C5364);
-    --anchor-tags-color: #2c7be5
+    /* --main-bg-gradient:  linear-gradient( #279DD2 , #289DD2 ); */
+    /* --main-bg-gradient:linear-gradient(#cfd9df  ,#e2ebf0) ; */
+    --main-bg-gradient:white ;
+    --heading-all-color : #279DD2;
+    --anchor-tags-color: #2c7be5;
   }
 
 body{
     /* background-image: var(--main-bg-gradient); */
-    background-image: var(--main-bg-gradient);
+    background-color: var(--main-bg-gradient);
     background-repeat:no-repeat ;
 }
 a{
     color: var(--anchor-tags-color);
     text-decoration: none;
     background-color: transparent;
+}
+.text-heading{
+  color: var(--heading-all-color);
 }
 a:hover {
     color: var(--anchor-tags-color);

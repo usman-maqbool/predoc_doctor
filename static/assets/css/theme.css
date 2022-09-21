@@ -61,7 +61,7 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: white;
+  /* color: white; */
   text-align: left;
 
   
@@ -339,7 +339,7 @@ template {
 [hidden] {
   display: none !important;
 }
-
+/* 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 0.5rem;
@@ -371,7 +371,7 @@ h5, .h5 {
 
 h6, .h6 {
   font-size: 0.83333rem;
-}
+} */
 
 .lead {
   font-size: 1.2rem;

@@ -70,3 +70,18 @@ class AbooutPageView(View):
         }
 
         return render(request, 'pages/aboutview.html' ,context)
+
+class PdfPageView(LoginRequiredMixin,View):
+    def get(self,request):
+        context={
+            'title':"Pdf File"
+        }
+        return render(request, 'pages/pdf_click.html', context)
+
+
+class DisAgrePageView(View):
+    def get(self,request):
+        context = {
+            'title':"Disagree"
+        }
+        return render(request, 'pages/disagree.html', context)

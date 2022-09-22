@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <main>
+        <div class="container">
+            <div class="my-6">
+                <div class="row ">
+                    <div class="mt-4">
+                        <h5>No Worries</h5>
+                       <ul>
+                        <li class="mt-6">If you change your mind, re visit <a href="#">Members </a>area</>
+                        <li class="mt-4">We are always looking for feedback to improve PreDoc</li>
+                        <li class="mt-4">Please <a href="{% url 'contactus' %}">contact us</a> and tell us what you disagree with</li>
+                       </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+{% endblock content %}
+

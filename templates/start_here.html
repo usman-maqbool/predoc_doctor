@@ -5,7 +5,7 @@
 {% block extra_css %}
 <style>
     img{
-        width: 350px;
+        width: 250px;
         margin-left: auto;
         margin-right: auto;
     }
@@ -26,16 +26,28 @@
                 </div>
                 <div class=" d-flex justify-content-center ">
                     <div class="col col-lg-12 col-sm-12">
-                    <form>
-                        <div class="form-group d-flex mt-4">
-                            <label class="mt-2 form-label" for="exampleInputEmail1">First Name</label>
-                            <input type="text" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your First Name">
-                        </div>
-                        <div class="form-group d-flex mt-4">
-                            <label class="mt-2 form-label" for="exampleInputEmail1">Last Name</label>
-                            <input type="text" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Last Name">
+                        <form>
+                            <!-- <div class="form-group d-flex mt-4">
+                                <label class="mt-2 form-label" for="exampleInputEmail1">First Name</label>
+                                <input type="text" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your First Name">
                             </div>
-                        
+                            <div class="form-group d-flex mt-4">
+                                <label class="mt-2 form-label" for="exampleInputEmail1">Last Name</label>
+                                <input type="text" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Last Name">
+                            </div> -->
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                  <label class="text-heading" for="card-password">Password</label>
+                                  <input required class="form-control" type="password" name="password" />
+                                </div>
+                              </div>
+
+                            <div class="form-row">
+                              <div class="form-group col-6">
+                                <label class="text-heading" for="card-confirm-password">Confirm Password</label>
+                                <input required class="form-control" type="password" id="card-confirm-password" />
+                              </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -43,12 +55,17 @@
   
                 <div class="row mt-6">
                     <div class="col col-lg-6 col-sm-12">
-                        <img class="rounded mx-auto d-block" src="{% static 'assets/img/icons/pdf.png' %}" alt="">
+                       <a href="{% url 'pdf_file' %}"> <img class="rounded mx-auto d-block" src="{% static 'assets/img/icons/pdf.png' %}" alt="">   </a>
                         <p class=" mx-6 mt-6  text-center"> Click this to open your personalized letter a QR code for patientsto scan in the waiting room </p>
                     </div>
                     <div class="col col-lg-6 col-sm-12">
-                        <img class="rounded mx-auto d-block" src="{% static 'assets/img/icons/qr.png' %}" alt="">
-                        <p class=" mx-6 mt-6  text-center">Download only the <a href="#">QR code</a> to show or send to patients </p>
+                        <img class="rounded mx-auto d-block" src="{% static 'assets/img/icons/qr.svg' %}" alt="">
+                        <div class="d-flex">
+                            <p class=" ml-6 mr-2 mt-6  text-center">Download only the <a href="#">QR code</a> to show or send to patients </p>
+                            <span class="mt-6 ">
+                                <i class="text-black fa fa-arrow-circle-down" style="font-size: 36px;"></i></span>
+                        </div>
+                        
                     </div>
                 </div>
 
@@ -59,7 +76,7 @@
                 <div class="d-flex mb-4 justify-content-center">
                    <div>
                     <p class="h6  text-dark">Click <a href="{% url 'dashboard' %}">Home</a> To see Your Patient Summary</p>
-                    <a href="{% url 'dashboard' %}"><button class="btn ml-7 btn-outline-light mt-3 border-2x"> Home </button></a>
+                    <a href="{% url 'dashboard' %}"><button class="btn ml-7 btn-outline-primary mt-3 border-2x"> Home </button></a>
                    </div>
                 </div>
 

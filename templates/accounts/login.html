@@ -7,12 +7,12 @@
 
       <div class="row min-vh-100 flex-center no-gutters">
         <div class="col-lg-8 col-xxl-5 py-3">
-          <img class="bg-auth-circle-shape"   src="{% static 'assets/img/icons/bg-shape.png' %}" alt="" width="250">
-          <img class="bg-auth-circle-shape-2" src="{% static 'assets/img/icons/shape-1.png' %}" alt=""  width="150">
+          <!-- <img class="bg-auth-circle-shape"   src="{% static 'assets/img/icons/bg-shape.png' %}" alt="" width="250">
+          <img class="bg-auth-circle-shape-2" src="{% static 'assets/img/icons/shape-1.png' %}" alt=""  width="150"> -->
           <div class="card overflow-hidden z-index-1">
             <div class="card-body p-0">
               <div class="row no-gutters h-100">
-                <div class="col-md-5 text-white text-center bg-primary">
+                <div class="col-md-5 text-white text-center accounts-card-bg">
                   <div class="position-relative p-4 pt-md-5 pb-md-7">
                     <div class="bg-holder bg-auth-card-shape" style="background-image:url({% static 'assets/img/icons/half-circle.png' %});">
                     </div>
@@ -29,25 +29,25 @@
                 </div>
                 <div class="col-md-7 d-flex flex-center">
                   <div class="p-4 p-md-5 flex-grow-1">
-                    <h3 class="text-primary">Account Login</h3>
+                    <h2 class="text-heading">Account Login</h2>
                     <form method="POST"  >
                      
                       {% csrf_token %}
                       <div class="form-group">
-                        <label class="text-dark" for="card-email">Email</label>
+                        <label class="text-heading" for="card-email">Email</label>
                         <!-- <input class="form-control" required name="username" type="text" /> -->
                         {{loginform.email}}
                       </div>
                       <div class="form-group">
                         <div class="d-flex justify-content-between">
-                          <label class="text-dark" for="card-password">Password</label><a class="fs--1" href="{% url 'forget_password' %}">Forgot Password?</a>
+                          <label class="text-heading" for="card-password">Password</label><a class="fs--1 text-heading" href="{% url 'forget_password' %}">Forgot Password?</a>
                         </div>
                         {{loginform.password}}
                         <!-- <input class="form-control" required name="password" type="password" /> -->
                       </div>        
                       <div class="custom-control custom-checkbox">
                         <input class="custom-control-input" type="checkbox" id="card-checkbox" checked="checked" />
-                        <label class="custom-control-label text-dark" for="card-checkbox">Remember me</label>
+                        <label class="custom-control-label text-heading" for="card-checkbox">Remember me</label>
                       </div>
                       <div class="form-group">
                         <button class="btn btn-outline-primary btn-block mt-3" type="submit" name="submit">Log in</button>

@@ -33,7 +33,6 @@ class DashBoardPageView(LoginRequiredMixin,View):
             "title":"Dashboard",
             "appoinments":appoinments
         }
-        messages.success(request,'User Successfully Logged In')
         return render(request,'dashboard.html', context)
 
 

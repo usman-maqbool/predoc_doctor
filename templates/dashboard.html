@@ -67,7 +67,49 @@
               </div>
             </div>
             {% endfor %}
-
+<!-- every thing is working good by givid data with id -->
+            {% for appoinment in appoinments %}
+            <div class="container show_able_div " id="id-{{appoinment.id}}" style="display:block ;" >
+              <div class="modal-body">
+                <div class=" text-heading">
+                  <h2 class="text-heading">Current Patient</h2>
+                  <h4 class=" mt-4 text-dark">{{ appoinment.patient.first_name }} {{ appoinment.patient.last_name }}</h4>
+                  <h4 class="text-dark"> 18/7/1995</h4>
+                  <h4 class="text-dark">52 Years Old male</h4> 
+                </div>
+              
+                <div class="mt-4 ">
+                      <div class="col col-lg-12 ">
+                          <div class="border overflow-auto bg-ldight user-inner-text" style="height:40%">
+                            <div class="mx-4 p-2">
+                                <p class="h5 text-capitalize my-4">PC</p>
+                                <p class="h5 text-uppercase mt-4">hpc</p>
+                                <p class="h6 my-2" >Sudden onset</p>
+                                <p class="h6 my-2" >" I was at work lifting a Tesla tyre and felt my back go "</p>
+                                <p class="h6 my-2" >left sided.</p>
+                                <p class="h6 my-2" >lumbar</p>
+                                <p class="h6 my-2" >no radiculopathy</p>
+                                <p class="h5 text-uppercase mt-4">Pmh</p>
+                                <p class="h6 my-2" >Lumbar discectomy 2016, Dr. Matt Rackham, Ashford Hospital</p>
+                                <p class="h6 my-2" >Hypertension</p>
+                                <p class="h6 my-2" >Hypercholesterolaemia</p>
+                                <p class="h6 my-2" >Autism Spectrum Disorder</p>
+                                <p class="h5 text-uppercase mt-4">Medications</p>
+                                <p class="h6 my-2" >Perindopril 5mg mane</p>
+                                <p class="h6 my-2" >Rosuvastatin 40mg mane</p>
+                              </div>
+                          </div>
+                          <div class="mt-4">
+                            <p class="h6">
+                                <span class="text-heading border-bottom border-white">Question and Answere</span> - 
+                                view the original phrasing and answers                                
+                            </p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            {% endfor %}
 
             <div class="mb-8">
               <h1 class="m-4 pt-4 h1 text-heading"> All Patient </h1>
@@ -94,9 +136,10 @@
                       
                       {% for appoinment in appoinments %}
                       <tbody>
-                        <tr class="text-center text-heading">
-                          <th scope="row" class="cursor-pointer">
-                            <a data-toggle="modal" data-target="#id-{{appoinment.id}}" aria-controls="{{appoinment.id}}">{{ appoinment.patient.first_name }}</a>
+                        <tr class="text-center text-heading show_div">
+                          <th scope="row" class="cursor-pointer button_show_div" data-target="#id-{{appoinment.id}}">
+                            <!-- <a data-toggle="modal" data-target="#id-{{appoinment.id}}" aria-controls="{{appoinment.id}}">{{ appoinment.patient.first_name }}</a> -->
+                            {{ appoinment.patient.first_name }}
                           </th>
                           <td>{{appoinment.patient.dob}}</td>
                           <td>{{appoinment.patient.age}}</td>
@@ -179,4 +222,42 @@
   $('#myTable').DataTable();
 } );
   </script>
+
+  
+
+<script>
+  let name = document.getElementById
+</script>
+
+
+<script>
+  var elements = document.querySelectorAll('.show_div')
+  for (let element of elements ){
+    let expandbtn = element.querySelector('.button_show_div')
+    expandbtn.addEventListener('click', (e) =>{
+      console.log(expandbtn,"Its clicked")
+      let x = document.querySelector(".show_able_div")
+      console.log(x,'itsa a containr')
+      if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+    }) 
+  }
+</script>
+
+<!-- 
+<script>
+  function myFunction() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+  </script> -->
+  
+  
 {% endblock extra_javascript %}

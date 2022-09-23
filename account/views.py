@@ -11,7 +11,13 @@ from django.contrib import messages
 from .models import UserModel 
 from django.db.models.query_utils import Q
 from django.core.mail import send_mail, BadHeaderError
-# from django.contrib.auth.forms import SetPasswordForm
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import reverse
+from .sendemail import account_activation_token ,BASE_LINK_FOR_EMAIL
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
+# from import BASE_LINK_FOR_EMAIL
+from django.core.mail import EmailMessage
 # from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
@@ -21,9 +27,111 @@ from django.utils.encoding import force_bytes
 
 User = get_user_model()
 
-# Create your views here.
 
 
+# SignIp
+class SignUpView(View):
+    form_class = SignUpForm()
+    template_name = 'accounts/sign_up.html'
+    def get(self, request, *args, **kwargs):
+        form = SignUpForm()
+        return render(request, 'accounts/sign_up.html', {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = SignUpForm(request.POST)
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password1 = request.POST.get("password1")
+        password2 = request.POST.get("password2")
+        user_obj = User.objects.filter(email=email).exists()
+        if user_obj:
+            messages.success(
+                request,
+                f"The e-mail address you entered is {email} in use, you can try another e-mail address, if the e-mail address belongs to you, you can try to log in..",
+            )  
+            return redirect("sign_up")
+        if password1 == password2:
+
+            user = User.objects.create(
+                username=username,
+
+                email=email,
+                password=password1,
+            )
+            user.set_password(password1)
+            user.is_active = False
+            user.save()
+            current_site = get_current_site(request)
+            email_body = {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            }
+            
+            link = reverse('activate', kwargs={
+                            'uidb64': email_body['uid'], 'token': email_body['token']})
+
+            email_subject = 'Activate your account'
+
+            activate_url = BASE_LINK_FOR_EMAIL+link
+            email = EmailMessage(
+                        email_subject,
+                        f'Hi {user.username}, Please use the link below to activate your account  {activate_url}',
+                        'matthewbordy@prototypehouse.com',
+                        [email],
+                    )
+            email.send(fail_silently=False)
+        
+        else:
+            messages.error(request, "password is not matching")
+            return redirect("sign_up")
+
+        return redirect("verify")
+    def get(self, request, *args, **kwargs):
+
+        if request.user.is_authenticated:
+            messages.success(request, f"Your login appears to be done.")  
+            return redirect("login")
+        context = {"is_header": "header",
+            "form":SignUpForm()
+        }
+        return render(request, "accounts/sign_up.html", context=context)
+
+class VerificationEmailPageView(View):
+    def get(self,request, *args , **kwargs):
+        context={
+            'title': "Generate Password"
+        }
+        # messages.success(request,'Your Password is successfully reset')
+        return render(request, 'accounts/verificationemail.html', context)
+
+
+
+class VerificationView(View):
+    def get(self, request, uidb64, token):
+        try:
+            id = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=id)
+
+            if not account_activation_token.check_token(user, token):
+                return redirect('login'+'?message='+'User already activated')
+
+            if user.is_active:
+                return redirect('login')
+            user.is_active = True
+            user.save()
+
+            messages.success(request, 'Account activated successfully')
+            return redirect('login')
+
+        except Exception as ex:
+            pass
+
+        return redirect('login')
+
+
+# LoGin
 class LogInPageView(View):
     def get(self,request):
 
@@ -48,20 +156,21 @@ class LogInPageView(View):
             return redirect('login')
 
 
-class SignUpPageView(SuccessMessageMixin,CreateView):
-    form_class = SignUpForm
-    success_url ='/account/login/'   
-    success_message = "Succesfully Registerd"
-    template_name = 'accounts/sign_up.html'
+# class SignUpPageView(SuccessMessageMixin,CreateView):
+#     form_class = SignUpForm
+#     success_url ='/account/login/'   
+#     success_message = "Succesfully Registerd"
+#     error_message = "error occures during signup"
+#     template_name = 'accounts/sign_up.html'
 
-
-
-
+# LogOut
 class LogOutPageView(View):
     def get(self,request):
         logout(request)
         messages.info(request, 'Sucessfully logged out')
         return redirect('login')
+
+# Password Reset
 
 def password_reset_request(request, *args, **kwargs):
 	if request.method == "POST":
@@ -109,11 +218,6 @@ class ResetPasswordConfirmPageView(View):
         return render(request, 'accounts/password_reset_confirm.html', context)
 
     
-
-
-
-
-
 
 
 

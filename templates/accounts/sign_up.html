@@ -29,21 +29,11 @@
                 </div>
                 <div class="col-md-7 d-flex flex-center">
                   <div class="p-4 p-md-5 flex-grow-1">
+                    {% include 'accounts/messages.html' %}
                     <h2 class="text-heading text-primary">Register</h2>
                     <form method="POST" class="text-heading">
                       {% csrf_token %}
-                        <!-- {{ form.as_p }} -->
-                        <!-- <button type="submit">Register</button> -->
-                        <div class="form-row">
-                          <div class="form-group col-6">
-                            <label class="text-heading" for="card-password">First Name</label>
-                            {{form.first_name}}
-                          </div>
-                          <div class="form-group col-6">
-                            <label class="text-heading" for="card-confirm-password">Last Name</label>
-                            {{form.last_name}}
-                          </div>
-                        </div>
+                      
                       
                       <div class="form-group">
                         <label class="text-heading" for="card-email">Email</label>

@@ -1,3 +1,4 @@
+from tabnanny import verbose
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 from django.utils import timezone
@@ -30,6 +31,8 @@ GENDER_CHOICES = (
     ('female', 'female'),
 )
 class UserModel(TimeStampMixin, AbstractBaseUser):
+    class Meta:
+        verbose_name = 'User'
     email = models.EmailField(max_length=255, unique=True)
     username = models.CharField(max_length=255, null=True, blank=True)
     first_name = models.CharField(max_length=255, null=True, blank=True)

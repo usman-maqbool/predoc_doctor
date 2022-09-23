@@ -98,7 +98,7 @@ class SignUpView(View):
         }
         return render(request, "accounts/sign_up.html", context=context)
 
-class VerificationEmailPageView(View):
+class VerificationEmailView(View):
     def get(self,request, *args , **kwargs):
         context={
             'title': "Generate Password"
@@ -132,7 +132,7 @@ class VerificationView(View):
 
 
 # LoGin
-class LogInPageView(View):
+class LogInView(View):
     def get(self,request):
 
         context={
@@ -156,7 +156,7 @@ class LogInPageView(View):
             return redirect('login')
 
 
-# class SignUpPageView(SuccessMessageMixin,CreateView):
+# class SignUpView(SuccessMessageMixin,CreateView):
 #     form_class = SignUpForm
 #     success_url ='/account/login/'   
 #     success_message = "Succesfully Registerd"
@@ -164,7 +164,7 @@ class LogInPageView(View):
 #     template_name = 'accounts/sign_up.html'
 
 # LogOut
-class LogOutPageView(View):
+class LogOutView(View):
     def get(self,request):
         logout(request)
         messages.info(request, 'Sucessfully logged out')
@@ -202,14 +202,14 @@ def password_reset_request(request, *args, **kwargs):
 	password_reset_form = ForgetPasswordForm()
 	return render(request, "accounts/forget_password.html", context={"password_reset_form":password_reset_form})
 
-class ResetPasswordDonePageView(View):
+class ResetPasswordDoneView(View):
     def get(self,request):
         context = {
             "title":"Rest Password Done"
         }
         return render(request, 'accounts/reset-password-done.html',context)
 
-class ResetPasswordConfirmPageView(View):
+class ResetPasswordConfirmView(View):
     def get(self,request, *args , **kwargs):
         context={
             'title': "Generate Password"

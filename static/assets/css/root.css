@@ -24,10 +24,11 @@
 
 :root {
     
-    /* --main-bg-gradient:  linear-gradient( #279DD2 , #289DD2 ); */
-    /* --main-bg-gradient:linear-gradient(#cfd9df  ,#e2ebf0) ; */
+    --fotter-bg-color: linear-gradient( #279DD2 , #289DD2 );
+    /* --fotter-bg-gradient:  linear-gradient( #279DD2 , #289DD2 ); */
+    /* --:linear-gradient(#cfd9df  ,#e2ebf0) ; */
     --main-bg-gradient:white ;
-    --heading-all-color : #279DD2;
+    --heading-all-color : #2C7BE5;
     --anchor-tags-color: #2c7be5;
     /* --accounts-card-bg: #279DD2; */
   }
@@ -40,13 +41,12 @@ body{
 a{
     color: var(--anchor-tags-color);
     text-decoration: none;
-    background-color: transparent;
 }
 .text-heading{
   color: var(--heading-all-color);
 }
 a:hover {
-    color: var(--anchor-tags-color);
+    color: var(--heading-all-color);
   }
   
   a:not([href]):not([class]) {
@@ -61,4 +61,12 @@ a:hover {
 
   .accounts-card-bg{
     background-color: var(--anchor-tags-color);
+  }
+
+  .fotter-bg-color{
+    background-image: var(--fotter-bg-gradient);
+  }
+  .top-bottom-equal{
+    /* margin-bottom: 18px; */
+    margin-top: -10px;
   }

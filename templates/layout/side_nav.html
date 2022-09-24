@@ -6,11 +6,11 @@
 
 
 <nav class="navbar navbar-vertical navbar-expand-xl navbar-light navbar-card">
-    <div class="d-flex align-items-center">
+    <div class="d-flex bg-primary align-items-center top-bottom-equal">
       <div class="toggle-icon-wrapper">
-        <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle"  data-placement="left">
-          <span class="navbar-toggle-icon">
-            <span class="toggle-line"></span>
+        <button class="btn bg-white navbar-toggler-humburger-icon navbar-vertical-toggle"  data-placement="left">
+          <span class="text-white navbar-toggle-icon">
+            <span class="text-white toggle-line"></span>
           </span>
         </button>
 
@@ -18,7 +18,7 @@
       </div>
       <a class="navbar-brand" href="{% url 'landing' %}">
         <div class="d-flex text-center align-items-center py-3">
-            <span class="text-sans-serif">PreDoc</span>
+            <span class="text-white text-sans-serif">PreDoc</span>
         </div>
       </a>
     </div>
@@ -27,7 +27,7 @@
       <div class="navbar-vertical-content perfect-scrollbar scrollbar">
         <ul class="navbar-nav flex-column">
             <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">
-                <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span></span><span class="nav-link-text"> Home</span>
+                <div class="d-flex text-heading align-items-center"><span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span></span><span class="nav-link-text"> Home</span>
                 </div>
               </a>
           </li>
@@ -35,13 +35,13 @@
 
           <li class="nav-item">
             <a class="nav-link dropdown-indicator" href="#pages" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="pages">
-              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-copy"></span></span><span class="nav-link-text">Start Here</span>
+              <div class="d-flex text-heading align-items-center"><span class="nav-link-icon"><span class="fas fa-copy"></span></span><span class="nav-link-text">Start Here</span>
               </div>
             </a>
             <ul class="nav collapse" id="pages" data-parent="#navbarVerticalCollapse">
-              <li class="nav-item"><a class="nav-link" href="{% url 'start_here' %}">Working Room Side</a>
+              <li class="nav-item text-heading"><a class="nav-link text-black" href="{% url 'start_here' %}">Working Room Side</a>
               </li>
-              <li class="nav-item"><a class="nav-link" href="#">QR Code only </a>
+              <li class="nav-item text-heading"><a class="nav-link text-black" href="#">QR Code only </a>
               </li>
               
             </ul>
@@ -49,19 +49,19 @@
 
           <li class="nav-item">
             <a class="nav-link dropdown-indicator" href="#about" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="pages">
-              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fa fa-address-card"></span></span><span class="nav-link-text">About</span>
+              <div class="d-flex text-heading align-items-center"><span class="nav-link-icon"><span class="fa fa-address-card"></span></span><span class="nav-link-text">About</span>
               </div>
             </a>
             <ul class="nav collapse" id="about" data-parent="#navbarVerticalCollapse">
-              <li class="nav-item"><a class="nav-link" href="{% url 'about_us' %}">How It Works</a>
+              <li class="nav-item "><a class="nav-link text-black" href="{% url 'about_us' %}">How It Works</a>
               </li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'about_us' %}#faqs">FAQs </a>
+              <li class="nav-item "><a class="nav-link text-black" href="{% url 'about_us' %}#faqs">FAQs </a>
               </li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'about_us' %}#security">Security and Privacy </a>
+              <li class="nav-item "><a class="nav-link text-black" href="{% url 'about_us' %}#security">Security and Privacy </a>
               </li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'about_us' %}#compliance">Compliances</a>
+              <li class="nav-item "><a class="nav-link text-black" href="{% url 'about_us' %}#compliance">Compliances</a>
               </li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'about_us' %}#team">Team</a>
+              <li class="nav-item "><a class="nav-link text-black" href="{% url 'about_us' %}#team">Team</a>
               </li>
               
             </ul>

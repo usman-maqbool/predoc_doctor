@@ -2,14 +2,47 @@
 
 {% load static %}
 
+{% block extra_css %}
+
+  <style>
+.chat {
+  display:inline-block;
+  padding:5px 6px 8px 6px;
+  border-radius: 6px;
+  margin-right: 40px;
+  color:black;
+  position: relative;
+}
+
+.chat:after {
+  content: "";
+  position:absolute;
+  margin-top:-31px;
+  margin-left:-5px;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid white;
+  /* transform:rotate(-45deg); */
+  right: 20px; 
+  top: 20px;
+}
+.left-modal{
+  margin-left: 60%;
+  top: 50px;
+}
+
+  </style>
+
+{% endblock extra_css %}
+
 {% block content %}
 
    
     <main class="main" id="top">
 
-          <div class="text-left mt-4">
-         
-        
+   
+      <div class="container">
+
             {% for appoinment in appoinments %}
             <div class="modal fade" id="id-{{appoinment.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg modal-dialog-scrollable" id="style-4" role="document">
@@ -67,13 +100,17 @@
               </div>
             </div>
             {% endfor %}
-<!-- every thing is working good by givid data with id -->
-            {% for appoinment in appoinments %}
+
+            
+            
+
+    
+            
             <div class="container show_able_div " id="id-{{appoinment.id}}" style="display:block ;" >
               <div class="modal-body">
                 <div class=" text-heading">
                   <h2 class="text-heading">Current Patient</h2>
-                  <h4 class=" mt-4 text-dark">{{ appoinment.patient.first_name }} {{ appoinment.patient.last_name }}</h4>
+                  <h4 class=" mt-4 text-dark">Lorem Ipsum</h4>
                   <h4 class="text-dark"> 18/7/1995</h4>
                   <h4 class="text-dark">52 Years Old male</h4> 
                 </div>
@@ -109,7 +146,9 @@
                   </div>
               </div>
             </div>
-            {% endfor %}
+
+
+
 
             <div class="mb-8">
               <h1 class="m-4 pt-4 h1 text-heading"> All Patient </h1>
@@ -123,7 +162,7 @@
                       
                 <table class="table table-striped results  table-dark table-hover"  id="myTable"  >
                       <thead >
-                        <tr class="text-center text-heading font-weight-bold">
+                        <tr class="text-center text-headisng font-weight-bold">
                           <th scope="col">Name</th>
                           <th scope="col">DOB</th>
                           <th scope="col">Age</th>
@@ -176,10 +215,23 @@
               </div>
             </div>
 
-
-
-          <!-- Modal -->
            
+
+          <!-- Loading Modal -->
+         <div class="modal  arrow-top fade right" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog left-modal" role="document">
+            <div class="modal-content chat" >
+              
+              <div class="modal-body">
+                <h5 class="my-4 mx-2">Have you read and do you agree to our <a href="{% url 'terms_condition' %}">Terms and Condition</a> and <a href="{% url 'privacy_policy' %}">Privacy Policy</a>?</h5>
+              </div>
+              <div class="modal-footer">
+                <a href="{% url 'disagree' %}"><button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">No I Don't Agree</button></a>
+                <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Yes I Agree</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
           </div>
           {% include 'seconed_fotter.html' %}
@@ -223,10 +275,10 @@
 } );
   </script>
 
-  
-
 <script>
-  let name = document.getElementById
+  $(document).ready(function(){
+      $("#myModal").modal('show');
+  });
 </script>
 
 

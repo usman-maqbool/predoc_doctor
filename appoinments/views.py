@@ -62,7 +62,7 @@ class PrivacyPolicyPageView(View):
 
         return render(request, 'privacy_policy.html', context)
 
-class AbooutPageView(View):
+class AbooutPageView(LoginRequiredMixin,View):
     def get(self,request):
         context = {
             "title":"About"

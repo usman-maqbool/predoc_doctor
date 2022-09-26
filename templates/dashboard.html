@@ -5,31 +5,50 @@
 {% block extra_css %}
 
   <style>
-.chat {
-  display:inline-block;
-  padding:5px 6px 8px 6px;
-  border-radius: 6px;
-  margin-right: 40px;
-  color:black;
-  position: relative;
+
+
+#loader.hidden { 
+display: none;
+}
+#loader {
+  display: inline-block;
+  
+  width: 80px;
+  height: 80px;
+}
+#loader:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 5% auto;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.chat:after {
-  content: "";
-  position:absolute;
-  margin-top:-31px;
-  margin-left:-5px;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-bottom: 12px solid white;
-  /* transform:rotate(-45deg); */
-  right: 20px; 
-  top: 20px;
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,.8);
+    z-index: 999;
+    opacity: 1;
+    transition: all 0.5s;
 }
-.left-modal{
-  margin-left: 60%;
-  top: 50px;
-}
+
 
   </style>
 
@@ -102,12 +121,12 @@
             </div>
             {% endfor %} -->
 
+            <!-- Loader -->
+            <div id="loading-wrapper">
+              <div class="" id="loader"></div>
+          </div>
 
-
-
-    
-            
-            <div class="container show_able_div " id="id-{{appoinment.id}}" style="display:block ;" >
+          <div class="container show_able_div hide animate-bottom" id="amaizng" >
               <div class="modal-body">
                 <div class=" text-heading">
                   <h2 class="text-heading">Current Patient</h2>
@@ -148,6 +167,49 @@
               </div>
             </div>
 
+    
+            <!--activate div  -->
+            <!-- <div class="container show_able_div " id="id-{{appoinment.id}}" style="display:block ;" >
+              <div class="modal-body">
+                <div class=" text-heading">
+                  <h2 class="text-heading">Current Patient</h2>
+                  <h4 class=" mt-4 text-dark">Lorem Ipsum</h4>
+                  <h4 class="text-dark"> 18/7/1995</h4>
+                  <h4 class="text-dark">52 Years Old male</h4> 
+                </div>
+              
+                <div class="mt-4 ">
+                      <div class="col col-lg-12 ">
+                          <div class="border overflow-auto bg-ldight user-inner-text" style="height:40%">
+                            <div class="mx-4 p-2">
+                                <p class="h5 text-capitalize my-4">PC</p>
+                                <p class="h5 text-uppercase mt-4">hpc</p>
+                                <p class="h6 my-2" >Sudden onset</p>
+                                <p class="h6 my-2" >" I was at work lifting a Tesla tyre and felt my back go "</p>
+                                <p class="h6 my-2" >left sided.</p>
+                                <p class="h6 my-2" >lumbar</p>
+                                <p class="h6 my-2" >no radiculopathy</p>
+                                <p class="h5 text-uppercase mt-4">Pmh</p>
+                                <p class="h6 my-2" >Lumbar discectomy 2016, Dr. Matt Rackham, Ashford Hospital</p>
+                                <p class="h6 my-2" >Hypertension</p>
+                                <p class="h6 my-2" >Hypercholesterolaemia</p>
+                                <p class="h6 my-2" >Autism Spectrum Disorder</p>
+                                <p class="h5 text-uppercase mt-4">Medications</p>
+                                <p class="h6 my-2" >Perindopril 5mg mane</p>
+                                <p class="h6 my-2" >Rosuvastatin 40mg mane</p>
+                              </div>
+                          </div>
+                          <div class="mt-4">
+                            <p class="h6">
+                                <span class="text-heading border-bottom border-white">Question and Answere</span> - 
+                                view the original phrasing and answers                                
+                            </p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div> -->
+
 
           <div class="condition_base_data">
 
@@ -179,7 +241,7 @@
                       {% for appoinment in appoinments %}
                       <tbody>
                         <tr class="text-center text-heading show_div">
-                          <th scope="row" class="cursor-pointer button_show_div" data-target="#id-{{appoinment.id}}">
+                          <th scope="row" onclick="loadingPage()" id="identify" class="cursor-pointer button_show_div" data-target="#id-{{appoinment.id}}">
                             <!-- <a data-toggle="modal" data-target="#id-{{appoinment.id}}" aria-controls="{{appoinment.id}}">{{ appoinment.patient.first_name }}</a> -->
                             {{ appoinment.patient.first_name }}
                           </th>
@@ -189,7 +251,7 @@
                           <td>{{appoinment.doctor.first_name}}</td>
                           <td>{{appoinment.date}} </td>
                         </tr>
-                        
+
                       </tbody>
                       {% endfor %}
                 </table>
@@ -252,76 +314,38 @@
 {% endblock content %}
 
 {% block extra_javascript %}
-<script>
-    $(document).ready(function() {
-  $(".search").keyup(function () {
-    var searchTerm = $(".search").val();
-    var listItem = $('.results tbody').children('tr');
-    var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
-    
-  $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
-        return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
-    }
-  });
-    
-  $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function(e){
-    $(this).attr('visible','false');
-  });
 
-  $(".results tbody tr:containsi('" + searchSplit + "')").each(function(e){
-    $(this).attr('visible','true');
-  });
-
-  var jobCount = $('.results tbody tr[visible="true"]').length;
-    $('.counter').text(jobCount + ' item');
-
-  if(jobCount == '0') {$('.no-result').show();}
-    else {$('.no-result').hide();}
-		  });
+ <script>
+$('#getDataBtn').click(function() {
+                       
+$.ajax({
+    type: "GET",
+    url: "https://forbes400.herokuapp.com/api/forbes400?limit=400",
+    dataType: 'json',
+    beforeSend: function() {
+        $('#loader').removeClass('hidden')
+    },
+    success: function(data){
+        console.log(data);
+        let richList = "<ol>";
+        for (let i = 0; i < data.length; i++) {
+          console.log(data[i].uri);
+          richList += "<li>"+data[i].uri+"</li>";
+        }
+      richList += "</ol>"
+      $('#richList').html(richList);
+    },
+  complete: function(){
+        $('#loader').addClass('hidden')
+    },
 });
-</script>
+  
+});
+  </script> 
+  
+  
+  
 
-<script>
-  $(document).ready( function () {
-  $('#myTable').DataTable();
-} );
-  </script>
-
-<script>
-  $(document).ready(function(){
-      $("#myModal").modal('show');
-  });
-</script>
-
-
-<script>
-  var elements = document.querySelectorAll('.show_div')
-  for (let element of elements ){
-    let expandbtn = element.querySelector('.button_show_div')
-    expandbtn.addEventListener('click', (e) =>{
-      console.log(expandbtn,"Its clicked")
-      let x = document.querySelector(".show_able_div")
-      console.log(x,'itsa a containr')
-      if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-    }) 
-  }
-</script>
-
-<!-- 
-<script>
-  function myFunction() {
-    var x = document.getElementById("myDIV");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
-  }
-  </script> -->
   
   
 {% endblock extra_javascript %}

@@ -23,18 +23,16 @@
 
 
 :root {
-    
-    --fotter-bg-color: linear-gradient( #279DD2 , #289DD2 );
-    /* --fotter-bg-gradient:  linear-gradient( #279DD2 , #289DD2 ); */
-    /* --:linear-gradient(#cfd9df  ,#e2ebf0) ; */
+    --accounts-card-bg :#2c7be5;
+    --fotter-bg-color:#2c7be5;
     --main-bg-gradient:white ;
     --heading-all-color : #2C7BE5;
     --anchor-tags-color: #2c7be5;
-    /* --accounts-card-bg: #279DD2; */
+
   }
 
 body{
-    /* background-image: var(--main-bg-gradient); */
+
     background-color: var(--main-bg-gradient);
     background-repeat:no-repeat ;
 }
@@ -47,6 +45,8 @@ a{
 }
 a:hover {
     color: var(--heading-all-color);
+    text-decoration: none;
+    border-bottom: none;
   }
   
   a:not([href]):not([class]) {
@@ -60,13 +60,12 @@ a:hover {
   }
 
   .accounts-card-bg{
-    background-color: var(--anchor-tags-color);
+    background-color: var(--accounts-card-bg);
   }
 
   .fotter-bg-color{
-    background-image: var(--fotter-bg-gradient);
+    background-color: var(--fotter-bg-color);
   }
-  .top-bottom-equal{
-    /* margin-bottom: 18px; */
+  /* .top-bottom-equal{
     margin-top: -10px;
-  }
+  } */

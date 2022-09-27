@@ -78,7 +78,7 @@ class PdfPageView(LoginRequiredMixin,View):
         return render(request, 'pages/pdf_click.html', context)
 
 
-class DisAgrePageView(View):
+class DisAgrePageView(LoginRequiredMixin,View):
     def get(self,request):
         context = {
             'title':"Disagree"

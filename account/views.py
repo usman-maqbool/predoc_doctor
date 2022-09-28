@@ -1,33 +1,24 @@
 
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.views import View
-# from django.http import HttpResponse
-from django.views.generic.edit import CreateView
-from django.contrib.auth import authenticate,login, logout,get_user_model
-from .forms import SignUpForm , LoginForm ,ForgetPasswordForm
-from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth import authenticate, login, logout, get_user_model
+from .forms import SignUpForm, LoginForm, ForgetPasswordForm
 from django.contrib import messages
-# from django.contrib.auth.models import auth
 from .models import UserModel 
 from django.db.models.query_utils import Q
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
-from .sendemail import account_activation_token ,BASE_LINK_FOR_EMAIL
+from .sendemail import account_activation_token, BASE_LINK_FOR_EMAIL
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
-# from import BASE_LINK_FOR_EMAIL
 from django.core.mail import EmailMessage
-# from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 
-
 User = get_user_model()
-
-
 
 # SignIp
 class SignUpView(View):
@@ -99,14 +90,11 @@ class SignUpView(View):
         return render(request, "accounts/sign_up.html", context=context)
 
 class VerificationEmailView(View):
-    def get(self,request, *args , **kwargs):
+    def get(self,request, *args, **kwargs):
         context={
             'title': "Generate Password"
         }
-        # messages.success(request,'Your Password is successfully reset')
         return render(request, 'accounts/verificationemail.html', context)
-
-
 
 class VerificationView(View):
     def get(self, request, uidb64, token):
@@ -121,20 +109,14 @@ class VerificationView(View):
                 return redirect('login')
             user.is_active = True
             user.save()
-
             messages.success(request, 'Account activated successfully')
             return redirect('login')
-
         except Exception as ex:
             pass
-
         return redirect('login')
-
-
 # LoGin
 class LogInView(View):
-    def get(self,request):
-
+    def get(self, request):
         context={
             "title":"LogIn",
             'loginform':LoginForm
@@ -142,7 +124,7 @@ class LogInView(View):
         }
         return render(request, 'accounts/login.html' ,context)
 
-    def post(self,request):
+    def post(self, request):
         email = request.POST['email']
         password = request.POST['password']
         user = authenticate(request, email=email, password=password)
@@ -150,18 +132,8 @@ class LogInView(View):
             login(request, user)
             return redirect('dashboard')
         else:
-            # Return an 'invalid login' error message.
-            # messages.error(request, 'Invalid UserName or Password')
             messages.error(request, "Invalid Credentials ")
             return redirect('login')
-
-
-# class SignUpView(SuccessMessageMixin,CreateView):
-#     form_class = SignUpForm
-#     success_url ='/account/login/'   
-#     success_message = "Succesfully Registerd"
-#     error_message = "error occures during signup"
-#     template_name = 'accounts/sign_up.html'
 
 # LogOut
 class LogOutView(View):
@@ -171,7 +143,6 @@ class LogOutView(View):
         return redirect('login')
 
 # Password Reset
-
 def password_reset_request(request, *args, **kwargs):
 	if request.method == "POST":
 		password_reset_form = ForgetPasswordForm(request.POST)
@@ -196,92 +167,23 @@ def password_reset_request(request, *args, **kwargs):
 						send_mail(subject, email, 'admin@example.com' , [user.email], fail_silently=False)
 					except BadHeaderError:
 						messages.error (request,'Inavlid email')
-                        # return HttpResponse('Invalid header found.')
 					return redirect ("reset_password_done")
                     
 	password_reset_form = ForgetPasswordForm()
 	return render(request, "accounts/forget_password.html", context={"password_reset_form":password_reset_form})
 
 class ResetPasswordDoneView(View):
-    def get(self,request):
+    def get(self, request):
         context = {
             "title":"Rest Password Done"
         }
         return render(request, 'accounts/reset-password-done.html',context)
 
 class ResetPasswordConfirmView(View):
-    def get(self,request, *args , **kwargs):
+    def get(self,request, *args, **kwargs):
         context={
             'title': "Generate Password"
         }
-        # messages.success(request,'Your Password is successfully reset')
+        messages.success(request,'Your Password is successfully reset')
         return render(request, 'accounts/password_reset_confirm.html', context)
 
-    
-
-
-
-
-
-
-
-
-
-
-# def register_view(request,*args,**kwargs):
-#     user = request.user
-#     if user.is_authenticated:
-#         return HttpResponse(f"you are already authenticated a {user.email}")
-#     context = {
-
-#     }
-#     if request.POST:
-#         form = RegistrationForm(request.POST)
-#         print(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             email = form.cleaned_data.get('email').lower()
-#             password1 = form.cleaned_data.get('password1')
-#             account = authenticate(email=email, password = password1)
-#             login(request,account)
-#             return redirect('login')
-#         else:
-#             return redirect('register')
-#     return render(request, 'accounts/register.html', context)
-
-
-# class LoginView(View):
-
-#     def get(self,request):
-
-
-#         context ={
-#             'loginform':LoginForm
-#         }
-
-#         return render(request, 'registration/login.html', context)
-
-#     def post(self,request):
-#         if(request.method == "POST"):
-#             email = request.POST.get('email')
-#             password = request.POST.get('password')
-
-#             if(email != '' and password != ''):
-#                 user = auth.authenticate(email=email, password=password ) 
-
-#                 if user is not None: 
-#                     request.session['email'] = email
-#                     auth.login(request, user)
-#                     request.session.set_expiry(10000)
-#                     data={}
-#                     data['success_message'] ='Successfully login'
-#                     return redirect('dashboard')
-#                 else:
-                   
-#                     messages.error(request, "Invalid Credentials ")
-#                     return redirect('account:login')
-#             else:
-#                 messages.error(request, "Some field is empty")
-#                 return redirect('account:login')
-#         else:
-#             return redirect('account:login')

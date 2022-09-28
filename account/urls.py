@@ -20,17 +20,3 @@ urlpatterns =  [
     path('reset/done/',PasswordResetCompleteView.as_view(template_name='accounts/reset_password_complete.html'),name='password_reset_complete'),
 ]
 
-
-
-# urlpatterns = [
-#     path('signup/',SignUpView.as_view(),name='sign_up'),
-#     path('login/',LogInView.as_view(),name='login'),
-#     path('logout/',LogOutView.as_view(), name='logout'),
-#     path(r'^password_reset/$', auth_views.PasswordResetView.as_view(), name='forget_password'),
-#     path(r'^password_reset/done/$', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
-#     path(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-#         auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-#     path(r'^reset/done/$', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
-# ]
-
-

@@ -1,10 +1,4 @@
 @charset "UTF-8";
-/*!
- * Bootstrap v4.6.0 (https://getbootstrap.com/)
- * Copyright 2011-2021 The Bootstrap Authors
- * Copyright 2011-2021 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
 :root {
   --blue: #2c7be5;
   --indigo: #727cf5;
@@ -2148,18 +2142,6 @@ input[type="button"].btn-block {
 .notification-indicator-fill::before {
   border: 0;
 }
-/* 
-.btn.disabled, .falcon-data-table .paging_full_numbers .disabled.page-link,
-.falcon-data-table .paging_first_last_numbers .disabled.page-link,
-.falcon-data-table .paging_full .disabled.page-link,
-.falcon-data-table .paging_numbers .disabled.page-link,
-.falcon-data-table .paging_simple_numbers .disabled.page-link, .btn:disabled, .falcon-data-table .paging_full_numbers .page-link:disabled,
-.falcon-data-table .paging_first_last_numbers .page-link:disabled,
-.falcon-data-table .paging_full .page-link:disabled,
-.falcon-data-table .paging_numbers .page-link:disabled,
-.falcon-data-table .paging_simple_numbers .page-link:disabled {
-  cursor: not-allowed;
-} */
 
 
 .btn-reveal-trigger:hover .btn-reveal, .btn-reveal-trigger:focus .btn-reveal {

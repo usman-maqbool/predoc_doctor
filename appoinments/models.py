@@ -12,4 +12,3 @@ class Appoinment(models.Model):
     qs    = models.OneToOneField(Questionire,on_delete=models.CASCADE,null=True,blank=True)
 
 
-

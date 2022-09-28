@@ -19,20 +19,15 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
-
-
-
+/* #Colors  */
 :root {
     --accounts-card-bg :#2c7be5;
     --fotter-bg-color:#2c7be5;
     --main-bg-gradient:white ;
     --heading-all-color : #2C7BE5;
     --anchor-tags-color: #2c7be5;
-
   }
-
 body{
-
     background-color: var(--main-bg-gradient);
     background-repeat:no-repeat ;
 }
@@ -48,24 +43,17 @@ a:hover {
     text-decoration: none;
     border-bottom: none;
   }
-  
   a:not([href]):not([class]) {
     color: inherit;
     text-decoration: none;
   }
-  
   a:not([href]):not([class]):hover {
     color: inherit;
     text-decoration: none;
   }
-
   .accounts-card-bg{
     background-color: var(--accounts-card-bg);
   }
-
   .fotter-bg-color{
     background-color: var(--fotter-bg-color);
   }
-  /* .top-bottom-equal{
-    margin-top: -10px;
-  } */

@@ -27,14 +27,6 @@
                 <div class=" d-flex justify-content-center ">
                     <div class="col col-lg-12 col-sm-12">
                         <form>
-                            <!-- <div class="form-group d-flex mt-4">
-                                <label class="mt-2 form-label" for="exampleInputEmail1">First Name</label>
-                                <input type="text" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your First Name">
-                            </div>
-                            <div class="form-group d-flex mt-4">
-                                <label class="mt-2 form-label" for="exampleInputEmail1">Last Name</label>
-                                <input type="text" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Last Name">
-                            </div> -->
                             <div class="form-row">
                                 <div class="form-group col-lg-6 col-sm-12">
                                   <label class="text-black" for="card-password">First Name</label>
@@ -55,10 +47,12 @@
   
                 <div class="row mt-6">
                     <div class="col col-lg-6 col-sm-12">
+                        <!-- Pdf Image -->
                        <a href="{% url 'pdf_file' %}"> <img class="rounded mx-auto d-block" src="{% static 'assets/img/icons/pdf.png' %}" alt="">   </a>
                         <p class=" mx-6 mt-6  text-center"> Click this to open your personalized letter a QR code for patientsto scan in the waiting room </p>
                     </div>
                     <div class="col col-lg-6 col-sm-12">
+                        <!-- QR CodeImage -->
                         <img class="rounded mx-auto d-block" src="{% static 'assets/img/icons/qr.svg' %}" alt="">
                         <div class="d-flex">
                             <p class=" ml-6 mr-2 mt-6  text-center">Download only the <a href="#">QR code</a> to show or send to patients </p>

@@ -1028,7 +1028,9 @@ input[type="button"].btn-block {
 .navbar-toggler-humburger-icon:hover, .navbar-toggler-humburger-icon:focus {
   background-color: #d8e2ef;
 }
-
+.navbar-toggler-humburger-icon{
+  border: none;
+}
 .navbar-toggle-icon {
   position: relative;
   height: 0.125rem;
@@ -1040,7 +1042,9 @@ input[type="button"].btn-block {
   top: -0.3125rem;
   padding-right: 0;
 }
-
+.navbar-toggler:focus{
+  box-shadow: none;
+}
 .navbar-toggle-icon .toggle-line {
   display: block;
   height: 100%;

@@ -7,7 +7,7 @@
 
 <nav class="navbar ndavbar-glass navbar-top sticky-kit px-4 navbar-expand" style="background-color:#2c7be5 ;">
 
-    <button class="btn bg-white navbar-toggler-humburger-icon navbar-toggler mr-1 mr-sm-3" type="button" data-toggle="collapse" data-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
+    <button class="btn bg-white navbar-toggler-humburger-icon navbar-toggler mr-1 mr-sm-3" type="button" data-toggle="collapse" data-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation" style="box-shadow: none;"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
     <a class="navbar-brand mr-1 mr-sm-3" href="{% url 'landing' %}">
       <div class="d-flex align-items-center" ><span class=" text-white text-sans-serif">PreDoc</span>
       </div>
@@ -20,7 +20,16 @@
       
       <li class="nav-item mr-3 dropdown dropdown-on-click"><a class="nav-link pr-0" id="navbarDropdownUser" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <div class="avatar avatar-xl">
-            <img class="rounded-circle" src="{% static 'assets/img/generic/3-thumb.jpg' %}" alt="" />
+            <!-- User's Avatar -->
+
+            <img class="rounded-circle"
+            {% if request.user.profile_image %}
+
+             src="{{ request.user.profile_image.url }}"
+             {% else %}
+             src="{% static 'assets/img/icons/avatar.svg' %}"
+              {% endif %}
+             alt="" />
 
           </div>
         </a>

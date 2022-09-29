@@ -37,43 +37,10 @@
       $("#myModal").modal('show');
   });
 
-// Show div on click
-//  var elements = document.querySelectorAll('.show_div')
-//   for (let element of elements ){
-//     let expandbtn = element.querySelector('.button_show_div')
-//     expandbtn.addEventListener('click', (e) =>{
-//       console.log(expandbtn,"Its clicked")
-//       let x = document.querySelector(".show_able_div")
-//       console.log(x,'itsa a containr')
-//       if (x.style.display === "none") {
-//         x.style.display = "block";
-//         setTimeout(function() {
-//         $('.show_able_div');
-//       }, 2000);
-//     }
-//      else {
-//         x.style.display = "none";
-//     }
-//     }) 
-//   }
-
-  // jQuery($ => {
-  //   $('#identify').on('click', function() {
-  //     setTimeout(function() {
-  //       $('.show_able_div').removeClass('hide');
-  //     }, 2000);
-  //   });
-  // });
-//   $('.button_show_div').on("click",function(){
-//     $(window).scrollTop(0);
-// });
-
   var elements = document.querySelectorAll('.show_div')
   for (let element of elements ){
     let expandbtn = element.querySelector('.button_show_div')
     expandbtn.addEventListener('click', (e) =>{
-      console.log(expandbtn,'button clicked')
-      // console.log(x,'itsa a containr')
       setTimeout(function() {
         $('.show_able_div').removeClass('hide');
         }, 2000);
@@ -86,10 +53,9 @@
        
   function loadingPage() {
     var div = document.getElementById("loading-wrapper")
-    console.log("testttttttttttttttttt")
     div.style.display = "block";
     setTimeout(function(){ 
       document.getElementById("loading-wrapper").style.display = "none"; 
   }, 
   2000);
-        }
+}

@@ -31,24 +31,24 @@
                     <form method="POST"  >
                      
                       {% csrf_token %}
-                      <div class="form-group">
+                      <div class="form-group mt-2">
                         <label class="text-heading" for="card-email">Email</label>
                         <!-- <input class="form-control" required name="username" type="text" /> -->
                         {{loginform.email}}
                       </div>
-                      <div class="form-group">
+                      <div class="form-group mt-2">
                         <div class="d-flex justify-content-between">
                           <label class="text-heading" for="card-password">Password</label><a class="fs--1 text-heading" href="{% url 'forget_password' %}">Forgot Password?</a>
                         </div>
                         {{loginform.password}}
                         <!-- <input class="form-control" required name="password" type="password" /> -->
                       </div>        
-                      <div class="custom-control custom-checkbox">
+                      <div class="custom-control custom-checkbox mt-2">
                         <input class="custom-control-input" type="checkbox" id="card-checkbox" checked="checked" />
                         <label class="custom-control-label text-heading" for="card-checkbox">Remember me</label>
                       </div>
-                      <div class="form-group">
-                        <button class="btn btn-outline-primary btn-block mt-3" type="submit" name="submit">Log in</button>
+                      <div class="form-group mt-2">
+                        <button class="btn btn-outline-primary btn-block" type="submit" name="submit">Log in</button>
                       </div>
                     </form>
                   </div>

@@ -1,29 +1,40 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+
+  <style>
+    .video-landing{
+      border-radius: 10px;
+      width:100%;
+    }
+  </style>
+
+{% endblock extra_css %}
+
 {% block content %}
 
     <main class="">
         <div class="mt-6 mx-4">
             <div class="showcase">
                 <div class="align-middle text-heading">
-                    <p class="display-3 text-primary">PreDoc</p>
+                    <p class="display-3 text-heading">PreDoc</p>
                     <p class="mt-4 h5 text-black">
                         Pre-appoinment Questionnaries <br>
                         Documentation Automation
                     </p>
                 </div>
                 <div class="row mt-6">
-                    <div class="col-lg-4 col-sm-12">
+                    <div class="col-lg-5 col-sm-12">
                         <div class="mt-4">
-                            <h2 class="fs-1  text-heading fs-sm-3 fs-md-4"> Concrete Value</h2>
+                            <h2 class="fs-1 text-heading fs-sm-3 fs-md-4"> Concrete Value</h2>
                             <p class="">Placeholders Example of value Explination</p>
                         </div>
                     </div>
                     <div class="col-lg-7 col-sm-12">
                         <div class="video-main-div d-flex justify-content-center ">
                           <!-- Video Tag  -->
-                            <video controls height="350" class="video-landing" muted>
+                            <video controls height="300" class="video-landing" muted>
                                 <source src="{% static 'assets/img/video/super.mp4' %}" >
                                 Your browser does not support HTML video.
                             </video>
@@ -51,14 +62,14 @@
                       <!-- Illustration First Image -->
                       <img class="img-fluid" src="{% static 'assets/img/generic/1.svg' %}" alt="" />
                     </div>
-                    <div class="col-lg-6 mt-4 mt-md-0">
+                    <div class="col-lg-6 mt-4 ml-4 mt-md-0">
                       <h3>Blueprint & design </h3>
                       <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta cupiditate, soluta dignissimos fugiat nisi eos.</p>
                     </div>
                   </div>
-                    <!-- Illustration Second Image -->
-                    <div class="row mt-7">
-                      <div class=" col-lg-5 col-sm-12 order-md-2">
+                  <div class="row mt-7">
+                    <div class=" col-lg-5 col-sm-12 order-md-2">
+                        <!-- Illustration Second Image -->
                         <img class="img-fluid " src="{% static 'assets/img/generic/2.svg' %}" alt="" />
                       </div>
                       <div class="col-md col-lg-6 ml-4 mt-4 ">
@@ -290,6 +301,7 @@
                     </div>
                   </div>
           </section>
+            </div>
         </div>
         {% include 'seconed_fotter.html' %}
     </main>

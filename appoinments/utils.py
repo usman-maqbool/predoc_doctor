@@ -1,1 +1,0 @@
-BASE_LINK_FOR_EMAIL ="http://127.0.0.1:8000"

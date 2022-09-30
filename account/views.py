@@ -34,7 +34,7 @@ class SignUpView(View):
         email = request.POST.get("email")
         password1 = request.POST.get("password1")
         password2 = request.POST.get("password2")
-        user_obj = User.objects.filter(email=email).exists()
+        user_obj = UserModel.objects.filter(email=email).exists()
         if user_obj:
             messages.success(
                 request,

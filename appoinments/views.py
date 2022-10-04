@@ -21,9 +21,10 @@ class ContactUsPageView(View):
 class DashBoardPageView(LoginRequiredMixin,View):
     def get(self,request):
         appoinments = Appoinment.objects.all()
+
         context={
             "title":"Dashboard",
-            "appoinments":appoinments
+            "appoinments":appoinments,
         }
         return render(request,'dashboard.html', context)
 

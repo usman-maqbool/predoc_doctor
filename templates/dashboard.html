@@ -24,76 +24,42 @@
               </div>
             </div>
           </div>
-
-        <!-- Modal POp On Id -->
-           <!-- {% for appoinment in appoinments %}
-            <div class="modal fade" id="id-{{appoinment.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-lg modal-dialog-scrollable" id="style-4" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class=" text-heading">
-                      <h2 class="text-heading">Current Patient</h2>
-                      <h4 class=" mt-4 text-dark">{{ appoinment.patient.first_name }} {{ appoinment.patient.last_name }}</h4>
-                      <h4 class="text-dark"> {{ appoinment.patient.dob }}</h4>
-                      <h4 class="text-dark">{{ appoinment.patient.age }} Years Old {{appoinment.patient.gender}}</h4> 
-                    </div>
-                  
-                    <div class="mt-4 ">
-                          <div class="col col-lg-12 ">
-                              <div class="borddder overflow-auto bg-ldight user-inner-text" style="height:40%">
-                                <div class="mx-4 p-2">
-                                     <p class="h5 text-uppercase"> pc</p>
-                                    <p class="h5 text-capitalize my-4">{{ appoinment.qs.syptoms }}</p>
-                                   <p class="h5 text-uppercase mt-4">hpc</p>
-                                    <p class="h6 my-2" >Sudden onset</p>
-                                    <p class="h6 my-2" >" I was at work lifting a Tesla tyre and felt my back go "</p>
-                                    <p class="h6 my-2" >left sided.</p>
-                                    <p class="h6 my-2" >lumbar</p>
-                                    <p class="h6 my-2" >no radiculopathy</p>
-                                    <p class="h5 text-uppercase mt-4">Pmh</p>
-                                    <p class="h6 my-2" >Lumbar discectomy 2016, Dr. Matt Rackham, Ashford Hospital</p>
-                                    <p class="h6 my-2" >Hypertension</p>
-                                    <p class="h6 my-2" >Hypercholesterolaemia</p>
-                                    <p class="h6 my-2" >Autism Spectrum Disorder</p>
-                                    <p class="h5 text-uppercase mt-4">Medications</p>
-                                    <p class="h6 my-2" >Perindopril 5mg mane</p>
-                                    <p class="h6 my-2" >Rosuvastatin 40mg mane</p> 
-                                  </div>
-                              </div>
-                              <div class="mt-4">
-                                <p class="h6">
-                                    <span class="text-heading border-bottom border-white">Question and Answere</span> - 
-                                    view the original phrasing and answers                                
-                                </p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {% endfor %} -->
             <!-- Loader -->
           <div id="loading-wrapper">
             <div class="" id="loader"></div>
           </div>
+          <!-- Data Shows Here -->
           <div class="container show_able_div hide animate-bottom" id="show_able_div">
 
             </div>
 
-
-            <div class="condition_base_data">
+            <!-- First Patients Data-->
+          <div class="container" id="current_div" style="display:block ;">
+            <div class="modal-body">
+              <div class=" text-heading">
+                <h2 class="text-heading">Current Patient</h2>
+                <h4 class=" mt-4 text-dark">{{ obj.patient.first_name }} {{ obj.patient.last_name }}</h4>
+                <h4 class="text-dark"> {{ obj.patient.dob }}</h4>
+                <h4 class="text-dark">{{ obj.patient.age }} Years Old {{obj.patient.gender}}</h4> 
+              </div>
+              <div class="mt-4 ">
+                <div class="col col-lg-12 ">
+                  <div class="border overflow-auto bg-ldight user-inner-text" style="height:40%">
+                    <div class="mx-4 p-2">
+                      <p class="h5 text-capitalize my-4">{{ obj.qs.syptoms }}</p>
+                    </div>
+                   </div>
+                  <div class="mt-4">
+                    <p class="h6">
+                      <span class="text-heading border-bottom border-white">Question and Answere</span> - 
+                          view the original phrasing and answers                                
+                        </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="condition_base_data">
 
             {% if appoinments %}
 
@@ -121,7 +87,6 @@
                       <tbody>
                         <tr class="text-center text-heading show_div">
                           <th scope="row" onclick="loadingPage()" id="get_ajax_request" class="cursor-pointer button_show_div" data-target="#id-{{appoinment.id}}">
-                            <!-- <a data-toggle="modal" data-target="#id-{{appoinment.id}}" aria-controls="{{appoinment.id}}">{{ appoinment.patient.first_name }}</a> -->
                             {{ appoinment.patient.first_name }}
                           </th>
                           <td>{{appoinment.patient.dob}}</td>
@@ -135,8 +100,6 @@
                       {% endfor %}
                 </table>
               </div>
-
-
               <div class="d-flex justify-content-end">
                 <nav aria-label="Page navigation example">
                   <ul class="pagination">
@@ -169,98 +132,8 @@
               </div>
             {% endif %}
           </div>
-        
-
       </div>
     </main>
     {% include 'seconed_fotter.html' %}
 
 {% endblock content %}
-
-{% block extra_javascript %}
-
-    <script>
-    let get_ajax_request = document.querySelectorAll('.button_show_div')
-    var show_data = document.getElementById('show_able_div')
-    for (let element of get_ajax_request){
-      element.addEventListener('click',(e) => {
-        id = element.getAttribute('data-target').slice(4)
-        axios.get('/all-patient/' +id).then(function(resp){
-          show_data.innerHTML = resp.data
-          console.log(show_data)
-        }).catch(function(err){
-          console.log(err)
-        })
-      })
-    }    
-    </script>
-
-<script>
-  let get_request = document.querySelectorAll('.button_show_div')
-  var show_data = document.getElementById('show_able_div')
-  for (let element of get_ajax_request){
-
-
-    }    
-</script>
- <!-- <script>
-// let get_ajax_request = document.querySelectorAll('.button_show_div')
-  var show_data = document.getElementById('show_able_div')
-  var get_ajax_request = document.querySelectorAll('.button_show_div')
-
-  for (let element of get_ajax_request ){
-    element.addEventListener('click', (e) =>{
-    
-      console.log(element.getAttribute("data-target"),'request_button')
-      var slice = element.getAttribute("data-target").slice(4)
-      console.log(slice)
-    let token                                   = document.querySelector('input[type="hidden"]');   
-    // let identification_details_one_id_type      = document.getElementById('identification-details-one-id-type').value;   
-    // let identification_details_one_id_number    = document.getElementById('identification-details-one-id-number').value;   
-    // let identification_details_one_issue_date   = document.getElementById('identification-details-one-issue-date').value;   
-    // let identification_details_one_expiry_date  = document.getElementById('identification-details-one-expiry-date').value;   
-    // let identification_details_one_place_issue  = document.getElementById('identification-details-one-place-issue').value;   
-    // let id                                      = document.getElementById('identf_id').value; 
-    // let identification_details_two_id_type      = document.getElementById('identification-details-two-id-type').value;   
-    // let identification_details_two_id_number    = document.getElementById('identification-details-two-id-number').value;   
-    // let identification_details_two_issue_date   = document.getElementById('identification-details-two-issue-date').value;   
-    // let identification_details_two_expiry_date  = document.getElementById('identification-details-two-expiry-date').value;   
-    // let identification_details_two_place_issue  = document.getElementById('identification-details-two-place-issue').value;   
-    // let id_two                                  = document.getElementById('identf_id_2').value; 
-    $.ajax({
-        type:'GET', 
-        url:`/all-patient/${slice}/`,
-        // data:{
-        //     "csrfmiddlewaretoken"       : token.value,
-        //     "id_type"                   : identification_details_one_id_type,
-        //     "id_num"                    : identification_details_one_id_number,
-        //     "issue_date"                : identification_details_one_issue_date,
-        //     "expiry_date"               : identification_details_one_expiry_date,
-        //     "place_of_issue"            : identification_details_one_place_issue,
-
-        //     // //! id_two
-            
-        //     // "t_id_type"                 : identification_details_two_id_type,
-        //     // "t_id_num"                  : identification_details_two_id_number,
-        //     // "t_issue_date"              : identification_details_two_issue_date,
-        //     // "t_expiry_date"             : identification_details_two_expiry_date,
-        //     // "t_place_of_issue"          : identification_details_two_place_issue
-        // },
-        success: (res) =>{
-          console.log(res.data)
-          // show_data.innerHTML = res.data
-          // console.log(show_data)
-            // document.getElementById('show_able_div').innerHTML = res.id;
-            // console.log(document.getElementById('test').innerHTML = res.id)
-            // $('#modal-create-new-loan').modal('close')
-            // $('#modal-create-new-loan-complete').modal('show')
-        }, 
-        error: (error) =>{
-            console.log("error")
-        }
-    }) 
-})
-  }
-</script>  -->
-
-{% endblock extra_javascript %}

@@ -1,5 +1,5 @@
 from .models import Appoinment
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -68,3 +68,25 @@ class DisAgrePageView(LoginRequiredMixin,View):
             'title':"Disagree"
         }
         return render(request, 'pages/disagree.html', context)
+
+# class AllPatientView(View):
+#     def get(self,request, *args, **kwargs):
+#         # appoinments = Appoinment.objects.all()
+#         id = kwargs.get('id')
+#         appoinments = get_object_or_404(Appoinment, id=id)
+#         print(id,'id is')
+#         context={
+#             "appoinments":appoinments,
+#         }
+#         return render(request,'pages/all_patiebt.html', context)
+
+
+class AllPatientView(View):
+    def get(self,request, *args, **kwargs):
+        # appoinments = Appoinment.objects.all()
+        id = kwargs.get('id')
+        appoinments = get_object_or_404(Appoinment, id=id)
+        context={
+            "appoinments":appoinments,
+        }
+        return render(request,'pages/all_patiebt.html', context)

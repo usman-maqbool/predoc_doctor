@@ -32,11 +32,12 @@
   $('#myTable').DataTable();
 } );
 
-    // Loader Model
+    // Model Show Load
   $(document).ready(function(){
       $("#myModal").modal('show');
   });
 
+  // User Details Models 
   var elements = document.querySelectorAll('.show_div')
   for (let element of elements ){
     let expandbtn = element.querySelector('.button_show_div')
@@ -50,7 +51,7 @@
     });
   }
 
-       
+      //  Spinner
   function loadingPage() {
     var div = document.getElementById("loading-wrapper")
     div.style.display = "block";

@@ -6,7 +6,25 @@
 
    
     <main class="main" id="top">
+
       <div class="container">
+
+          <!-- Loading Modal -->
+          <div class="modal  arrow-top fade right" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog left-modal" role="document">
+              <div class="modal-content chat" >
+                
+                <div class="modal-body">
+                  <h5 class="my-4 mx-2">Have you read and do you agree to our <a href="{% url 'terms_condition' %}">Terms and Condition</a> and <a href="{% url 'privacy_policy' %}">Privacy Policy</a>?</h5>
+                </div>
+                <div class="modal-footer">
+                  <a href="{% url 'disagree' %}"><button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">No I Don't Agree</button></a>
+                  <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Yes I Agree</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         <!-- Modal POp On Id -->
            <!-- {% for appoinment in appoinments %}
             <div class="modal fade" id="id-{{appoinment.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -67,11 +85,12 @@
             </div>
             {% endfor %} -->
             <!-- Loader -->
-            <div id="loading-wrapper">
-              <div class="" id="loader"></div>
+          <div id="loading-wrapper">
+            <div class="" id="loader"></div>
           </div>
-          <div class="container show_able_div hide animate-bottom" id="amaizng" >
-              <div class="modal-body">
+         
+          <div class="container show_able_div hide animate-bottom" id="show_able_div">
+              <!-- <div class="modal-body">
                 <div class=" text-heading">
                   <h2 class="text-heading">Current Patient</h2>
                   <h4 class=" mt-4 text-dark">Lorem Ipsum</h4>
@@ -107,10 +126,11 @@
                           </div>
                       </div>
                   </div>
-              </div>
+              </div> -->
             </div>
 
-          <div class="condition_base_data">
+
+            <div class="condition_base_data">
 
             {% if appoinments %}
 
@@ -137,7 +157,7 @@
                       {% for appoinment in appoinments %}
                       <tbody>
                         <tr class="text-center text-heading show_div">
-                          <th scope="row" onclick="loadingPage()" id="identify" class="cursor-pointer button_show_div" data-target="#id-{{appoinment.id}}">
+                          <th scope="row" onclick="loadingPage()" id="get_ajax_request" class="cursor-pointer button_show_div" data-target="#id-{{appoinment.id}}">
                             <!-- <a data-toggle="modal" data-target="#id-{{appoinment.id}}" aria-controls="{{appoinment.id}}">{{ appoinment.patient.first_name }}</a> -->
                             {{ appoinment.patient.first_name }}
                           </th>
@@ -186,21 +206,7 @@
               </div>
             {% endif %}
           </div>
-          <!-- Loading Modal -->
-         <div class="modal  arrow-top fade right" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog left-modal" role="document">
-            <div class="modal-content chat" >
-              
-              <div class="modal-body">
-                <h5 class="my-4 mx-2">Have you read and do you agree to our <a href="{% url 'terms_condition' %}">Terms and Condition</a> and <a href="{% url 'privacy_policy' %}">Privacy Policy</a>?</h5>
-              </div>
-              <div class="modal-footer">
-                <a href="{% url 'disagree' %}"><button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">No I Don't Agree</button></a>
-                <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Yes I Agree</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        
 
       </div>
     </main>
@@ -208,3 +214,90 @@
 
 {% endblock content %}
 
+{% block extra_javascript %}
+
+    <script>
+    let get_ajax_request = document.querySelectorAll('.button_show_div')
+    var show_data = document.getElementById('show_able_div')
+    for (let element of get_ajax_request){
+      element.addEventListener('click',(e) => {
+        id = element.getAttribute('data-target').slice(4)
+        axios.get('/all-patient/' +id).then(function(resp){
+          show_data.innerHTML = resp.data
+          console.log(show_data)
+        }).catch(function(err){
+          console.log(err)
+        })
+      })
+    }    
+    </script>
+
+<script>
+  let get_request = document.querySelectorAll('.button_show_div')
+  var show_data = document.getElementById('show_able_div')
+  for (let element of get_ajax_request){
+
+
+    }    
+</script>
+ <!-- <script>
+// let get_ajax_request = document.querySelectorAll('.button_show_div')
+  var show_data = document.getElementById('show_able_div')
+  var get_ajax_request = document.querySelectorAll('.button_show_div')
+
+  for (let element of get_ajax_request ){
+    element.addEventListener('click', (e) =>{
+    
+      console.log(element.getAttribute("data-target"),'request_button')
+      var slice = element.getAttribute("data-target").slice(4)
+      console.log(slice)
+    let token                                   = document.querySelector('input[type="hidden"]');   
+    // let identification_details_one_id_type      = document.getElementById('identification-details-one-id-type').value;   
+    // let identification_details_one_id_number    = document.getElementById('identification-details-one-id-number').value;   
+    // let identification_details_one_issue_date   = document.getElementById('identification-details-one-issue-date').value;   
+    // let identification_details_one_expiry_date  = document.getElementById('identification-details-one-expiry-date').value;   
+    // let identification_details_one_place_issue  = document.getElementById('identification-details-one-place-issue').value;   
+    // let id                                      = document.getElementById('identf_id').value; 
+    // let identification_details_two_id_type      = document.getElementById('identification-details-two-id-type').value;   
+    // let identification_details_two_id_number    = document.getElementById('identification-details-two-id-number').value;   
+    // let identification_details_two_issue_date   = document.getElementById('identification-details-two-issue-date').value;   
+    // let identification_details_two_expiry_date  = document.getElementById('identification-details-two-expiry-date').value;   
+    // let identification_details_two_place_issue  = document.getElementById('identification-details-two-place-issue').value;   
+    // let id_two                                  = document.getElementById('identf_id_2').value; 
+    $.ajax({
+        type:'GET', 
+        url:`/all-patient/${slice}/`,
+        // data:{
+        //     "csrfmiddlewaretoken"       : token.value,
+        //     "id_type"                   : identification_details_one_id_type,
+        //     "id_num"                    : identification_details_one_id_number,
+        //     "issue_date"                : identification_details_one_issue_date,
+        //     "expiry_date"               : identification_details_one_expiry_date,
+        //     "place_of_issue"            : identification_details_one_place_issue,
+
+        //     // //! id_two
+            
+        //     // "t_id_type"                 : identification_details_two_id_type,
+        //     // "t_id_num"                  : identification_details_two_id_number,
+        //     // "t_issue_date"              : identification_details_two_issue_date,
+        //     // "t_expiry_date"             : identification_details_two_expiry_date,
+        //     // "t_place_of_issue"          : identification_details_two_place_issue
+        // },
+        success: (res) =>{
+          console.log(res.data)
+          // show_data.innerHTML = res.data
+          // console.log(show_data)
+            // document.getElementById('show_able_div').innerHTML = res.id;
+            // console.log(document.getElementById('test').innerHTML = res.id)
+            // $('#modal-create-new-loan').modal('close')
+            // $('#modal-create-new-loan-complete').modal('show')
+        }, 
+        error: (error) =>{
+            console.log("error")
+        }
+    }) 
+})
+  }
+</script>  -->
+
+{% endblock extra_javascript %}

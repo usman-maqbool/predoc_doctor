@@ -1,3 +1,4 @@
+from email.policy import default
 from tabnanny import verbose
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
@@ -44,6 +45,7 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
     dob = models.DateField(blank=True,null=True)
     gender = models.CharField(max_length=10,choices=GENDER_CHOICES,null=True,blank=True)
     age = models.IntegerField(blank=True, null=True)
+    is_agree = models.BooleanField(default=False)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)

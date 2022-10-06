@@ -1,5 +1,5 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from .forms import SignUpForm, LoginForm, ForgetPasswordForm
@@ -116,10 +116,10 @@ class VerificationView(View):
         return redirect('login')
 # LoGin
 class LogInView(View):
-    def get(self, request):
+    def get(self, request, *args, **kwargs ):
         context={
             "title":"LogIn",
-            'loginform':LoginForm
+            'loginform':LoginForm,
 
         }
         return render(request, 'accounts/login.html' ,context)
@@ -132,7 +132,7 @@ class LogInView(View):
             login(request, user)
             return redirect('dashboard')
         else:
-            messages.error(request, "Invalid Credentials ")
+            messages.error(request, "Invalid Credentials")
             return redirect('login')
 
 # LogOut

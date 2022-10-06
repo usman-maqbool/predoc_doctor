@@ -1,6 +1,7 @@
 from django.urls import path
 
 from .views import AbooutPageView, AllPatientView, DashBoardPageView, DisAgrePageView, LandingPageView, PdfPageView,  PrivacyPolicyPageView,ContactUsPageView, StartHerePageView, TermsAndCondtionPageView
+#,  show_plates
 
 urlpatterns = [
     path('',LandingPageView.as_view(),name='landing'),
@@ -12,7 +13,6 @@ urlpatterns = [
     path('privacy/policy/',PrivacyPolicyPageView.as_view(),name='privacy_policy'),
     path('pdf/file/',PdfPageView.as_view(),name='pdf_file'),
     path('disagree/',DisAgrePageView.as_view(),name='disagree'),
-    path('all-patient/<int:id>/',AllPatientView.as_view(),name='all_patient')
-    # path('all-patient/',AllPatientView.as_view(),name='all_patient')
+    path('all-patient/<int:id>/',AllPatientView.as_view(),name='all_patient'),
 ]
 

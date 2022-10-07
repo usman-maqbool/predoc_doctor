@@ -5,6 +5,11 @@ from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 from django.utils.translation import gettext_lazy as _
 from .mixins import TimeStampMixin
 from .users import *
+import random
+import qrcode
+from PIL import Image, ImageDraw
+from io import BytesIO
+from django.core.files import File
 
 GENDER_CHOICES = (
     ('male', 'male'),
@@ -45,6 +50,7 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
     dob = models.DateField(blank=True,null=True)
     gender = models.CharField(max_length=10,choices=GENDER_CHOICES,null=True,blank=True)
     age = models.IntegerField(blank=True, null=True)
+    # qr_image=models.ImageField(upload_to='qrcode',blank=True)
     is_agree = models.BooleanField(default=False)
 
     is_active = models.BooleanField(default=True)
@@ -89,4 +95,15 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
         except:
             return self.email
 
-    
+    # def save(self,*args,**kwargs):
+    #     qrcode_img=qrcode.make(self.last_name)
+    #     sec_img=qrcode.make(self.first_name)
+    #     canvas=Image.new("RGB", (300,300),"white")
+    #     draw=ImageDraw.Draw(canvas)
+    #     canvas.paste(qrcode_img)
+    #     canvas.paste(sec_img)
+    #     buffer=BytesIO()
+    #     canvas.save(buffer,"PNG")
+    #     self.qr_image.save(f'image{random.randint(0,9999)}',File(buffer),save=False)
+    #     canvas.close()
+    #     super().save(*args,**kwargs)

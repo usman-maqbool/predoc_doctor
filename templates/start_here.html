@@ -25,36 +25,51 @@
         </div>
         <div class=" d-flex justify-content-center ">
             <div class="col col-lg-12 col-sm-12">
-                <form>
+                <form method="POST">
+                    {% csrf_token %}
                     <div class="form-row">
                         <div class="form-group col-lg-6 col-sm-12">
                             <label class="text-black" for="card-password">First Name</label>
-                            <input required class="form-control" type="text" name="password" />
+                            <input type="text" class="form-control" placeholder="Enter Your First Name" required name="first_name">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-lg-6 col-sm-12">
                         <label class="text-black" for="card-confirm-password">Last Name</label>
-                        <input required class="form-control" type="text" id="card-confirm-password" />
+                        <input type="text" class="form-control" placeholder="Enter Your Last Name" required name="last_name">
                         </div>
+                    </div>
+                    <div class="my-4">
+                        <button class="btn btn-primary" type= "submit" >Get QRcode</button>
                     </div>
                 </form>
             </div>
         </div>
+        <!-- <img src=""/><br> -->
         <div class="row mt-6">
             <div class="col col-lg-6 col-sm-12">
                 <!-- Pdf Image -->
-                <a href="{% static 'assets/files/PreDoc.pdf' %}" download><img class="rounded mx-auto d-block" src="{% static 'assets/img/icons/pdf.png' %}" alt="">   </a>
+                <a href="{% static 'assets/files/PreDoc.pdf' %}" download>
+                    <img class="rounded mx-auto d-block" src="{% static 'assets/img/icons/pdf.png' %}" alt=""> 
+                </a>
                 <p class=" mx-6 mt-6  text-center"> Click this to open your personalized letter a QR code for patientsto scan in the waiting room </p>
             </div>
             <div class="col col-lg-6 col-sm-12">
                 <!-- QR CodeImage -->
-                <img class="rounded mx-auto d-block" src="{% static 'assets/img/icons/qr.svg' %}" alt="">
+                {% if qr_code.image %}
+                <img class="rounded mx-auto d-block" src="{{qr_code.image.url}}" alt="">
+                
                 <div class="d-flex">
                     <p class=" ml-6 mr-2 mt-6  text-center">Download only the <a href="#">QR code</a> to show or send to patients </p>
                     <span class="mt-6 ">
                         <i class="text-black fa fa-arrow-circle-down" style="font-size: 36px;"></i></span>
                 </div>
+                {% else %}
+                <img class="rounded mx-auto d-block" src="{% static 'assets/img/icons/qr.svg' %}" alt="">
+                <div class="d-flex">
+                    <p class=" ml-6 mr-2 mt-6  text-center">Genrate Your <a href="#">QR code</a> and  download </p>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>

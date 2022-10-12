@@ -135,25 +135,31 @@ from django.utils import timezone
 @csrf_exempt
 def webhook(request):
     if request.method =='POST':
-        print(request.body)
-    
-    # given_token = request.headers.get("Acme-Webhook-Token", "")
-    # if not compare_digest(given_token, settings.ACME_WEBHOOK_TOKEN):
-    #     return HttpResponseForbidden(
-    #         "Incorrect token in Acme-Webhook-Token header.",
-    #         content_type="text/plain",
-    #     )
-
-    # Questionire.objects.filter(
-    #     received_at__lte=timezone.now() - dt.timedelta(days=7)
-    # ).delete()
+        # print(request.body)
         payload = json.loads(request.body)
-        # x = json.(payload)
-        # print("Before load :",type(x))
+        json_object = json.dumps(payload)
+        print('finding type',type(json_object))        
+
+
+
+
+        # jsondata = request.body
+        # data = json.loads(jsondata)
+        # for answer in data['form_response']['answers']: # go through all the answers
+        #     type = answer['type']
+        #     print(f'answer: {answer[type]}') # print value of answers
+
+
+
         
 
-        b =Questionire.objects.create(
-            syptoms=payload,
-        )
-        print("load the body:",b.syptoms['event_id'])
+        # print("i am finding thetype",type(answer))
+        # print(answer)
+       
+        # Questionire.objects.create(
+        #     syptoms=payload,
+            # syptoms=answer,
+            # syptoms=json_object,
+            # print("load the body:",payload['form_response'])
+        # )
     return render(request, 'pages/questionire.html',content_type="text/plain")

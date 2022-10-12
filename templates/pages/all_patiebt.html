@@ -11,8 +11,10 @@
       <div class="col col-lg-12 ">
         <div class="border overflow-auto bg-ldight user-inner-text" style="height:40%">
           <div class="mx-4 p-2">
-            <p class="h5 text-capitalize my-4">{{ appoinments.qs.syptoms }}</p>
-                    
+            {% for i in appoinments.qs.syptoms.form_response.answers %}
+              <p class="h5 text-capitalize my-4">{{ i.text }}</p>
+              <p class="h5 text-capitalize my-4">{{ i.boolean }}</p>
+            {% endfor %}
           </div>
         </div>
         <div class="mt-4">

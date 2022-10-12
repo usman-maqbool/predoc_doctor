@@ -1,10 +1,10 @@
 from account.models import UserModel
-from .models import Appoinment, QrCode
+from .models import Appoinment, QrCode, Questionire
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator ,EmptyPage, PageNotAnInteger
-
+from django.views.decorators.csrf import csrf_exempt
 
 import io   
 import qrcode.image.svg 
@@ -63,12 +63,7 @@ class StartHerePageView(LoginRequiredMixin,View):
 
     def post(self,request):
         first_name=request.POST['first_name']
-        print(first_name,'my first name is')
         last_name=request.POST['last_name']
-        print(last_name,'my first name is')
-        # user = get_object_or_404(QrCode, id=request.user.id)
-        # print(user,'its id')
-        print(id)
         QrCode.objects.create(
             user=request.user,
             first_name=first_name,
@@ -114,6 +109,9 @@ class DisAgrePageView(LoginRequiredMixin,View):
 
 
 
+
+
+
 class AllPatientView(View):
     def get(self,request, *args, **kwargs):
         id = kwargs.get('id')
@@ -122,3 +120,40 @@ class AllPatientView(View):
             "appoinments":appoinments,
         }
         return render(request,'pages/all_patiebt.html', context)
+
+import datetime as dt
+import json
+from secrets import compare_digest
+
+from django.conf import settings
+from django.db.transaction import atomic, non_atomic_requests
+from django.http import HttpResponse, HttpResponseForbidden
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.utils import timezone
+
+@csrf_exempt
+def webhook(request):
+    if request.method =='POST':
+        print(request.body)
+    
+    # given_token = request.headers.get("Acme-Webhook-Token", "")
+    # if not compare_digest(given_token, settings.ACME_WEBHOOK_TOKEN):
+    #     return HttpResponseForbidden(
+    #         "Incorrect token in Acme-Webhook-Token header.",
+    #         content_type="text/plain",
+    #     )
+
+    # Questionire.objects.filter(
+    #     received_at__lte=timezone.now() - dt.timedelta(days=7)
+    # ).delete()
+        payload = json.loads(request.body)
+        # x = json.(payload)
+        # print("Before load :",type(x))
+        
+
+        b =Questionire.objects.create(
+            syptoms=payload,
+        )
+        print("load the body:",b.syptoms['event_id'])
+    return render(request, 'pages/questionire.html',content_type="text/plain")

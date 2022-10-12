@@ -19,7 +19,6 @@
                 <div class="modal-body">
                   <h5 class="my-4 mx-2">Have you read and do you agree to our <a href="{% url 'terms_condition' %}">Terms and Condition</a> and <a href="{% url 'privacy_policy' %}">Privacy Policy</a>?</h5>
                 </div>
-                <input type="checkbox" name="box" value="{{user.is_agree}}" id="">
                 <div class="modal-footer">
                   <a href="{% url 'disagree' %}"><button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">No I Don't Agree</button></a>
                   

@@ -5,9 +5,12 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator ,EmptyPage, PageNotAnInteger
 from django.views.decorators.csrf import csrf_exempt
+import json
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
-import io   
-import qrcode.image.svg 
+
+
 import qrcode
 class LandingPageView(View):
     def get(self,request):
@@ -54,7 +57,7 @@ class DashBoardPageView(LoginRequiredMixin,View):
 
 class StartHerePageView(LoginRequiredMixin,View):
     def get(self,request):
-        qr_code = QrCode.objects.filter(user=request.user).last()
+        qr_code = QrCode.objects.filter(user=request.user).first()
         context = {
             "title":"Start Here",
             "qr_code":qr_code
@@ -62,12 +65,15 @@ class StartHerePageView(LoginRequiredMixin,View):
         return render(request, 'start_here.html' , context)
 
     def post(self,request):
-        first_name=request.POST['first_name']
-        last_name=request.POST['last_name']
+        # first_name=request.POST['first_name']
+        # last_name=request.POST['last_name']
+        url=request.POST['url']
+        print(url)
         QrCode.objects.create(
             user=request.user,
-            first_name=first_name,
-            last_name=last_name
+            # first_name=first_name,
+            # last_name=last_name,
+            url=url
             )
         return redirect('start_here')
 
@@ -107,11 +113,6 @@ class DisAgrePageView(LoginRequiredMixin,View):
         }
         return render(request, 'pages/disagree.html', context)
 
-
-
-
-
-
 class AllPatientView(View):
     def get(self,request, *args, **kwargs):
         id = kwargs.get('id')
@@ -121,16 +122,6 @@ class AllPatientView(View):
         }
         return render(request,'pages/all_patiebt.html', context)
 
-import datetime as dt
-import json
-from secrets import compare_digest
-
-from django.conf import settings
-from django.db.transaction import atomic, non_atomic_requests
-from django.http import HttpResponse, HttpResponseForbidden
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
-from django.utils import timezone
 
 @csrf_exempt
 def webhook(request):

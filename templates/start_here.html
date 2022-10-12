@@ -29,15 +29,17 @@
                 <form method="POST">
                     {% csrf_token %}
                     <div class="form-row">
-                        <div class="form-group col-lg-6 col-sm-12">
+                        <!-- <div class="form-group col-lg-6 col-sm-12">
                             <label class="text-black" for="card-password">First Name</label>
                             <input type="text" class="form-control" placeholder="Enter Your First Name" required name="first_name">
                         </div>
-                    </div>
-                    <div class="form-row">
                         <div class="form-group col-lg-6 col-sm-12">
-                        <label class="text-black" for="card-confirm-password">Last Name</label>
-                        <input type="text" class="form-control" placeholder="Enter Your Last Name" required name="last_name">
+                            <label class="text-black" for="card-confirm-password">Last Name</label>
+                            <input type="text" class="form-control" placeholder="Enter Your Last Name" required name="last_name">
+                        </div> -->
+                        <div class="form-group col-lg-6 col-sm-12">
+                            <label class="text-black" for="card-confirm-password">Last Name</label>
+                            <input type="url" class="form-control" placeholder="Enter Url" required name="url">
                         </div>
                     </div>
                     <div class="my-4">

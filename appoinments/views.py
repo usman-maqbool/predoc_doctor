@@ -8,10 +8,9 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+from qrcode import *
+import time
 
-
-
-import qrcode
 class LandingPageView(View):
     def get(self,request):
         context={
@@ -44,11 +43,9 @@ class DashBoardPageView(LoginRequiredMixin,View):
             "appoinments":appoinments,
             'pages':cr_page,
             "obj":obj,
-           
         }
         return render(request,'dashboard.html', context)
 
- 
     def post(self, request):
         user = get_object_or_404(UserModel, id=request.user.id)
         user.is_agree = True
@@ -65,18 +62,16 @@ class StartHerePageView(LoginRequiredMixin,View):
         return render(request, 'start_here.html' , context)
 
     def post(self,request):
-        # first_name=request.POST['first_name']
-        # last_name=request.POST['last_name']
-        url=request.POST['url']
-        print(url)
+        data = request.POST['url']
+        img = make(data)
+        img_name = 'qr' + str(time.time()) + '.png'
+        img.save(img_name)
         QrCode.objects.create(
             user=request.user,
-            # first_name=first_name,
-            # last_name=last_name,
-            url=url
+            url=data,
+            image=img_name
             )
         return redirect('start_here')
-
 
 class TermsAndCondtionPageView(View):
     def get(self,request):
@@ -131,26 +126,19 @@ def webhook(request):
         json_object = json.dumps(payload)
         print('finding type',type(json_object))        
 
-
-
-
         # jsondata = request.body
         # data = json.loads(jsondata)
         # for answer in data['form_response']['answers']: # go through all the answers
         #     type = answer['type']
         #     print(f'answer: {answer[type]}') # print value of answers
 
-
-
-        
-
         # print("i am finding thetype",type(answer))
         # print(answer)
        
         # Questionire.objects.create(
         #     syptoms=payload,
-            # syptoms=answer,
-            # syptoms=json_object,
-            # print("load the body:",payload['form_response'])
+        #     # syptoms=answer,
+        #     # syptoms=json_object,
+        #     # print("load the body:",payload['form_response'])
         # )
     return render(request, 'pages/questionire.html',content_type="text/plain")

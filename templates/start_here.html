@@ -12,6 +12,7 @@
     .form-label{
         width: 150px;
     }
+
 </style>
 
 {% endblock extra_css %}
@@ -23,7 +24,6 @@
         <div class=" text-heading">
             <p class="display-3  text-heading">PreDoc</p>
         </div>
-        <a href="https://iusby56cp3t.typeform.com/to/rWLhjfBx">Click here for this</a>
         <div class=" d-flex justify-content-center ">
             <div class="col col-lg-12 col-sm-12">
                 <form method="POST">
@@ -48,10 +48,9 @@
                 </form>
             </div>
         </div>
-        <!-- <img src=""/><br> -->
         <div class="row mt-6">
             <div class="col col-lg-6 col-sm-12">
-                <!-- Pdf Image -->
+                <!-- Pdf File -->
                 <a href="{% static 'assets/files/PreDoc.pdf' %}" download>
                     <img class="rounded mx-auto d-block" src="{% static 'assets/img/icons/pdf.png' %}" alt=""> 
                 </a>
@@ -61,13 +60,14 @@
                 <!-- QR CodeImage -->
                 {% if qr_code.image %}
                 <img class="rounded mx-auto d-block" src="{{qr_code.image.url}}" alt="">
-                
                 <div class="d-flex">
                     <p class=" ml-6 mr-2 mt-6  text-center">Download only the <a href="#">QR code</a> to show or send to patients </p>
                     <span class="mt-6 ">
-                        <i class="text-black fa fa-arrow-circle-down" style="font-size: 36px;"></i></span>
+                        <a href="{{qr_code.image.url}}" download><i class="text-black fa fa-arrow-circle-down" style="font-size: 36px;"></i></a>
+                    </span>
                 </div>
                 {% else %}
+                <!-- Static Qr Image -->
                 <img class="rounded mx-auto d-block" src="{% static 'assets/img/icons/qr.svg' %}" alt="">
                 <div class="d-flex">
                     <p class=" ml-6 mr-2 mt-6  text-center">Genrate Your <a href="#">QR code</a> and  download </p>

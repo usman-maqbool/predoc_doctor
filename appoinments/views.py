@@ -28,6 +28,8 @@ class ContactUsPageView(View):
 class DashBoardPageView(LoginRequiredMixin,View):
     def get(self,request, *args, **kwargs):
         obj = Appoinment.objects.first()
+        refactored_payload = zip(obj.qs.syptoms['form_response']['definition']['fields'],obj.qs.syptoms['form_response']['answers'])
+
         appoinments = Appoinment.objects.all()
         paginator  = Paginator(appoinments,5)
         page       = request.GET.get('page')
@@ -43,6 +45,7 @@ class DashBoardPageView(LoginRequiredMixin,View):
             "appoinments":appoinments,
             'pages':cr_page,
             "obj":obj,
+            "refactored_payload":refactored_payload,
         }
         return render(request,'dashboard.html', context)
 
@@ -112,8 +115,10 @@ class AllPatientView(View):
     def get(self,request, *args, **kwargs):
         id = kwargs.get('id')
         appoinments = get_object_or_404(Appoinment, id=id)
+        refactored_payload = zip(appoinments.qs.syptoms['form_response']['definition']['fields'],appoinments.qs.syptoms['form_response']['answers'])
         context={
             "appoinments":appoinments,
+            "refactored_payload":refactored_payload
         }
         return render(request,'pages/all_patiebt.html', context)
 
@@ -121,24 +126,11 @@ class AllPatientView(View):
 @csrf_exempt
 def webhook(request):
     if request.method =='POST':
-        # print(request.body)
-        payload = json.loads(request.body)
-        json_object = json.dumps(payload)
-        print('finding type',type(json_object))        
+        response = request.body.decode()
+        payload = json.loads(response)
 
-        # jsondata = request.body
-        # data = json.loads(jsondata)
-        # for answer in data['form_response']['answers']: # go through all the answers
-        #     type = answer['type']
-        #     print(f'answer: {answer[type]}') # print value of answers
-
-        # print("i am finding thetype",type(answer))
-        # print(answer)
-       
-        # Questionire.objects.create(
-        #     syptoms=payload,
-        #     # syptoms=answer,
-        #     # syptoms=json_object,
-        #     # print("load the body:",payload['form_response'])
-        # )
-    return render(request, 'pages/questionire.html',content_type="text/plain")
+        Questionire.objects.create(
+            syptoms=payload,
+        )
+        
+    return render(request, 'pages/questionire.html' )

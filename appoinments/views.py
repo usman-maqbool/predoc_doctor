@@ -16,7 +16,7 @@ class LandingPageView(View):
         context={
             "title":'Landing'
         }
-        return render(request, 'landing.html',context)
+        return render(request, 'landing.html', context)
 
 class ContactUsPageView(View):
     def get(self,request):
@@ -25,7 +25,7 @@ class ContactUsPageView(View):
         }
         return render(request, 'contact_us.html', context)
 
-class DashBoardPageView(LoginRequiredMixin,View):
+class DashBoardPageView(LoginRequiredMixin, View):
     def get(self,request, *args, **kwargs):
         obj = Appoinment.objects.first()
         refactored_payload = zip(obj.qs.syptoms['form_response']['definition']['fields'],obj.qs.syptoms['form_response']['answers'])
@@ -55,14 +55,14 @@ class DashBoardPageView(LoginRequiredMixin,View):
         user.save()  # 🖘 save the update in the database
         return redirect('dashboard')
 
-class StartHerePageView(LoginRequiredMixin,View):
+class StartHerePageView(LoginRequiredMixin, View):
     def get(self,request):
         qr_code = QrCode.objects.filter(user=request.user).first()
         context = {
             "title":"Start Here",
             "qr_code":qr_code
         }
-        return render(request, 'start_here.html' , context)
+        return render(request, 'start_here.html', context)
 
     def post(self,request):
         data = request.POST['url']
@@ -90,21 +90,21 @@ class PrivacyPolicyPageView(View):
         }
         return render(request, 'privacy_policy.html', context)
 
-class AbooutPageView(LoginRequiredMixin,View):
+class AbooutPageView(LoginRequiredMixin, View):
     def get(self,request):
         context = {
             "title":"About"
         }
-        return render(request, 'pages/aboutview.html' ,context)
+        return render(request, 'pages/aboutview.html', context)
 
-class PdfPageView(LoginRequiredMixin,View):
+class PdfPageView(LoginRequiredMixin, View):
     def get(self,request):
         context={
             'title':"Pdf File"
         }
         return render(request, 'pages/pdf_click.html', context)
 
-class DisAgrePageView(LoginRequiredMixin,View):
+class DisAgrePageView(LoginRequiredMixin, View):
     def get(self,request):
         context = {
             'title':"Disagree"
@@ -123,8 +123,28 @@ class AllPatientView(View):
         return render(request,'pages/all_patiebt.html', context)
 
 
+# @csrf_exempt
+# def webhook(request):
+#     if request.method =='POST':
+#         response = request.body.decode()
+#         payload = json.loads(response)
+
+#         Questionire.objects.create(
+#             syptoms=payload,
+#         )
+        
+#     return render(request, 'pages/questionire.html' )
+
+
 @csrf_exempt
 def webhook(request):
+    appo = Appoinment.objects.filter().first()
+    refactored_payload = zip(appo.qs.syptoms['form_response']['definition']['fields'],appo.qs.syptoms['form_response']['answers'])
+    context={
+        'title':'TypeForm Response',
+        'appo':appo,
+        'refactored_payload':refactored_payload
+    }
     if request.method =='POST':
         response = request.body.decode()
         payload = json.loads(response)
@@ -133,4 +153,5 @@ def webhook(request):
             syptoms=payload,
         )
         
-    return render(request, 'pages/questionire.html' )
+    return render(request, 'pages/questionire.html', context )
+

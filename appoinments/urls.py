@@ -2,7 +2,6 @@ from django.urls import path
 
 
 from .views import AbooutPageView, AllPatientView, DashBoardPageView, DisAgrePageView, LandingPageView, PdfPageView,  PrivacyPolicyPageView,ContactUsPageView, webhook, StartHerePageView, TermsAndCondtionPageView
-#,  show_plates
 
 urlpatterns = [
     path('',LandingPageView.as_view(),name='landing'),

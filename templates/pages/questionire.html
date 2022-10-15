@@ -4,18 +4,13 @@
 
 {% block content %}
  
-
-{% for item1, item2 in  refactored_payload %}
-
-{{item1}} 
-<br>
-{{item2}}
-
-<hr>
-
-{% endfor %}
-
-
-
-
-{% endblock content %}
+    {% for item1, item2 in refactored_payload  %}
+        <p class="h5 text-capitalize my-4">{{item1.title}} :
+            {% if item2.text %}
+                {{item2.text}}
+            {% else %}
+                {{item2.boolean}}
+            {% endif %}
+        </p>
+    {% endfor %}
+{% endblock %}

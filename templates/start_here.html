@@ -24,6 +24,10 @@
         <div class=" text-heading">
             <p class="display-3  text-heading">PreDoc</p>
         </div>
+        
+        {% if qr_code %}
+
+        {% else %}
         <div class=" d-flex justify-content-center ">
             <div class="col col-lg-12 col-sm-12">
                 <form method="POST">
@@ -38,7 +42,7 @@
                             <input type="text" class="form-control" placeholder="Enter Your Last Name" required name="last_name">
                         </div> -->
                         <div class="form-group col-lg-6 col-sm-12">
-                            <label class="text-black" for="card-confirm-password">Last Name</label>
+                            <label class="text-black" for="card-confirm-password">Url</label>
                             <input type="url" class="form-control" placeholder="Enter Url" required name="url">
                         </div>
                     </div>
@@ -48,6 +52,9 @@
                 </form>
             </div>
         </div>
+        {% endif %}
+
+
         <div class="row mt-6">
             <div class="col col-lg-6 col-sm-12">
                 <!-- Pdf File -->

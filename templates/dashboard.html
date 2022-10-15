@@ -47,7 +47,7 @@
               <div class="modal-body">
                 <div class=" text-heading">
                   <h2 class="text-heading">Current Patient</h2>
-                  <h4 class=" mt-4 text-dark">{{ obj.patient.first_name }} {{ obj.patient.last_name }}</h4>
+                  <h4 class=" mt-4 text-dark text-capitalize">{{ obj.patient.first_name }} {{ obj.patient.last_name }}</h4>
                   <h4 class="text-dark"> {{ obj.patient.dob }}</h4>
                   <h4 class="text-dark">{{ obj.patient.age }} Years Old {{obj.patient.gender}}</h4> 
                 </div>
@@ -56,9 +56,9 @@
                     <div class="border overflow-auto bg-ldight user-inner-text" style="height:40%">
                       <div class="mx-4 p-2">
                         {% for item1, item2 in refactored_payload  %}
-                        <p class="h5 text-capitalize my-4">{{item1.title}} :
-                          {% if item2.text %}
-                          {{item2.text}}</p>
+                        <p class="h5 text-capitalize">{{item1.title}}</p>
+                          <p>{% if item2.text %}
+                          {{item2.text}}
                           {% else %}
                           {{item2.boolean}}
                           {% endif %}
@@ -106,7 +106,7 @@
                       {% for appoinment in pages %}
                       <tbody>
                         <tr class="text-center text-heading show_div">
-                          <th scope="row" onclick="loadingPage()" id="get_ajax_request" class="cursor-pointer button_show_div" data-target="#id-{{appoinment.id}}">
+                          <th scope="row" onclick="loadingPage()" id="get_ajax_request" class="cursor-pointer text-capitalize button_show_div" data-target="#id-{{appoinment.id}}">
                             {{ appoinment.patient.first_name }}
                           </th>
                           <td>{{appoinment.patient.dob}}</td>

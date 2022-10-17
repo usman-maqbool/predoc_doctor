@@ -1,35 +1,44 @@
-{% extends 'base.html' %}
-
-{% load static %}
-
-{% block content %}
-
-<main>
-    <div class="container">
-        <div class="my-4">
-            <div class="">
-                <h1 class="display-2 text-heading">
-                    PreDoc
-                </h1>
-                <div class="my-6 mx-2">
-                    <h5 class="mt-4">In order yo improve your care</h5>
-                    <h5 class="my-4">Dr . <span class="text-heading">Lastname</span>, <br>
-                    has asked that you fill out a private and secure questionaire before your appoinment.
-                    </h5>
-                    <h6 class="mt-2">Scan Qr code with your phone</h6>
-                </div>
-                <div class="col-4">
-                    <!-- QR Code Image -->
-                    <img src="{% static 'assets/img/icons/qr.svg' %}" alt="">
-                </div>
-                <div class="mt-4 mb-6 mx-2">
-                    <h5 class="mt-4">All answeres are secured and encrypted.</h5>
-                    <h5 class="mt-4">You can request copy of your data or that your be deleted at any time.</h5>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <div class="my-4">
+                <div class="">
+                    <h1 class="display-2 text-heading">
+                        PreDoc
+                    </h1>
+                    <div class="my-6 mx-2">
+                        <h5 class="mt-4">In order yo improve your care</h5>
+                        <h5 class="my-4">Dr . <span class="text-heading">Lastname</span>, <br>
+                        has asked that you fill out a private and secure questionaire before your appoinment.
+                        </h5>
+                        <h6 class="mt-2">Scan Qr code with your phone</h6>
+                    </div>
+                    
+                    <div class="col-4">
+                        <!-- QR Code Image -->
+                        <img class="rounded mx-auto d-block" style="width: 150px; height:150px" src="{{qr_image.image.path}}" alt="">
+                    </div>
+                    <div class="mt-4 mb-6 mx-2">
+                        <h5 class="mt-4">All answeres are secured and encrypted.</h5>
+                        <h5 class="mt-4">You can request copy of your data or that your be deleted at any time.</h5>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    {% include 'seconed_fotter.html' %}
-</main>
+    
 
-{% endblock content %}
+    
+    
+       
+    </main>
+    
+</body>
+</html>

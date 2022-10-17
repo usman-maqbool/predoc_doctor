@@ -58,7 +58,7 @@
         <div class="row mt-6">
             <div class="col col-lg-6 col-sm-12">
                 <!-- Pdf File -->
-                <a href="{% static 'assets/files/PreDoc.pdf' %}" download>
+                <a href="{% url 'pdfdown' %}">
                     <img class="rounded mx-auto d-block" src="{% static 'assets/img/icons/pdf.png' %}" alt=""> 
                 </a>
                 <p class=" mx-6 mt-6  text-center"> Click this to open your personalized letter a QR code for patientsto scan in the waiting room </p>

@@ -9,6 +9,10 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from qrcode import *
 import time
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
 
 class LandingPageView(View):
     def get(self, request):
@@ -96,13 +100,6 @@ class AbooutPageView(LoginRequiredMixin, View):
         }
         return render(request, 'pages/aboutview.html', context)
 
-class PdfPageView(LoginRequiredMixin, View):
-    def get(self, request):
-        context={
-            'title':"Pdf File"
-        }
-        return render(request, 'pages/pdf_click.html', context)
-
 class DisAgrePageView(LoginRequiredMixin, View):
     def get(self, request):
         context = {
@@ -140,3 +137,21 @@ def webhook(request):
         
     return render(request, 'pages/questionire.html', context )
 
+
+def get_qr_pdf(request):
+    template_path = 'pages/pdf_click.html'
+    user = get_object_or_404(QrCode, user = request.user)
+    context = {'qr_image': user}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="predoc.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funny view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response

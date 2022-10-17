@@ -1,22 +1,23 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en-US" dir="ltr">
+<html lang="en-US" dir="ltr" class="navbar-vertical-collapsed">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-     
+      
         <title>PreDoc | {{title}}</title>
         <!-- Icon -->
         <!-- <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/generic/3-thumb.jpg' %}"> -->
         <meta name="theme-color" content="#ffffff">
-          <!-- Bootsrap -->
+        <!-- Bootsrap -->
         <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet">
-          <!-- Custom Css -->
+        <!-- Custom Css -->
         <link href="{% static 'assets/css/root.css' %}" rel="stylesheet">
         <link href="{% static 'assets/css/theme.css' %}" rel="stylesheet">
         <link href="{% static 'assets/css/dashboard.css' %}" rel="stylesheet">
-         
+        <!-- jQuery -->
+        <script src="{% static 'assets/js/jquery.min.js' %}"></script>
         {% block extra_css %}{% endblock extra_css %}
       </head>
 <body>
@@ -36,8 +37,20 @@
     </div>
           
   </div>
-  
-  <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+
+
+  <script>
+
+      $(document).ready(function(){
+
+      if ($(window).width() < 1200 || $(window).width() > 1380) {  
+        $("html").removeClass("navbar-vertical-collapsed");
+      }  
+      });
+
+
+  </script>
+
   <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'assets/js/popper.min.js' %}"></script>
   <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>

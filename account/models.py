@@ -50,9 +50,8 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
     dob = models.DateField(blank=True,null=True)
     gender = models.CharField(max_length=10,choices=GENDER_CHOICES,null=True,blank=True)
     age = models.IntegerField(blank=True, null=True)
-    # qr_image=models.ImageField(upload_to='qrcode',blank=True)
-    is_agree = models.BooleanField(default=False)
 
+    is_agree = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -94,16 +93,3 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
             return f"{self.first_name} {self.last_name}"
         except:
             return self.email
-
-    # def save(self,*args,**kwargs):
-    #     qrcode_img=qrcode.make(self.last_name)
-    #     sec_img=qrcode.make(self.first_name)
-    #     canvas=Image.new("RGB", (300,300),"white")
-    #     draw=ImageDraw.Draw(canvas)
-    #     canvas.paste(qrcode_img)
-    #     canvas.paste(sec_img)
-    #     buffer=BytesIO()
-    #     canvas.save(buffer,"PNG")
-    #     self.qr_image.save(f'image{random.randint(0,9999)}',File(buffer),save=False)
-    #     canvas.close()
-    #     super().save(*args,**kwargs)

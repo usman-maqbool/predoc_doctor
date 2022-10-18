@@ -10,18 +10,16 @@
     <div class="mt-4 ">
       <div class="col col-lg-12 ">
         <div class="border overflow-auto bg-ldight user-inner-text" style="height:40%">
-          <div class="mx-4 p-2">
-
+          <div class="mx-4 mt-2">
             {% for item1, item2 in refactored_payload  %}
-
-              <p class="h5 text-capitalize my-4">{{item1.title}} :
-                {% if item2.text %}
-                {{item2.text}}</p>
-                {% else %}
-                {{item2.boolean}}
-                {% endif %}
-                </p>
-            {% endfor %}
+            <p class="text-capitalize text-heading" style="font-size:18px ;">{{item1.title}}</p>
+              <p style="font-size:18px ;">{% if item2.text %}
+              {{item2.text}}
+              {% else %}
+              {{item2.boolean}}
+              {% endif %}
+              </p>
+            {% endfor   %}
           </div>
         </div>
         <div class="mt-4">

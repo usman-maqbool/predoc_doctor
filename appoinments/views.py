@@ -12,7 +12,7 @@ import time
 from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-
+from django.contrib import messages
 
 class LandingPageView(View):
     def get(self, request):
@@ -77,6 +77,7 @@ class StartHerePageView(LoginRequiredMixin, View):
             url=data,
             image=img_name
             )
+        messages.success(request,'Qr Code is succesfully created')
         return redirect('start_here')
 
 class TermsAndCondtionPageView(View):

@@ -20,41 +20,13 @@
 {% block content %}
 
 <main class="main" >
+    {% include 'pages/messages.html' %}
     <div class="my-6 mx-4">
         <div class=" text-heading">
             <p class="display-3  text-heading">PreDoc</p>
         </div>
         
         {% if qr_code %}
-
-        {% else %}
-        <div class=" d-flex justify-content-center ">
-            <div class="col col-lg-12 col-sm-12">
-                <form method="POST">
-                    {% csrf_token %}
-                    <div class="form-row">
-                        <!-- <div class="form-group col-lg-6 col-sm-12">
-                            <label class="text-black" for="card-password">First Name</label>
-                            <input type="text" class="form-control" placeholder="Enter Your First Name" required name="first_name">
-                        </div>
-                        <div class="form-group col-lg-6 col-sm-12">
-                            <label class="text-black" for="card-confirm-password">Last Name</label>
-                            <input type="text" class="form-control" placeholder="Enter Your Last Name" required name="last_name">
-                        </div> -->
-                        <div class="form-group col-lg-6 col-sm-12">
-                            <label class="text-black" for="card-confirm-password">Url</label>
-                            <input type="url" class="form-control" placeholder="Enter Url" required name="url">
-                        </div>
-                    </div>
-                    <div class="my-4">
-                        <button class="btn btn-primary" type= "submit" >Get QRcode</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        {% endif %}
-
-
         <div class="row mt-6">
             <div class="col col-lg-6 col-sm-12">
                 <!-- Pdf File -->
@@ -82,6 +54,45 @@
                 {% endif %}
             </div>
         </div>
+        {% else %}
+        <div class=" d-flex justify-content-center ">
+            <div class="col col-lg-12 col-sm-12">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <!-- <div class="form-group col-lg-6 col-sm-12">
+                            <label class="text-black" for="card-password">First Name</label>
+                            <input type="text" class="form-control" placeholder="Enter Your First Name" required name="first_name">
+                        </div>
+                        <div class="form-group col-lg-6 col-sm-12">
+                            <label class="text-black" for="card-confirm-password">Last Name</label>
+                            <input type="text" class="form-control" placeholder="Enter Your Last Name" required name="last_name">
+                        </div> -->
+                        <div class="form-group col-lg-6 col-sm-12">
+                            <label class="text-black" for="card-confirm-password">Url</label>
+                            <input type="url" class="form-control" placeholder="Enter Url" required name="url">
+                        </div>
+                    </div>
+                    <div class="my-4">
+                        <button class="btn btn-primary" type= "submit" >Get QRcode</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col col-lg-6 col-sm-12">
+                <!-- QR CodeImage -->
+                <!-- Static Qr Image -->
+                <img class="rounded mx-auto d-block" src="{% static 'assets/img/icons/qr.svg' %}" alt="">
+                <div class="d-flex justify-content-center">
+                    <p class=" mr-2 mt-2  text-center">Genrate Your <a href="#">QR code</a> and  download </p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+
+        
     </div>
     <div class="d-flex mb-4 justify-content-center">
         <div>
@@ -91,6 +102,18 @@
     </div>
         {% include 'seconed_fotter.html' %}
 </main>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 {% endblock content %}

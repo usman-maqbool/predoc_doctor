@@ -1004,7 +1004,9 @@ input[type="button"].btn-block {
   -webkit-box-shadow: 0 0.5rem 0.5rem -0.5rem rgba(0, 0, 0, 0.2) !important;
   box-shadow: 0 0.5rem 0.5rem -0.5rem rgba(0, 0, 0, 0.2) !important;
 }
-
+.custom-height-nav{
+  height: 72px;
+}
 .navbar-toggler-humburger-icon {
   height: 2.5rem;
   width: 2.5rem;

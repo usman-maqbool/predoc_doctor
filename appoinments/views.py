@@ -77,7 +77,7 @@ class StartHerePageView(LoginRequiredMixin, View):
             url=data,
             image=img_name
             )
-        messages.success(request,'Qr Code is succesfully created')
+        messages.success(request,'Qr Code created succesfully..!')
         return redirect('start_here')
 
 class TermsAndCondtionPageView(View):

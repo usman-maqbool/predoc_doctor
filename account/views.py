@@ -36,7 +36,7 @@ class SignUpView(View):
         password2 = request.POST.get("password2")
         user_obj = UserModel.objects.filter(email=email).exists()
         if user_obj:
-            messages.success(
+            messages.info(
                 request,
                 f"The e-mail address you entered is {email} in use, you can try another e-mail address, if the e-mail address belongs to you, you can try to log in..",
             )  
@@ -132,7 +132,7 @@ class LogInView(View):
             login(request, user)
             return redirect('dashboard')
         else:
-            messages.error(request, "Invalid Credentials")
+            messages.error(request, "Invalid username or passwords")
             return redirect('login')
 
 # LogOut

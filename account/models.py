@@ -93,3 +93,11 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
             return f"{self.first_name} {self.last_name}"
         except:
             return self.email
+
+class InvitedUser(models.Model):
+    email = models.EmailField(max_length=255) # unique 
+    is_active = models.BooleanField(default=False)
+
+
+    def __str__(self):
+        return self.email

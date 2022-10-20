@@ -13,7 +13,7 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib import messages
-
+from account.forms import SignUpForm
 class LandingPageView(View):
     def get(self, request):
         context={
@@ -60,25 +60,68 @@ class DashBoardPageView(LoginRequiredMixin, View):
 
 class StartHerePageView(LoginRequiredMixin, View):
     def get(self, request):
-        qr_code = QrCode.objects.filter(user=request.user).first()
+        # qr_code = QrCode.objects.filter(user=request.user).first()
+        qr_code = QrCode.objects.filter().first()
+        update_id=get_object_or_404(UserModel, id = request.user.id)
+        update_form = SignUpForm(instance = update_id)
+        
         context = {
             "title":"Start Here",
-            "qr_code":qr_code
+            "qr_code":qr_code,
+            "update_form":update_form
         }
         return render(request, 'start_here.html', context)
 
     def post(self, request):
-        data = request.POST['url']
-        img = make(data)
-        img_name = 'qr' + str(time.time()) + '.png'
-        img.save(img_name)
-        QrCode.objects.create(
-            user=request.user,
-            url=data,
-            image=img_name
-            )
-        messages.success(request,'Qr Code created succesfully..!')
-        return redirect('start_here')
+        first_name   = request.POST.get("first_name") 
+        last_name    = request.POST.get("last_name") 
+       
+        user  = get_object_or_404(UserModel,id=request.user.id)
+
+
+        user.first_name = first_name
+        user.last_name  = last_name
+     
+        user.save()
+        # if user:
+
+            # messages.success (request,"User has been updated")
+        return redirect ("start_here")
+        
+        
+        
+        
+        
+        # # first_name = request.POST['first_name']
+        # # last_name = request.POST['last_name']
+        
+        # id = request.user.id
+        # update_id=get_object_or_404(UserModel, id = id)
+        # print(id, 'its id')
+        # update_form = SignUpForm(request.POST or None, instance=update_id)
+        # if update_form.is_valid():
+        #     update_form.save()
+        #     # obj.save()
+        #     return redirect('start_here')
+            
+        # else:
+        #     print(request.POST)
+        #     return redirect('start_here')
+
+
+        # data = request.POST['url']
+        # img = make(data)
+        # img_name = 'qr' + str(time.time()) + '.png'
+        # img.save(img_name)
+        # QrCode.objects.create(
+        #     user=request.user,
+        #     first_name=first_name,
+        #     last_name=last_name,
+        #     # url=data,
+        #     image=img_name
+        #     )
+        # messages.success(request,'Qr Code created succesfully..!')
+        # return redirect('start_here')
 
 class TermsAndCondtionPageView(View):
     def get(self, request):
@@ -141,8 +184,10 @@ def webhook(request):
 
 def get_qr_pdf(request):
     template_path = 'pages/pdf_click.html'
-    user = get_object_or_404(QrCode, user = request.user)
-    context = {'qr_image': user}
+    qr_code = QrCode.objects.filter().first()
+    id = request.user.id
+    user = get_object_or_404(UserModel, id = id)
+    context = {'qr_image': qr_code,'user':user}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="predoc.pdf"'

@@ -16,9 +16,9 @@ class Appoinment(models.Model):
     qs = models.OneToOneField(Questionire,on_delete=models.CASCADE,null=True,blank=True)
 
 class QrCode(models.Model):
-    user = models.OneToOneField(UserModel,on_delete=models.CASCADE, blank=True, null=True) 
+    # user = models.OneToOneField(UserModel,on_delete=models.CASCADE, blank=True, null=True) 
     url=models.URLField(blank=True)
-    first_name = models.CharField(max_length=255, null=True, blank=True)
-    last_name = models.CharField(max_length=255, null=True, blank=True)
+    # first_name = models.CharField(max_length=255, null=True, blank=True)
+    # last_name = models.CharField(max_length=255, null=True, blank=True)
     image=models.ImageField(upload_to='qrcode',blank=True)
 

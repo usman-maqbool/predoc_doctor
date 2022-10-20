@@ -1,15 +1,9 @@
-from email.policy import default
-from tabnanny import verbose
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 from django.utils.translation import gettext_lazy as _
 from .mixins import TimeStampMixin
 from .users import *
-import random
-import qrcode
-from PIL import Image, ImageDraw
-from io import BytesIO
-from django.core.files import File
+
 
 GENDER_CHOICES = (
     ('male', 'male'),
@@ -55,7 +49,7 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    type = models.CharField(max_length=10,choices=UserTypeChoice.choices(),null=False,blank=False,default=UserTypeChoice.DOCTOR .value,)
+    type = models.CharField(max_length=10,choices=UserTypeChoice.choices(), null=False, blank=False, default=UserTypeChoice.DOCTOR.value,)
     
     @property
     def is_super_admin(self):
@@ -81,12 +75,6 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return self.is_admin
-    
-    def get_name(self):
-        try:
-            return self.first_name[0]+self.last_name[0].capitalize()
-        except:
-            return self.email
    
     def get_full_name(self):
         try:
@@ -94,10 +82,9 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
         except:
             return self.email
 
-class InvitedUser(models.Model):
+class InvitedDoctor(models.Model):
     email = models.EmailField(max_length=255) # unique 
     is_active = models.BooleanField(default=False)
-
 
     def __str__(self):
         return self.email

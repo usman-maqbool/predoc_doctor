@@ -1,7 +1,17 @@
 
 from django.urls import path
-from .views import LogInView, LogOutView, VerificationEmailView, VerificationView, password_reset_request,ResetPasswordConfirmView, ResetPasswordDoneView,SignUpView
-from django.contrib.auth.views  import PasswordResetConfirmView, PasswordResetCompleteView
+from django.contrib.auth.views  import (
+     PasswordResetConfirmView,
+     PasswordResetCompleteView
+)
+from .views import (
+    LogInView, 
+    LogOutView, 
+    VerificationEmailView, 
+    VerificationView,
+    password_reset_request,
+    ResetPasswordDoneView,SignUpView
+)
 
 # app_name = 'account'
 urlpatterns =  [

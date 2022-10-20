@@ -1,15 +1,12 @@
 
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login, logout, get_user_model
-from .forms import SignUpForm, LoginForm, ForgetPasswordForm
 from django.contrib import messages
-from .models import UserModel 
 from django.db.models.query_utils import Q
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
-from .sendemail import account_activation_token, BASE_LINK_FOR_EMAIL
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from django.core.mail import EmailMessage
@@ -17,10 +14,12 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
+from .forms import SignUpForm, LoginForm, ForgetPasswordForm
+from .models import UserModel 
+from .sendemail import account_activation_token, BASE_LINK_FOR_EMAIL
 
 User = get_user_model()
 
-# SignIp
 class SignUpView(View):
     form_class = SignUpForm()
     template_name = 'accounts/sign_up.html'
@@ -42,10 +41,8 @@ class SignUpView(View):
             )  
             return redirect("sign_up")
         if password1 == password2:
-
             user = User.objects.create(
                 username=username,
-
                 email=email,
                 password=password1,
             )
@@ -59,12 +56,9 @@ class SignUpView(View):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             }
-            
             link = reverse('activate', kwargs={
                             'uidb64': email_body['uid'], 'token': email_body['token']})
-
             email_subject = 'Activate your account'
-
             activate_url = BASE_LINK_FOR_EMAIL+link
             email = EmailMessage(
                         email_subject,
@@ -73,14 +67,11 @@ class SignUpView(View):
                         [email],
                     )
             email.send(fail_silently=False)
-        
         else:
             messages.error(request, "password is not matching")
             return redirect("sign_up")
-
         return redirect("verify")
     def get(self, request, *args, **kwargs):
-
         if request.user.is_authenticated:
             messages.success(request, f"Your login appears to be done.")  
             return redirect("login")
@@ -101,10 +92,8 @@ class VerificationView(View):
         try:
             id = force_str(urlsafe_base64_decode(uidb64))
             user = User.objects.get(pk=id)
-
             if not account_activation_token.check_token(user, token):
                 return redirect('login'+'?message='+'User already activated')
-
             if user.is_active:
                 return redirect('login')
             user.is_active = True
@@ -114,7 +103,7 @@ class VerificationView(View):
         except Exception as ex:
             pass
         return redirect('login')
-# LoGin
+
 class LogInView(View):
     def get(self, request, *args, **kwargs ):
         context={
@@ -135,14 +124,12 @@ class LogInView(View):
             messages.error(request, "Invalid username or passwords")
             return redirect('login')
 
-# LogOut
 class LogOutView(View):
     def get(self,request):
         logout(request)
         messages.info(request, 'Sucessfully logged out')
         return redirect('login')
 
-# Password Reset
 def password_reset_request(request, *args, **kwargs):
 	if request.method == "POST":
 		password_reset_form = ForgetPasswordForm(request.POST)

@@ -5,6 +5,7 @@ from django.template.loader import get_template
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth import logout
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import json
 from qrcode import *
@@ -126,6 +127,7 @@ class AbooutPageView(LoginRequiredMixin, View):
 
 class DisAgrePageView(LoginRequiredMixin, View):
     def get(self, request):
+        logout(request)
         context = {
             'title':"Disagree"
         }

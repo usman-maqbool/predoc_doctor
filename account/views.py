@@ -14,7 +14,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
-from .models import UserModel 
+from .models import InvitedDoctor, UserModel 
 from .forms import SignUpForm, LoginForm, ForgetPasswordForm
 from .sendemail import account_activation_token, BASE_LINK_FOR_EMAIL
 
@@ -23,9 +23,24 @@ from .sendemail import account_activation_token, BASE_LINK_FOR_EMAIL
 class SignUpView(View):
     form_class = SignUpForm()
     template_name = 'accounts/sign_up.html'
+    # def get(self, request, *args, **kwargs):
+    #     form = SignUpForm()
+    #     context = {
+    #         "title":"Sign Up",
+    #         'form': form
+    #     }
+    #     return render(request, 'accounts/sign_up.html', context)
     def get(self, request, *args, **kwargs):
-        form = SignUpForm()
-        return render(request, 'accounts/sign_up.html', {'form': form})
+        if request.user.is_authenticated:
+            messages.success(request, f"Your login appears to be done.")  
+            return redirect("login")
+        context = {"is_header": "header",
+            "form":SignUpForm(),
+            'title':"SignUp"
+        }
+        return render(request, "accounts/sign_up.html", context=context)
+
+
 
     def post(self, request, *args, **kwargs):
         form = SignUpForm(request.POST)
@@ -34,51 +49,48 @@ class SignUpView(View):
         password1 = request.POST.get("password1")
         password2 = request.POST.get("password2")
         user_obj = UserModel.objects.filter(email=email).exists()
-        if user_obj:
-            messages.info(
-                request,
-                f"The e-mail address you entered is {email} in use, you can try another e-mail address, if the e-mail address belongs to you, you can try to log in..",
-            )  
-            return redirect("sign_up")
-        if password1 == password2:
-            user = UserModel.objects.create(
-                username=username,
-                email=email,
-                password=password1,
-            )
-            user.set_password(password1)
-            user.is_active = False
-            user.save()
-            current_site = get_current_site(request)
-            email_body = {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-            }
-            link = reverse('activate', kwargs={
-                            'uidb64': email_body['uid'], 'token': email_body['token']})
-            email_subject = 'Activate your account'
-            activate_url = BASE_LINK_FOR_EMAIL+link
-            email = EmailMessage(
-                    email_subject,
-                    f'Hi {user.username}, Please use the link below to activate your account  {activate_url}',
-                    'matthewbordy@prototypehouse.com',
-                    [email],
-                    )
-            email.send(fail_silently=False)
-        else:
-            messages.error(request, "password is not matching")
-            return redirect("sign_up")
-        return redirect("verify")
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            messages.success(request, f"Your login appears to be done.")  
-            return redirect("login")
-        context = {"is_header": "header",
-            "form":SignUpForm()
-        }
-        return render(request, "accounts/sign_up.html", context=context)
+        invited_user = InvitedDoctor.objects.filter(email=email).exists()
+        if invited_user:
+            if user_obj:
+                messages.info(
+                    request,
+                    f"The e-mail address you entered is {email} in use, you can try another e-mail address, if the e-mail address belongs to you, you can try to log in..",
+                )  
+                return redirect("sign_up")
+            if password1 == password2:
+                user = UserModel.objects.create(
+                    username=username,
+                    email=email,
+                    password=password1,
+                )
+                user.set_password(password1)
+                user.is_active = False
+                user.save()
+                current_site = get_current_site(request)
+                email_body = {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': account_activation_token.make_token(user),
+                }
+                link = reverse('activate', kwargs={
+                                'uidb64': email_body['uid'], 'token': email_body['token']})
+                email_subject = 'Activate your account'
+                activate_url = BASE_LINK_FOR_EMAIL+link
+                email = EmailMessage(
+                        email_subject,
+                        f'Hi {user.username}, Please use the link below to activate your account  {activate_url}',
+                        'matthewbordy@prototypehouse.com',
+                        [email],
+                        )
+                email.send(fail_silently=False)
+            else:
+                messages.error(request, "password is not matching")
+                return redirect("sign_up")
+            return redirect("verify")
+        messages.error(request, "Unfortunately, only selected users can register at this time. Please check back later.")
+        return redirect("sign_up")
+   
 
 class VerificationEmailView(View):
     def get(self,request, *args, **kwargs):

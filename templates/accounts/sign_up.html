@@ -69,3 +69,25 @@
     </div>
   </main>
 {% endblock content %}
+
+{% block extra_javascript %}
+    
+   
+<script type="text/javascript">
+   document.getElementById("user_email").value = getSavedValue("user_email");
+
+   function saveValue(e){
+       var id = e.id;
+       var val = e.value; 
+       localStorage.setItem(id, val);
+   }
+
+   function getSavedValue  (v){
+       if (!localStorage.getItem(v)) {
+           return "";
+       }
+       return localStorage.getItem(v);
+   }
+</script>
+
+{% endblock extra_javascript %}

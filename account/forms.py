@@ -7,7 +7,7 @@ class SignUpForm(UserCreationForm):
     first_name=forms.CharField(label='FirstName',widget=forms.TextInput(attrs={'placeholder': 'Enter your Firstname', 'id':'first_name', 'class':'form-control'}),max_length=50,required=True,help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.')
     last_name=forms.CharField(label='Lastname',widget=forms.TextInput(attrs={'placeholder': 'Enter your Lastname', 'id':'last_name', 'class':'form-control'}),max_length=50,required=True,help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.')
     username=forms.CharField(label='Username',widget=forms.TextInput(attrs={'placeholder': 'Enter your Username', 'id':'user_name', 'class':'form-control'}),max_length=50,required=True,help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.')
-    email=forms.EmailField(label='Email',widget=forms.EmailInput(attrs={'placeholder': 'Enter your email', 'id':'user_email', 'class':'form-control'}),max_length=50,required=True,help_text='Required.add valid email address')
+    email=forms.EmailField(label='Email',widget=forms.EmailInput(attrs={'placeholder': 'Enter your email', 'id':'user_email', 'class':'form-control','onkeyup':'saveValue(this)'}),max_length=50,required=True,help_text='Required.add valid email address')
     password1=forms.CharField(label='Password',widget=forms.PasswordInput(attrs={'placeholder': 'Your Password', 'id':'user_password', 'class':'form-control'}),max_length=50,required=True,help_text='Your password must contain at least 8 characters.')
     password2=forms.CharField(label='Confirm Password',widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password', 'id':'confirm_password', 'class':'form-control'}),max_length=50,required=True,help_text='Enter the same password as before, for verification.')
     class Meta:
@@ -34,7 +34,7 @@ class SignUpForm(UserCreationForm):
         raise forms.ValidationError(f"Email {username} is already in use.")
 
 class LoginForm(forms.Form):
-    email=forms.EmailField(label='Email',widget=forms.EmailInput(attrs={'placeholder': 'Enter your email', 'id':'user_email', 'class':'form-control'}),max_length=50)
+    email=forms.EmailField(label='Email',widget=forms.EmailInput(attrs={'placeholder': 'Enter your email', 'id':'user_email', 'class':'form-control','onkeyup':'saveValue(this)'}),max_length=50)
     password=forms.CharField(label='Password',widget=forms.PasswordInput(attrs={'placeholder': 'Enter your password', 'id':'user_password', 'class':'form-control'}),max_length=50,required=True)
     class Meta:
         model = UserModel

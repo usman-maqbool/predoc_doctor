@@ -29,7 +29,7 @@
                     {% include 'accounts/messages.html' %}
                     
                     <h2 class="text-heading">Account Login</h2>
-                    <form method="POST"  >
+                    <form method="POST">
                      
                       {% csrf_token %}
                       <div class="form-group mt-2">
@@ -62,3 +62,27 @@
     </div>
 
     {% endblock content %}
+   
+    {% block extra_javascript %}
+    
+   
+   <script type="text/javascript">
+      document.getElementById("user_email").value = getSavedValue("user_email");
+   
+
+   
+      function saveValue(e){
+          var id = e.id;
+          var val = e.value; 
+          localStorage.setItem(id, val);
+      }
+
+      function getSavedValue  (v){
+          if (!localStorage.getItem(v)) {
+              return "";
+          }
+          return localStorage.getItem(v);
+      }
+</script>
+
+{% endblock extra_javascript %}

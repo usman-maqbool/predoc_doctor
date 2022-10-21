@@ -23,10 +23,7 @@
                       <p class="text-white opacity-75">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur sint eos eius quae praesentium dignissimos?</p>
                     </div>
                   </div>
-
                   <div class="mt-3 mb-4 mt-md-4 mb-md-5">
-                    <!-- <a href="#!"><img class="contact-image" src="{% static 'assets/img/icons/linkedin.svg' %}" alt="linkedin"></a>
-                    <a href="#!"><img class="contact-image" src="{% static 'assets/img/icons/twitter.svg' %}" alt="linkedin"></a> -->
                     <div class="d-flex justify-content-center">
                       <a class="icon-item bg-white text-twitter contact-image mx-1" href="#!"><span class="fab fa-twitter"></span></a></span></a>
                       <a class="icon-item bg-white text-linkedin contact-image mx-1" href="#!"><span class="fab fa-linkedin-in"></span></a>
@@ -39,7 +36,8 @@
                 <div class="col-md-7 d-flex flex-center">
                   <div class="p-4 p-md-5 flex-grow-1">
                     <h1 class="text-heading">Contact Us</h1>
-                    <form method="POST"  >
+                    <form method="POST">
+                      {% csrf_token %}
                         <div class="form-group">
                             <label class="text-heading">Name</label>
                             <input class="form-control" required name="name" type="text" />

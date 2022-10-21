@@ -57,18 +57,18 @@ class DashBoardPageView(LoginRequiredMixin, View):
         user.save()
         return redirect('dashboard')
 
-class StartHerePageView(LoginRequiredMixin, View):
+class WaitingRoomView(LoginRequiredMixin, View):
     def get(self, request):
         qr_code = QrCode.objects.filter().first()
-        update_id=get_object_or_404(UserModel, id = request.user.id)
+        update_id = get_object_or_404(UserModel, id = request.user.id)
         update_form = SignUpForm(instance = update_id)
         
         context = {
-            "title":"Start Here",
+            "title":"Waiting Room",
             "qr_code":qr_code,
             "update_form":update_form
         }
-        return render(request, 'start_here.html', context)
+        return render(request, 'waiting_room.html', context)
 
     def post(self, request):
         first_name   = request.POST.get("first_name") 
@@ -78,6 +78,30 @@ class StartHerePageView(LoginRequiredMixin, View):
         user.last_name  = last_name
         user.save()
         return redirect ("start_here")
+
+
+class OnlyQrCodeView(View):
+    def get(self, request):
+        qr_code = QrCode.objects.filter().first()
+        update_id=get_object_or_404(UserModel, id = request.user.id)
+        update_form = SignUpForm(instance = update_id)
+        
+        context = {
+            "title":"Qr Code",
+            "qr_code":qr_code,
+            "update_form":update_form
+        }
+        return render(request, 'pages/only_qrcode.html', context)
+
+    def post(self, request):
+        first_name   = request.POST.get("first_name") 
+        last_name    = request.POST.get("last_name") 
+        user  = get_object_or_404(UserModel,id=request.user.id)
+        user.first_name = first_name
+        user.last_name  = last_name
+        user.save()
+        return redirect ("only_qrcode")
+
 
 class TermsAndCondtionPageView(View):
     def get(self, request):

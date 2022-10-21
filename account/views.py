@@ -1,24 +1,24 @@
 
-from django.shortcuts import render, redirect
 from django.views import View
-from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.urls import reverse 
 from django.contrib import messages
-from django.db.models.query_utils import Q
-from django.core.mail import send_mail, BadHeaderError
-from django.contrib.sites.shortcuts import get_current_site
-from django.urls import reverse
-from django.utils.encoding import force_str
-from django.utils.http import urlsafe_base64_decode
 from django.core.mail import EmailMessage
+from django.db.models.query_utils import Q
+from django.utils.encoding import force_str
+from django.shortcuts import render, redirect
+from django.utils.http import urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
+from django.core.mail import send_mail, BadHeaderError
+from django.contrib.sites.shortcuts import get_current_site
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
-from .forms import SignUpForm, LoginForm, ForgetPasswordForm
 from .models import UserModel 
+from .forms import SignUpForm, LoginForm, ForgetPasswordForm
 from .sendemail import account_activation_token, BASE_LINK_FOR_EMAIL
 
-User = get_user_model()
+# User = get_user_model()
 
 class SignUpView(View):
     form_class = SignUpForm()
@@ -41,7 +41,7 @@ class SignUpView(View):
             )  
             return redirect("sign_up")
         if password1 == password2:
-            user = User.objects.create(
+            user = UserModel.objects.create(
                 username=username,
                 email=email,
                 password=password1,
@@ -61,10 +61,10 @@ class SignUpView(View):
             email_subject = 'Activate your account'
             activate_url = BASE_LINK_FOR_EMAIL+link
             email = EmailMessage(
-                        email_subject,
-                        f'Hi {user.username}, Please use the link below to activate your account  {activate_url}',
-                        'matthewbordy@prototypehouse.com',
-                        [email],
+                    email_subject,
+                    f'Hi {user.username}, Please use the link below to activate your account  {activate_url}',
+                    'matthewbordy@prototypehouse.com',
+                    [email],
                     )
             email.send(fail_silently=False)
         else:
@@ -91,7 +91,7 @@ class VerificationView(View):
     def get(self, request, uidb64, token):
         try:
             id = force_str(urlsafe_base64_decode(uidb64))
-            user = User.objects.get(pk=id)
+            user = UserModel.objects.get(pk=id)
             if not account_activation_token.check_token(user, token):
                 return redirect('login'+'?message='+'User already activated')
             if user.is_active:
@@ -155,7 +155,6 @@ def password_reset_request(request, *args, **kwargs):
 					except BadHeaderError:
 						messages.error (request,'Inavlid email')
 					return redirect ("reset_password_done")
-                    
 	password_reset_form = ForgetPasswordForm()
 	return render(request, "accounts/forget_password.html", context={"password_reset_form":password_reset_form})
 
@@ -173,4 +172,3 @@ class ResetPasswordConfirmView(View):
         }
         messages.success(request,'Your Password is successfully reset')
         return render(request, 'accounts/password_reset_confirm.html', context)
-

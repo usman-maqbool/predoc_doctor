@@ -1,19 +1,18 @@
-from account.models import UserModel
-from .models import Appoinment, QrCode, Questionire
-from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator ,EmptyPage, PageNotAnInteger
-from django.views.decorators.csrf import csrf_exempt
-import json
-from django.views.decorators.csrf import csrf_exempt
-from qrcode import *
-import time
+from django.contrib import messages
 from django.http import HttpResponse
 from django.template.loader import get_template
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, redirect, render
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import json
+from qrcode import *
 from xhtml2pdf import pisa
-from django.contrib import messages
+from account.models import UserModel
 from account.forms import SignUpForm
+from .models import Appoinment, QrCode, Questionire
+
 class LandingPageView(View):
     def get(self, request):
         context={
@@ -55,12 +54,11 @@ class DashBoardPageView(LoginRequiredMixin, View):
     def post(self, request):
         user = get_object_or_404(UserModel, id=request.user.id)
         user.is_agree = True
-        user.save()  # 🖘 save the update in the database
+        user.save()
         return redirect('dashboard')
 
 class StartHerePageView(LoginRequiredMixin, View):
     def get(self, request):
-        # qr_code = QrCode.objects.filter(user=request.user).first()
         qr_code = QrCode.objects.filter().first()
         update_id=get_object_or_404(UserModel, id = request.user.id)
         update_form = SignUpForm(instance = update_id)
@@ -75,53 +73,11 @@ class StartHerePageView(LoginRequiredMixin, View):
     def post(self, request):
         first_name   = request.POST.get("first_name") 
         last_name    = request.POST.get("last_name") 
-       
         user  = get_object_or_404(UserModel,id=request.user.id)
-
-
         user.first_name = first_name
         user.last_name  = last_name
-     
         user.save()
-        # if user:
-
-            # messages.success (request,"User has been updated")
         return redirect ("start_here")
-        
-        
-        
-        
-        
-        # # first_name = request.POST['first_name']
-        # # last_name = request.POST['last_name']
-        
-        # id = request.user.id
-        # update_id=get_object_or_404(UserModel, id = id)
-        # print(id, 'its id')
-        # update_form = SignUpForm(request.POST or None, instance=update_id)
-        # if update_form.is_valid():
-        #     update_form.save()
-        #     # obj.save()
-        #     return redirect('start_here')
-            
-        # else:
-        #     print(request.POST)
-        #     return redirect('start_here')
-
-
-        # data = request.POST['url']
-        # img = make(data)
-        # img_name = 'qr' + str(time.time()) + '.png'
-        # img.save(img_name)
-        # QrCode.objects.create(
-        #     user=request.user,
-        #     first_name=first_name,
-        #     last_name=last_name,
-        #     # url=data,
-        #     image=img_name
-        #     )
-        # messages.success(request,'Qr Code created succesfully..!')
-        # return redirect('start_here')
 
 class TermsAndCondtionPageView(View):
     def get(self, request):
@@ -160,12 +116,12 @@ class AllPatientView(View):
             "appoinments":appoinments,
             "refactored_payload":refactored_payload
         }
-        return render(request,'pages/all_patiebt.html', context)
+        return render(request, 'pages/all_patiebt.html', context)
 
 @csrf_exempt
 def webhook(request):
     appo = Appoinment.objects.filter().first()
-    refactored_payload = zip(appo.qs.syptoms['form_response']['definition']['fields'],appo.qs.syptoms['form_response']['answers'])
+    refactored_payload = zip(appo.qs.syptoms['form_response']['definition']['fields'], appo.qs.syptoms['form_response']['answers'])
     context={
         'title':'TypeForm Response',
         'appo':appo,
@@ -181,23 +137,18 @@ def webhook(request):
         
     return render(request, 'pages/questionire.html', context )
 
-
 def get_qr_pdf(request):
     template_path = 'pages/pdf_click.html'
     qr_code = QrCode.objects.filter().first()
     id = request.user.id
     user = get_object_or_404(UserModel, id = id)
     context = {'qr_image': qr_code,'user':user}
-    # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="predoc.pdf"'
-    # find the template and render it.
     template = get_template(template_path)
     html = template.render(context)
-    # create a pdf
     pisa_status = pisa.CreatePDF(
        html, dest=response)
-    # if error then show some funny view
     if pisa_status.err:
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response

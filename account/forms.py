@@ -1,6 +1,9 @@
+from random import choices
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import UserModel
+from django.conf import settings
+from django.core.mail import send_mail
 
 # Sign Up Form
 class SignUpForm(UserCreationForm):
@@ -46,3 +49,15 @@ class ForgetPasswordForm(forms.Form):
         models= UserModel
         fields = ['email']
 
+CONTACT_CHOICES = (
+    ('doctor', 'doctor'),
+    ('patient', 'patient'),
+    ('regulator', 'regulator'),
+    ('investor', 'investor'),
+    ('soemthing else', 'something else'),
+)
+class ContactForm(forms.Form):
+	name=forms.CharField(label='Username',widget=forms.TextInput(attrs={'placeholder': 'Enter your Username', 'id':'user_name', 'class':'form-control'}),max_length=50,required=True)
+	email=forms.EmailField(label='Email',widget=forms.EmailInput(attrs={'placeholder': 'Enter your email', 'id':'user_email', 'class':'form-control'}),max_length=50)
+	type = forms.ChoiceField(choices = CONTACT_CHOICES,widget=forms.Select(attrs={'class':'form-control'}))
+	message = forms.CharField(widget = forms.Textarea(attrs={'class':'form-control','rows':3}))

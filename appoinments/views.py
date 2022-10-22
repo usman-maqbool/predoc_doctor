@@ -1,11 +1,12 @@
 from django.views import View
 from django.contrib import messages
 from django.http import HttpResponse
+from django.contrib.auth import logout
 from django.template.loader import get_template
 from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import send_mail, BadHeaderError
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth import logout
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import json
 from qrcode import *
@@ -13,26 +14,17 @@ from xhtml2pdf import pisa
 from account.models import UserModel
 from account.forms import SignUpForm
 from .models import Appoinment, QrCode, Questionire
-
+from account.forms import ContactForm
 class LandingPageView(View):
     def get(self, request):
         context={
             "title":'Landing'
         }
         return render(request, 'landing.html', context)
-
-class ContactUsPageView(View):
-    def get(self, request):
-        context={
-            "title":"Contat Us"
-        }
-        return render(request, 'contact_us.html', context)
-
 class DashBoardPageView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         obj = Appoinment.objects.first()
         refactored_payload = zip(obj.qs.syptoms['form_response']['definition']['fields'],obj.qs.syptoms['form_response']['answers'])
-
         appoinments = Appoinment.objects.all()
         paginator  = Paginator(appoinments,5)
         page       = request.GET.get('page')
@@ -42,7 +34,6 @@ class DashBoardPageView(LoginRequiredMixin, View):
             cr_page = paginator.page(1)
         except EmptyPage:
             cr_page = paginator.page(paginator.num_pages)
-
         context={
             "title":"Dashboard",
             "appoinments":appoinments,
@@ -80,13 +71,11 @@ class WaitingRoomView(LoginRequiredMixin, View):
         user.save()
         return redirect ("start_here")
 
-
 class OnlyQrCodeView(View):
     def get(self, request):
         qr_code = QrCode.objects.filter().first()
         update_id=get_object_or_404(UserModel, id = request.user.id)
         update_form = SignUpForm(instance = update_id)
-        
         context = {
             "title":"Qr Code",
             "qr_code":qr_code,
@@ -102,7 +91,6 @@ class OnlyQrCodeView(View):
         user.last_name  = last_name
         user.save()
         return redirect ("only_qrcode")
-
 
 class TermsAndCondtionPageView(View):
     def get(self, request):
@@ -160,7 +148,6 @@ def webhook(request):
         Questionire.objects.create(
             syptoms=payload,
         )
-        
     return render(request, 'pages/questionire.html', context )
 
 def get_qr_pdf(request):
@@ -178,3 +165,32 @@ def get_qr_pdf(request):
     if pisa_status.err:
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+
+class ContactUsPageView(View):
+    def get(self, request):
+        form = ContactForm()
+        context={
+            "title":"Contat Us",
+            'form':form
+        }
+        return render(request, 'contact_us.html', context)
+    def post(self, request):
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = "Contact Form" 
+            body = {
+                'name': form.cleaned_data['name'], 
+                'email': form.cleaned_data['email'], 
+                'type': form.cleaned_data['type'], 
+                'message':form.cleaned_data['message'], 
+                }
+            message = "\n".join(body.values())
+
+            try:
+                send_mail(subject, message, f'{request.user}', ['admin@example.com']) 
+            except BadHeaderError:
+                messages.error(request,'Something getting wrong')
+                return redirect('contactus')
+            messages.success(request,'Your message is successfully sent. we will contact you soon..!')
+            return redirect ("contactus")
+    

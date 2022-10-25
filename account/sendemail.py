@@ -1,8 +1,8 @@
 import random
-import string 
+import string
+
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from six import text_type
-
 
 BASE_LINK_FOR_EMAIL ="http://127.0.0.1:8000"
 class AppTokenGenerator(PasswordResetTokenGenerator):

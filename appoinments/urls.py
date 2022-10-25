@@ -1,18 +1,10 @@
 from django.urls import path
-from .views import (
-     AbooutPageView,
-     OnlyQrCodeView,
-     get_qr_pdf,
-     AllPatientView, 
-     DashBoardPageView, 
-     DisAgrePageView, 
-     LandingPageView, 
-     PrivacyPolicyPageView,
-     ContactUsPageView, 
-     webhook,
-     WaitingRoomView,
-     TermsAndCondtionPageView,
-)
+
+from .views import (AbooutPageView, AllPatientView, ContactUsPageView,
+                    DashBoardPageView, DisAgrePageView, LandingPageView,
+                    OnlyQrCodeView, PrivacyPolicyPageView,
+                    TermsAndCondtionPageView, WaitingRoomView, get_qr_pdf,
+                    webhook)
 
 urlpatterns = [
     path('', LandingPageView.as_view(),name='landing'),

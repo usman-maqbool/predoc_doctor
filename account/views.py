@@ -1,4 +1,3 @@
-
 from django.views import View
 from django.urls import reverse 
 from django.contrib import messages
@@ -18,18 +17,9 @@ from .models import InvitedDoctor, UserModel
 from .forms import SignUpForm, LoginForm, ForgetPasswordForm
 from .sendemail import account_activation_token, BASE_LINK_FOR_EMAIL
 
-# User = get_user_model()
-
 class SignUpView(View):
     form_class = SignUpForm()
     template_name = 'accounts/sign_up.html'
-    # def get(self, request, *args, **kwargs):
-    #     form = SignUpForm()
-    #     context = {
-    #         "title":"Sign Up",
-    #         'form': form
-    #     }
-    #     return render(request, 'accounts/sign_up.html', context)
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             messages.success(request, f"Your login appears to be done.")  
@@ -40,8 +30,6 @@ class SignUpView(View):
         }
         return render(request, "accounts/sign_up.html", context=context)
 
-
-
     def post(self, request, *args, **kwargs):
         form = SignUpForm(request.POST)
         username = request.POST.get("username")
@@ -49,7 +37,7 @@ class SignUpView(View):
         password1 = request.POST.get("password1")
         password2 = request.POST.get("password2")
         user_obj = UserModel.objects.filter(email=email).exists()
-        invited_user = InvitedDoctor.objects.filter(email=email).exists()
+        invited_user = InvitedDoctor.objects.filter(email=email,is_active = True).exists()
         if invited_user:
             if user_obj:
                 messages.info(
@@ -90,7 +78,6 @@ class SignUpView(View):
             return redirect("verify")
         messages.error(request, "Unfortunately, only selected users can register at this time. Please check back later.")
         return redirect("sign_up")
-   
 
 class VerificationEmailView(View):
     def get(self,request, *args, **kwargs):
@@ -121,7 +108,6 @@ class LogInView(View):
         context={
             "title":"LogIn",
             'loginform':LoginForm,
-
         }
         return render(request, 'accounts/login.html' ,context)
 

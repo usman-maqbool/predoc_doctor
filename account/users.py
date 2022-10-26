@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class UserTypeChoice(Enum):
     SUPER_ADMIN = "SA"
     DOCTOR = "DOC"

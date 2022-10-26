@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+
 from .models import UserModel
+
 
 class SignUpForm(UserCreationForm):
     first_name=forms.CharField(label='FirstName', widget=forms.TextInput(attrs={'placeholder': 'Enter your Firstname', 'id':'first_name', 'class':'form-control'}), max_length=50, required=True,help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.')

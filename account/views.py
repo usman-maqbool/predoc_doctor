@@ -1,21 +1,20 @@
-from django.views import View
-from django.urls import reverse 
 from django.contrib import messages
-from django.core.mail import EmailMessage
-from django.db.models.query_utils import Q
-from django.utils.encoding import force_str
-from django.shortcuts import render, redirect
-from django.utils.http import urlsafe_base64_decode
-from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_encode
-from django.core.mail import send_mail, BadHeaderError
-from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.tokens import default_token_generator
-from django.utils.encoding import force_bytes
-from .models import InvitedDoctor, UserModel 
-from .forms import SignUpForm, LoginForm, ForgetPasswordForm
-from .sendemail import account_activation_token, BASE_LINK_FOR_EMAIL
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import BadHeaderError, EmailMessage, send_mail
+from django.db.models.query_utils import Q
+from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
+from django.urls import reverse
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.views import View
+
+from .forms import ForgetPasswordForm, LoginForm, SignUpForm
+from .models import InvitedDoctor, UserModel
+from .sendemail import BASE_LINK_FOR_EMAIL, account_activation_token
+
 
 class SignUpView(View):
     form_class = SignUpForm()

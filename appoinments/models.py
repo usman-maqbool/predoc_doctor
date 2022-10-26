@@ -1,6 +1,7 @@
 
-from django.db import models
 from account.models import UserModel
+from django.db import models
+
 
 class Questionire(models.Model):
     syptoms = models.JSONField(default= dict)

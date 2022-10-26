@@ -1,21 +1,20 @@
-import json
-
-from account.forms import ContactForm, SignUpForm
-from account.models import UserModel
-from django.contrib import messages
-from django.contrib.auth import logout
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.mail import BadHeaderError, send_mail
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render
-from django.template.loader import get_template
 from django.views import View
+from django.contrib import messages
+from django.http import HttpResponse
+from django.contrib.auth import logout
+from django.template.loader import get_template
 from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import send_mail, BadHeaderError
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, redirect, render
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import json
+from qrcode import *
 from xhtml2pdf import pisa
-
+from account.models import UserModel
+from account.forms import SignUpForm
 from .models import Appoinment, QrCode, Questionire
-
+from account.forms import ContactForm
 class LandingPageView(View):
     def get(self, request):
         context={

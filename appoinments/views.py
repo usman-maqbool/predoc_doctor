@@ -194,34 +194,3 @@ class ContactUsPageView(View):
             messages.success(request,'Your message is successfully sent. we will contact you soon..!')
             return redirect ("contactus")
 
-
-from django.conf import settings
-from qrcode import *
-import time
-
-class QrCodeView(View):
-    def get(self,request):
-        # id = request.user.id
-        # update_id=get_object_or_404(UserModel, id = id)
-        # print(id, 'its id')
-        # update_form = SignUpForm(request.POST or None, instance=update_id)
-        return render(request, 'index.html')
-        # if update_form.is_valid():
-        #     update_form.save()
-        #     return redirect('index')
-            
-        # else:
-        #     print(request.POST)
-        #     return redirect('index')
-    
-    def post(self,request):
-        data = request.POST['url']
-        img = make(data)
-        img_name = 'qr' + str(time.time()) + '.png'
-        img.save(img_name)
-        QrCode.objects.create(
-            url=data,
-            image=img_name
-            )
-        messages.success(request,'Qr Code created succesfully..!')
-        return redirect('index')

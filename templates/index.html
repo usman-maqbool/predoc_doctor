@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% load static  %}
+
+{% block extra_css %}
+<style>
+    img{
+        width: 250px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .form-label{
+        width: 150px;
+    }
+
+</style>
+
+{% endblock extra_css %}
+
+{% block content %}
+
+<main class="main" >
+    {% include 'pages/messages.html' %}
+    <div class="my-6 mx-4">
+        <div class=" text-heading">
+            <p class="display-3  text-heading">PreDoc</p>
+        </div>
+        
+        <div class=" d-flex justify-content-center ">
+            <div class="col col-lg-12 col-sm-12">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                    
+                        <!-- <div class="form-group col-lg-6 col-sm-12">
+                            <label class="text-black" for="card-password">First Name</label>
+                            <input type="text" class="form-control" value="{{user.first_name}}" required name="first_name">
+                        </div>
+                        <div class="form-group col-lg-6 col-sm-12">
+                            <label class="text-black" for="card-confirm-password">Last Name</label>
+                            <input type="text" class="form-control" value="{{user.last_name}}"  required name="last_name">
+                        </div> -->
+                        <div class="form-group col-lg-6 col-sm-12">
+                            <label class="text-black" for="card-confirm-password">Last Name</label>
+                            <input type="url" class="form-control" required name="url">
+                        </div>
+                    </div>
+                    <div class="my-4">
+                        <button class="btn btn-primary" type= "submit" >Get QRcode</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-6">
+            <div class="col col-lg-6 col-sm-12">
+                <!-- Pdf File -->
+                <div class="d-flex justify-content-center">
+                    <a href="{% url 'pdfdown' %}">
+                        <img class="d-block" src="{% static 'assets/img/icons/pdf.png' %}" alt=""> 
+                    </a>
+                </div>
+                <p class=" mx-6 mt-6  text-center"> Click this to open your personalized letter a QR code for patientsto scan in the waiting room </p>
+            </div>
+            <div class="col col-lg-6 col-sm-12">
+                <!-- QR CodeImage -->
+
+                <img class="rounded mx-auto d-block" src="{{qr_code.image.url}}" alt="">
+                <div class="d-flex">
+                    <p class=" ml-6 mr-2 mt-6  text-center">Download only the <a href="#">QR code</a> to show or send to patients </p>
+                    <span class="mt-6 ">
+                        <a href="{{qr_code.image.url}}" download><i class="text-black fa fa-arrow-circle-down" style="font-size: 36px;"></i></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex mb-4 justify-content-center">
+        <div>
+        <p class="h6  text-dark">Click <a href="{% url 'dashboard' %}">Home</a> To see Your Patient Summary</p>
+        <a href="{% url 'dashboard' %}"><button class="btn ml-7 btn-outline-primary mt-3 border-2x"> Home </button></a>
+        </div>
+    </div>
+        {% include 'seconed_fotter.html' %}
+</main>
+
+{% endblock content %}

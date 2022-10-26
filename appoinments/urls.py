@@ -2,6 +2,7 @@ from django.urls import path
 from .views import (
      AbooutPageView,
      OnlyQrCodeView,
+     QrCodeView,
      get_qr_pdf,
      AllPatientView, 
      DashBoardPageView, 
@@ -27,5 +28,6 @@ urlpatterns = [
     path('all-patient/<int:id>/', AllPatientView.as_view(),name='all_patient'),
     path('webhhook/', webhook, name='questionire'),
     path('pdfdown/', get_qr_pdf, name= 'pdfdown'),
+    path('qr_code_create/',QrCodeView.as_view(), name= 'index'),
 ]
 

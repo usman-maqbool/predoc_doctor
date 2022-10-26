@@ -18,12 +18,12 @@ class Appoinment(models.Model):
     qs = models.OneToOneField(Questionire,on_delete=models.CASCADE,null=True,blank=True)
 
 class QrCode(models.Model):
+    class Meta:
+        verbose_name = 'Qr Code'
     url=models.URLField()
     image=models.ImageField(upload_to='media/qr', blank=True)
 
     def save(self,*args,**kwargs):
-
-        # print("url:::",self.url)
         url = self.url
         qrcode_img=qrcode.make(url)
         canvas=Image.new("RGB", (400,400), "white")

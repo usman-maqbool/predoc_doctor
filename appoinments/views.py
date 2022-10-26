@@ -51,7 +51,7 @@ class DashBoardPageView(LoginRequiredMixin, View):
 
 class WaitingRoomView(LoginRequiredMixin, View):
     def get(self, request):
-        qr_code = QrCode.objects.filter().first()
+        qr_code = QrCode.objects.filter().last()
         update_id = get_object_or_404(UserModel, id = request.user.id)
         update_form = SignUpForm(instance = update_id)
         
@@ -73,7 +73,7 @@ class WaitingRoomView(LoginRequiredMixin, View):
 
 class OnlyQrCodeView(View):
     def get(self, request):
-        qr_code = QrCode.objects.filter().first()
+        qr_code = QrCode.objects.filter().last()
         update_id=get_object_or_404(UserModel, id = request.user.id)
         update_form = SignUpForm(instance = update_id)
         context = {

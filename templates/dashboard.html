@@ -53,27 +53,62 @@
                 </div>
                 <div class="mt-4 ">
                   <div class="col col-lg-12 ">
-                    <div class="border overflow-auto user-inner-text" style="height:40%">
+                  {% comment %} 
+                   <!-- <div class="border overflow-auto user-inner-text" style="height:40%">
                       <div class="mx-4 mt-2">
-                        {% for item1, item2 in refactored_payload  %}
-                        <p class="text-capitalize text-heading" style="font-size:18px ;">{{item1.title}}</p>
-                          <p style="font-size:18px ;">{% if item2.text %}
-                          {{item2.text}}
-                          {% else %}
-                          {{item2.boolean}}
-                          {% endif %}
+                        {% for Question, Answere in refactored_payload  %}
+                        <p class="text-capitalize text-heading" style="font-size:18px ;">{{Question}}</p>
+                          <p style="font-size:18px ;">
+                          {{Answere}}
                           </p>
                         {% endfor   %}
+                      </div>
+                    </div> -->{% endcomment %}
+                    <div class="card  mt-4 " style="height: 400px;overflow:scroll">
+                      <div class="card-body">
+                        {% for Question, Answere in refactored_payload  %}
+                            <p class="text-capitalize text-heading mt-2" style="font-size:18px ;">{{Question}}</p>
+                              <p style="font-size:18px ;">{{Answere}}</p>
+                              
+                            {% endfor   %}
                       </div>
                     </div>
                     <div class="mt-4">
                       <p class="h6">
-                        <a href="https://lr9lkx57kim.typeform.com/predoc">Question and Answere</a> - 
+                        <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">Question and Answers</a> - 
                             view the original phrasing and answers                                
                       </p>
+
+                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Question and Answers</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              {% for question  in popupp_payload %}
+                                <p class="text-primary ">{{question.title}}</p>
+                                {% if question.choices %}
+                                    {% for choice in question.choices %}
+                                      <p>::::{{choice.label}}</p>
+                                    {% endfor %}
+
+                                {% endif %}
+                              {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
-                </div>
+                </div> 
+                
               </div>
             </div>
             {% else %}

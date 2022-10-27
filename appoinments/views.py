@@ -15,6 +15,7 @@ from account.models import UserModel
 from account.forms import SignUpForm
 from .models import Appoinment, QrCode, Questionire
 from account.forms import ContactForm
+from .parser import Parser
 class LandingPageView(View):
     def get(self, request):
         context={
@@ -24,7 +25,7 @@ class LandingPageView(View):
 class DashBoardPageView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         obj = Appoinment.objects.first()
-        refactored_payload = zip(obj.qs.syptoms['form_response']['definition']['fields'],obj.qs.syptoms['form_response']['answers'])
+
         appoinments = Appoinment.objects.all()
         paginator  = Paginator(appoinments,5)
         page       = request.GET.get('page')
@@ -34,12 +35,17 @@ class DashBoardPageView(LoginRequiredMixin, View):
             cr_page = paginator.page(1)
         except EmptyPage:
             cr_page = paginator.page(paginator.num_pages)
+
+        parser = Parser(payload=obj.qs.syptoms)
+        refactored_payload = zip(parser.parse_questions(), parser.parse_answers())
+        popupp_payload = parser.parse_original_questionnaire()
         context={
+            'refactored_payload':refactored_payload,
+            'popupp_payload':popupp_payload,
             "title":"Dashboard",
             "appoinments":appoinments,
             'pages':cr_page,
             "obj":obj,
-            "refactored_payload":refactored_payload,
         }
         return render(request,'dashboard.html', context)
 
@@ -135,7 +141,9 @@ class AllPatientView(View):
 @csrf_exempt
 def webhook(request):
     appo = Appoinment.objects.filter().first()
-    refactored_payload = zip(appo.qs.syptoms['form_response']['definition']['fields'], appo.qs.syptoms['form_response']['answers'])
+    # refactored_payload = zip(appo.qs.syptoms['form_response']['definition']['fields'], appo.qs.syptoms['form_response']['answers'])
+    parser = Parser(payload=appo.qs.syptoms)
+    refactored_payload = zip(parser.parse_questions(), parser.parse_answers())
     context={
         'title':'TypeForm Response',
         'appo':appo,
@@ -148,6 +156,7 @@ def webhook(request):
         Questionire.objects.create(
             syptoms=payload,
         )
+
     return render(request, 'pages/questionire.html', context )
 
 def get_qr_pdf(request):

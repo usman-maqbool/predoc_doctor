@@ -34,11 +34,23 @@
                         
                             <div class="form-group col-lg-6 col-sm-12">
                                 <label class="text-black" for="card-password">First Name</label>
-                                <input type="text" class="form-control" value="{{user.first_name}}" required name="first_name">
+                                <input type="text" class="form-control"
+                                {% if user.first_name %}
+                                value="{{user.first_name}}"
+                                {% else %}
+                                placeholder="John"
+                                {% endif %}
+                                required name="first_name">
                             </div>
                             <div class="form-group col-lg-6 col-sm-12">
                                 <label class="text-black" for="card-confirm-password">Last Name</label>
-                                <input type="text" class="form-control" value="{{user.last_name}}"  required name="last_name">
+                                <input type="text" class="form-control" 
+                                {% if user.last_name %}
+                                value="{{user.last_name}}"
+                                {% else %}
+                                placeholder="Doe"
+                                {% endif %}
+                                required name="last_name">
                             </div>
                         </div>
                         <div class="my-4">

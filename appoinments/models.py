@@ -1,11 +1,11 @@
-from django.db import models
-from django.core.files import File
-from account.models import UserModel
-import qrcode
 import random
 from io import BytesIO
-from PIL import Image, ImageDraw
 
+import qrcode
+from account.models import UserModel
+from django.core.files import File
+from django.db import models
+from PIL import Image, ImageDraw
 
 
 class Questionire(models.Model):
@@ -13,7 +13,6 @@ class Questionire(models.Model):
 
 class Appoinment(models.Model):
     date = models.DateTimeField(auto_now_add=True, blank=True)
-    patient = models.ForeignKey(UserModel,on_delete=models.CASCADE,related_name='patient')
     doctor = models.ForeignKey(UserModel,on_delete=models.CASCADE,related_name='doctor')
     qs = models.OneToOneField(Questionire,on_delete=models.CASCADE,null=True,blank=True)
 

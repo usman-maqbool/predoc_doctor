@@ -13,7 +13,7 @@ from qrcode import *
 from xhtml2pdf import pisa
 from account.models import UserModel
 from account.forms import SignUpForm
-from .models import Appoinment, QrCode, Questionire
+from .models import Appoinment, QrCode
 from account.forms import ContactForm
 from .parser import Parser
 class LandingPageView(View):
@@ -35,18 +35,26 @@ class DashBoardPageView(LoginRequiredMixin, View):
             cr_page = paginator.page(1)
         except EmptyPage:
             cr_page = paginator.page(paginator.num_pages)
+        
+        if obj:
+            parser = Parser(payload=obj.questions)
+            refactored_payload = zip(parser.parse_questions(), parser.parse_answers())
+            popupp_payload = parser.parse_original_questionnaire()
+            context={
+                'refactored_payload':refactored_payload,
+                'popupp_payload':popupp_payload,
+                "title":"Dashboard",
+                'pages':cr_page,
+                "obj":obj,
+            }
+        else:
+            context={
+                "title":"Dashboard",
+                "appoinments":appoinments,
+                'pages':cr_page,
+                "obj":obj,
+            }
 
-        parser = Parser(payload=obj.qs.syptoms)
-        refactored_payload = zip(parser.parse_questions(), parser.parse_answers())
-        popupp_payload = parser.parse_original_questionnaire()
-        context={
-            'refactored_payload':refactored_payload,
-            'popupp_payload':popupp_payload,
-            "title":"Dashboard",
-            "appoinments":appoinments,
-            'pages':cr_page,
-            "obj":obj,
-        }
         return render(request,'dashboard.html', context)
 
     def post(self, request):
@@ -131,33 +139,27 @@ class AllPatientView(View):
     def get(self, request, *args, **kwargs):
         id = kwargs.get('id')
         appoinments = get_object_or_404(Appoinment, id=id)
-        refactored_payload = zip(appoinments.qs.syptoms['form_response']['definition']['fields'],appoinments.qs.syptoms['form_response']['answers'])
+        # refactored_payload = zip(appoinments.qs.syptoms['form_response']['definition']['fields'],appoinments.qs.syptoms['form_response']['answers'])
+        parser = Parser(payload=appoinments.questions)
+        refactored_payload = zip(parser.parse_questions(), parser.parse_answers())
+        popupp_payload = parser.parse_original_questionnaire()
         context={
             "appoinments":appoinments,
-            "refactored_payload":refactored_payload
+            "refactored_payload":refactored_payload,
+            'popupp_payload':popupp_payload,
         }
         return render(request, 'pages/all_patiebt.html', context)
 
 @csrf_exempt
 def webhook(request):
-    appo = Appoinment.objects.filter().first()
-    # refactored_payload = zip(appo.qs.syptoms['form_response']['definition']['fields'], appo.qs.syptoms['form_response']['answers'])
-    parser = Parser(payload=appo.qs.syptoms)
-    refactored_payload = zip(parser.parse_questions(), parser.parse_answers())
-    context={
-        'title':'TypeForm Response',
-        'appo':appo,
-        'refactored_payload':refactored_payload
-    }
     if request.method =='POST':
         response = request.body.decode()
         payload = json.loads(response)
 
-        Questionire.objects.create(
-            syptoms=payload,
+        Appoinment.objects.create(
+            questions = payload
         )
-
-    return render(request, 'pages/questionire.html', context )
+    return render(request, 'pages/questionire.html', context={} )
 
 def get_qr_pdf(request):
     template_path = 'pages/pdf_click.html'

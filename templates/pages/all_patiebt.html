@@ -1,5 +1,4 @@
 
-
 <div class="modal-body">
     <div class=" text-heading">
       <h2 class="text-heading">Current Patient</h2>
@@ -8,25 +7,59 @@
       <h4 class="text-dark">{{ appoinments.patient.age }} Years Old {{appoinments.patient.gender}}</h4> 
     </div>
     <div class="mt-4 ">
-      <div class="col col-lg-12 ">
-        <div class="border overflow-auto bg-ldight user-inner-text" style="height:40%">
-          <div class="mx-4 mt-2">
-            {% for item1, item2 in refactored_payload  %}
-            <p class="text-capitalize text-heading" style="font-size:18px ;">{{item1.title}}</p>
-              <p style="font-size:18px ;">{% if item2.text %}
-              {{item2.text}}
-              {% else %}
-              {{item2.boolean}}
-              {% endif %}
-              </p>
-            {% endfor   %}
+      <div class="">
+        <div class="list-group w-100 question_table" style="max-height: 500px;overflow:scroll;">
+          {% for Question, Answere in refactored_payload  %}
+          <div class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1 text-capitalize">{{Question}}</h5>
+            </div>
+            <p class="mb-1">
+              {{Answere}}
+            </p>
           </div>
-        </div>
+          {% endfor %}
+      </div>
+      </div>
         <div class="mt-4">
           <p class="h6">
-            <a href="https://admin.typeform.com/accounts/01GEVP5ZXFKKC9ABKA6BTDPD13/workspaces/CUzrDE">Question and Answere</a> - 
+            <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">Question and Answere</a> - 
                 view the original phrasing and answers                                
           </p>
+
+          <div class="modal fade"  id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered " style="max-width:100% ; width: 60%;">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title" id="exampleModalLabel">Question and Answers</h3>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="height: 450px;overflow-y: scroll;">
+                  <div class="container">
+                    {% for question  in popupp_payload %}
+                      <div class="question" id="q1">
+                        <h5 class=""><b></b>{{ forloop.counter }}. {{question.title}}</b></h5>
+                        <div class="answer" id="a1">
+                        {% if question.choices %}
+                          {% for choice in question.choices %}
+                            <div class="btn btn-primary option-btn">
+                              {{choice.label}}
+                            </div>
+                          {% endfor %}
+                        {% else %}
+                          <p class="" style="color:rgb(45,123,229) ;">its a simple question</p>
+                        {% endif%}
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </div> 
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

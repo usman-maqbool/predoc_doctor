@@ -8,13 +8,10 @@ from django.db import models
 from PIL import Image, ImageDraw
 
 
-class Questionire(models.Model):
-    syptoms = models.JSONField(default= dict)
-
 class Appoinment(models.Model):
-    date = models.DateTimeField(auto_now_add=True, blank=True)
-    doctor = models.ForeignKey(UserModel,on_delete=models.CASCADE,related_name='doctor')
-    qs = models.OneToOneField(Questionire,on_delete=models.CASCADE,null=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True,null=True, blank=True)
+    questions = models.JSONField(default= dict)
+
 
 class QrCode(models.Model):
     class Meta:

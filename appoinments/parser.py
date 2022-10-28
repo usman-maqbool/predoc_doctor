@@ -252,16 +252,22 @@ payload = {
   }
 }
 
+
 class Parser(object):
 
     def __init__(self, payload):
+        print(payload)
         self.questions = payload['form_response']['definition']['fields']
         self.answers = payload['form_response']['answers']
         self.formatted_answer = []
         self.formatted_questions = []
         self.questionnaire = []
         self.none_choiced_fields  = ['phone_number', 'date', 'number', 'website', 'opinion_scale', 'email', 'rating', 'short_text', 'long_text', 'yes_no']
-        self.choiced_fields  = ['multiple_choice', 'picture_choice']
+        self.choiced_fields  = ['multiple_choice', 'picture_choice', 'dropdown']
+
+        # self.name =  payload["form_response"]["answers"][4]["text"]
+        # self.birth =  payload["form_response"]["answers"][5]["date"]
+        
 
     def __get_type_question(self, question):
         return question.get('title')
@@ -285,7 +291,6 @@ class Parser(object):
                   'title' : q_payload.get('title'),
                   "choices" : q_payload.get('choices')
               }
-        #TODO return defaunt if there are no other type of choices 
 
     def parse_answers(self):
         for answer in self.answers:
@@ -301,3 +306,17 @@ class Parser(object):
         for question in self.questions:
             self.questionnaire.append(self.__get_original_question(question))
         return self.questionnaire
+
+
+
+
+    # def __get_birth_date(self, answer):
+    #       if answer.get('type') == 'date':
+
+    #             return answer.get('date')
+                
+                
+    # def get_age(self):
+    #       for answer in self.answers:
+    #             return self.__get_birth_date(answer)
+  

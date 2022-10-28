@@ -25,7 +25,7 @@ urlpatterns = [
     path('privacy/policy/', PrivacyPolicyPageView.as_view(),name='privacy_policy'),
     path('disagree/', DisAgrePageView.as_view(),name='disagree'),
     path('all-patient/<int:id>/', AllPatientView.as_view(),name='all_patient'),
-    path('webhhook/', webhook, name='questionire'),
+    path('webhook/', webhook, name='questionire'),
     path('pdfdown/', get_qr_pdf, name= 'pdfdown'),
 ]
 

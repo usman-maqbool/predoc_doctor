@@ -46,6 +46,9 @@ class DashBoardPageView(LoginRequiredMixin, View):
                 "title":"Dashboard",
                 'pages':cr_page,
                 "obj":obj,
+                "dob":parser.get_date_of_birth(),
+                "age": parser.get_age(),
+                "first_name": parser.get_first_name()
             }
         else:
             context={

@@ -173,10 +173,10 @@
                       <tbody>
                         <tr class="text-center text-heading show_div">
                           <th scope="row" onclick="loadingPage()" id="get_ajax_request" class="cursor-pointer text-capitalize button_show_div" data-target="#id-{{appoinment.id}}">
-                            {{ first_name}}
+                            {{ appoinment.name}}
                           </th>
-                          <td>{{dob}}</td>
-                          <td>{{age}}</td>
+                          <td>{{appoinment.date_of_birth}}</td>
+                          <td>{{appoinment.age}}</td>
                           <td>--</td>
                           <td>--</td>
                           <td>{{appoinment.created_at}} </td>

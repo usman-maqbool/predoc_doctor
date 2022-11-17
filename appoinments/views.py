@@ -36,27 +36,20 @@ class DashBoardPageView(LoginRequiredMixin, View):
         except EmptyPage:
             cr_page = paginator.page(paginator.num_pages)
         
-        if obj:
-            parser = Parser(payload=obj.questions)
-            refactored_payload = zip(parser.parse_questions(), parser.parse_answers())
-            popupp_payload = parser.parse_original_questionnaire()
-            context={
-                'refactored_payload':refactored_payload,
-                'popupp_payload':popupp_payload,
-                "title":"Dashboard",
-                'pages':cr_page,
-                "obj":obj,
-                "dob":parser.get_date_of_birth(),
-                "age": parser.get_age(),
-                "first_name": parser.get_first_name()
-            }
-        else:
-            context={
-                "title":"Dashboard",
-                "appoinments":appoinments,
-                'pages':cr_page,
-                "obj":obj,
-            }
+       
+        parser = Parser(payload=obj.questions)
+        refactored_payload = zip(parser.parse_questions(), parser.parse_answers())
+        popupp_payload = parser.parse_original_questionnaire()
+        context={
+            'refactored_payload':refactored_payload,
+            'popupp_payload':popupp_payload,
+            "title":"Dashboard",
+            'pages':cr_page,
+            "obj":obj,
+            "dob":parser.get_date_of_birth(),
+            "age": parser.get_age(),
+            "first_name": parser.get_first_name(),
+        }
 
         return render(request,'dashboard.html', context)
 

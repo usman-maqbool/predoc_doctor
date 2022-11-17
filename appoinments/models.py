@@ -6,11 +6,23 @@ from account.models import UserModel
 from django.core.files import File
 from django.db import models
 from PIL import Image, ImageDraw
-
+from .parser import Parser
 
 class Appoinment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,null=True, blank=True)
     questions = models.JSONField(default= dict)
+    age = models.CharField(max_length=255, null=True, blank=True)
+    name = models.CharField(max_length=255, null=True, blank=True)
+    date_of_birth = models.CharField(max_length=255, null=True, blank=True)
+
+
+    def save(self, *args, **kwargs):
+        parser = Parser(self.questions)
+        self.name = parser.get_first_name()
+        self.date_of_birth = parser.get_date_of_birth()
+        self.age = parser.get_age()
+        return super().save(*args, **kwargs)
+
 
 
 class QrCode(models.Model):

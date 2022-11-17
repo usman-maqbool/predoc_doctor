@@ -24,9 +24,9 @@ class LandingPageView(View):
         return render(request, 'landing.html', context)
 class DashBoardPageView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
-        obj = Appoinment.objects.first()
+        obj = Appoinment.objects.last()
 
-        appoinments = Appoinment.objects.all()
+        appoinments = Appoinment.objects.all().order_by("-created_at")
         paginator  = Paginator(appoinments,5)
         page       = request.GET.get('page')
         try:
@@ -79,6 +79,7 @@ class WaitingRoomView(LoginRequiredMixin, View):
         user.first_name = first_name
         user.last_name  = last_name
         user.save()
+        messages.success(request, "first_name and last_name updated successfully")
         return redirect ("start_here")
 
 class OnlyQrCodeView(View):
@@ -100,6 +101,7 @@ class OnlyQrCodeView(View):
         user.first_name = first_name
         user.last_name  = last_name
         user.save()
+        messages.success(request, "first_name and last_name updated successfully")
         return redirect ("only_qrcode")
 
 class TermsAndCondtionPageView(View):

@@ -20,7 +20,6 @@
     {% block content %}
 
     <main class="main" >
-        {% include 'pages/messages.html' %}
         <div class="my-6 mx-4">
             <div class=" text-heading">
                 <p class="display-3  text-heading">PreDoc</p>
@@ -31,8 +30,9 @@
                     <form method="POST">
                         {% csrf_token %}
                         <div class="form-row">
-                        
+                            
                             <div class="form-group col-lg-6 col-sm-12">
+                                {% include 'accounts/messages.html' %}
                                 <label class="text-black" for="card-password">First Name</label>
                                 <input type="text" class="form-control"
                                 {% if user.first_name %}

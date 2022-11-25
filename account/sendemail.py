@@ -4,7 +4,9 @@ import string
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from six import text_type
 
-BASE_LINK_FOR_EMAIL ="http://127.0.0.1:8000"
+# BASE_LINK_FOR_EMAIL ="http://127.0.0.1:8000"
+BASE_LINK_FOR_EMAIL ="https://predoc.com.au"
+
 class AppTokenGenerator(PasswordResetTokenGenerator):
 
     def _make_hash_value(self, user, timestamp):

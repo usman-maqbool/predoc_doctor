@@ -139,7 +139,8 @@ def password_reset_request(request, *args, **kwargs):
 					email_template_name = "accounts/reset_email.txt"
 					c = {
 					"email":user.email,
-					'domain':'127.0.0.1:8000',
+					# 'domain':'127.0.0.1:8000',
+					'domain':'https://predoc.com.au',
 					'site_name': 'Website',
 					"uid": urlsafe_base64_encode(force_bytes(user.pk)),
 					"user": user,

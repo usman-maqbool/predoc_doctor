@@ -263,11 +263,11 @@
   // const question_array = [];
   // const answer_array = [];
 
-  $('button').on('click', e => {
-
+  $('#cp_btn').on('click', e => {
+    console.log("button clicked")
     var name_intro = document.getElementById("name_intro").innerText;
     var hbd_intro = document.getElementById("hbd_intro").innerText;
-    var age_intro = document.getElementById("name_intro").innerText;
+    var age_intro = document.getElementById("age_intro").innerText;
     var questions = document.querySelectorAll('#questions_div');
     
     let textArea = document.createElement("textarea");
@@ -290,34 +290,56 @@
 
 
 
-
-    // let all_questions = document.querySelectorAll('#questions_id');
-    // for (const question of all_questions){
-    //   question_array.push(question.innerText);
-    // }
-    // console.log("question_array",question_array)
-
-    // let all_answers = document.querySelectorAll('#answer_id');
-    // for (const answer of all_answers){
-    //   answer_array.push(answer.innerText);
-    // }
-    // console.log("answer_array",answer_array)
-
-    // let textArea = document.createElement("textarea");
-    // let value  = "";
-    // value = name_intro + "\n" + hbd_intro +  "\n" + age_intro + "\n" ;
-    // for (let i = 0; i < question_array.length; i++) { 
-    //   value = value  + question_array[i] + "\n"  + answer_array[i] + "\n";
-    //   console.log("value add")
-    // }
-    //   textArea.value = value
-    //   document.body.appendChild(textArea);
-    //   textArea.select();
-    //   document.execCommand("Copy");
-    //   textArea.remove();
       
   })
 </script>
+
+
+<script>
+  // const question_array = [];
+  // const answer_array = [];
+
+function copyData (){
+  var ajax_name_intro = document.getElementById("ajax_name-intro").innerText;
+    var ajax_hbd_intro = document.getElementById("ajax_hbd-intro").innerText;
+    var ajax_age_intro = document.getElementById("ajax_age-intro").innerText;
+    var ajax_questions = document.querySelectorAll('#ajax_questions_div');
+    
+    let textArea = document.createElement("textarea");
+    let value  = ""; 
+    value = ajax_name_intro + "\n" + ajax_hbd_intro +  "\n" + ajax_age_intro + "\n" ;
+
+    for (const question of ajax_questions){
+      var q = question.querySelector('#ajax_questions_id').innerText;
+      var ans = question.querySelector('#ajax_answer_id').innerText;
+
+      value = value  + q + "\n"  + ans + "\n";
+      console.log("value add")
+    
+    } 
+    textArea.value = value
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("Copy");
+    textArea.remove();
+
+}
+
+
+
+  $('#ajax_cp_btn').on('click', e => {
+    console.log("button click")
+   
+
+
+      
+  })
+
+
+  
+</script>
+
+
 
 
 

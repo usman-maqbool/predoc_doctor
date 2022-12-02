@@ -145,8 +145,8 @@ LOGOUT_URL = 'logout'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'email-smtp.ap-northeast-1.amazonaws.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'muhammadsarfrazyousaf009@gmail.com'
-EMAIL_HOST_PASSWORD ='Jahan-3450'
+EMAIL_HOST_USER = "AKIAVHU532MB5PJZCKM4"
+EMAIL_HOST_PASSWORD ="BD4R4b/0QC8WZs+Bf0zoKgUCZlfi318DdjFK4oI8Wx/y"

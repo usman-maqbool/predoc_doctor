@@ -67,7 +67,7 @@ class SignUpView(View):
                 email = EmailMessage(
                         email_subject,
                         f'Hi {user.username}, Please use the link below to activate your account  {activate_url}',
-                        'matthewbordy@prototypehouse.com',
+                        'support@predoc.com',
                         [email],
                         )
                 email.send(fail_silently=False)

@@ -72,30 +72,39 @@
           </div>
             <!-- First Patients Data-->
           {% if obj %}
-            <div class="container" id="current_div" style="display:block ;">
-              <div class="modal-body">
-                <div class=" text-heading">
-                  <h2 class="text-heading">Current Patient</h2>
-                  <h4 class=" mt-4 text-dark text-capitalize">{{ obj.name }} {{ obj.patient.last_name }}</h4>
-                  <h4 class="text-dark"> {{ obj.date_of_birth }}</h4>
-                  <h4 class="text-dark">{{ obj.age }} Years Old {{obj.patient.gender}}</h4> 
-                </div>
-                <div class="mt-4 ">
-                  <div class="" >
-                    <div class="list-group w-100 question_table" style="height: 500px;overflow:scroll;">
-                      {% for Question, Answere in refactored_payload  %}
-                      <div class="list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1 text-capitalize">{{Question}}</h5>
-                        </div>
-                        <p class="mb-1">
-                          {{Answere}}
-                        </p>
-                      </div>
-                      {% endfor %}
+            <div id="current_div" style="display:block ;">
+              <div class="modal-body" >
+                  <div class="d-flex justify-content-between text-heading">
+                    <h2 class="text-heading">Current Patient</h2>
+                    <button id="cp_btn" class="btn btn-outline-primary">
+                      <span><i class="far fa-copy"></i></span>
+                      Copy
+                    </button>
                   </div>
+                  <div id="pwd_spn">
+                  <div id="">
+                    <h4 id="name_intro" class=" mt-4 text-dark text-capitalize">{{ obj.name }} {{ obj.patient.last_name }}</h4>
+                    <h4 id="hbd_intro" class="text-dark"> {{ obj.date_of_birth }}</h4>
+                    <h4 id="" class="text-dark">{{ obj.age }} Years Old {{obj.patient.gender}}</h4>
+                  </div> 
+               
+                  <div class="mt-4 ">
+                    
+                    <div class="list-group w-100 question_table"  style="height: 500px;overflow:scroll;" id="all_questions_div">
+                        {% for Question, Answere in refactored_payload  %}
+                        <div class="list-group-item list-group-item-action" >
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1 text-capitalize" value="{{Question}}" id="questions_id">{{Question}}</h5>
+                          </div>
+                          <p class="mb-1" id ="answer_id">
+                            {{Answere}}
+                          </p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                  
                 </div>
-
+              </div>
                     <div class="mt-4">
                       <p class="h6">
                         <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">Question and Answers</a> - 
@@ -137,13 +146,13 @@
                       </div>
 
                     </div>
-                  </div>
+                  
                 </div> 
 
               
                 
               </div>
-            </div>
+           
           {% endif %}
           
           <div class="condition_base_data">
@@ -247,3 +256,96 @@
     {% include 'seconed_fotter.html' %}
 
 {% endblock content %}
+
+{% block extra_javascript %}
+<script>
+ document.getElementById("cp_btn").addEventListener("click", copy_password);
+ function copy_password() {
+   var copyText = document.getElementById("pwd_spn");
+  //  var copyText = document.getElementsByClassName("pwd_spn");
+   console.log(copyText)
+   var textArea = document.createElement("textarea");
+    textArea.value = copyText.textContent;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("Copy");
+    textArea.remove();
+}
+</script>
+
+<script>
+//   function copyToClipboard(element) {
+//   console.log(elemnt,"::::::::::::::::::::")
+//   var $temp = $("<textarea>");
+//   var brRegex = /<br\s+[\/]?>/gi;
+//   $("body").append($temp);
+//   // $temp.val($(element).text()).select();
+//   // $temp.val($(element).innerText().replace(/\s+/g, ` \t`)).select();
+//   $temp.val($(element).text().replace(/\s+/g, `\n `)).select();
+//   // $temp.val($(element).text().replace(brRegex , '\r\n ')).select();
+//   document.execCommand("copy");
+//   $temp.remove();
+// }
+
+</script>
+
+<script>
+  const question_array = [];
+  const answer_array = [];
+
+  var dict = []; 
+
+  $('button').on('click', e => {
+    var all_questions = document.querySelectorAll('#questions_id');
+    for (const question of all_questions){
+      question_array.push(question.innerText);
+    }
+
+    var all_answers = document.querySelectorAll('#answer_id');
+    for (const answer of all_answers){
+      answer_array.push(answer.innerText);
+    }
+
+
+
+  
+
+    
+  })
+
+
+
+
+// var divA = document.getElementById('name_intro');
+// let divB = document.getElementById('hbd_intro');
+// let divC = document.querySelectorAll("#other_intro");
+// console.log('super::::::::::::::::::::::::',divA)
+
+// data = {}
+// data_list= []
+//   $('button').on('click', e => {
+//     for (let i = 0; i < divC.length; i++) {
+  
+//     data ['question'] = divC[i].innerText
+//     data_list ['answer'] = divC[i].innerText
+//     copyToClipboard(`"${divA.innerText}" (${divB.innerText}). (${divC[i].innerText}). `);
+    
+//   }
+//   console.log(data,"data....")
+//   console.log(data_list,"data....")
+//   });
+  
+// function copyToCli pboard(text) {
+//   var $temp = $("<textarea>");
+//   $("body").append($temp);
+//   $temp.val(text).select();
+//   document.execCommand("copy");
+//   $temp.remove();
+// }
+</script>
+
+
+
+
+
+{% endblock extra_javascript %}

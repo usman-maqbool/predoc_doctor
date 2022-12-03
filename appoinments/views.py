@@ -34,7 +34,7 @@ class DashBoardPageView(LoginRequiredMixin, View):
         obj = Appoinment.objects.last()
 
         appoinments = Appoinment.objects.all().order_by("-created_at")
-        paginator  = Paginator(appoinments,5)
+        paginator  = Paginator(appoinments,10)
         page       = request.GET.get('page')
         try:
             cr_page = paginator.get_page(page)

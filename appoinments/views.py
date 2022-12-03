@@ -1,27 +1,34 @@
-from django.views import View
+
+from account.forms import ContactForm, SignUpForm
+from account.models import UserModel
 from django.contrib import messages
-from django.http import HttpResponse
 from django.contrib.auth import logout
-from django.template.loader import get_template
-from django.views.decorators.csrf import csrf_exempt
-from django.core.mail import send_mail, BadHeaderError
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.mail import BadHeaderError, send_mail
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-import json
+from django.template.loader import get_template
+from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 from qrcode import *
 from xhtml2pdf import pisa
-from account.models import UserModel
-from account.forms import SignUpForm
+from .utils import webhookSignature
 from .models import Appoinment, QrCode
-from account.forms import ContactForm
+import json
 from .parser import Parser
+
+
+
+
+
 class LandingPageView(View):
     def get(self, request):
         context={
             "title":'Landing'
         }
         return render(request, 'landing.html', context)
+
 class DashBoardPageView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         obj = Appoinment.objects.last()
@@ -151,6 +158,24 @@ class AllPatientView(View):
 @csrf_exempt
 def webhook(request):
     if request.method =='POST':
+        print(request.META ,  ':::::::::::::::::::')
+
+        receivedSignature = request.META.get("HTTP_TYPEFORM_SIGNATURE")
+        print(receivedSignature,"::::::::::::::::::::::::;;")
+        
+        if receivedSignature is None:
+            return Exception(403, detail="Permission denied.")
+            
+        sha_name, signature = receivedSignature.split('=', 1)
+        if sha_name != 'sha256':
+            return Exception(501, detail="Operation not supported.")
+        
+
+        is_valid = webhookSignature(signature, request.body)
+        # raw
+        if(is_valid != True):
+            return Exception(403, detail="Invalid signature. Permission Denied.")
+
         response = request.body.decode()
         payload = json.loads(response)
 
@@ -162,15 +187,15 @@ def webhook(request):
 def get_qr_pdf(request):
     template_path = 'pages/pdf_click.html'
     qr_code = QrCode.objects.filter().first()
-    id = request.user.id
-    user = get_object_or_404(UserModel, id = id)
+    user = get_object_or_404(UserModel, id = request.user.id)
     context = {'qr_image': qr_code,'user':user}
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="predoc.pdf"'
     template = get_template(template_path)
     html = template.render(context)
     pisa_status = pisa.CreatePDF(
-       html, dest=response)
+       html, dest=response
+    )
     if pisa_status.err:
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
@@ -183,6 +208,7 @@ class ContactUsPageView(View):
             'form':form
         }
         return render(request, 'contact_us.html', context)
+
     def post(self, request):
         form = ContactForm(request.POST)
         if form.is_valid():

@@ -23,7 +23,8 @@ class SignUpView(View):
         if request.user.is_authenticated:
             messages.success(request, f"Your login appears to be done.")  
             return redirect("login")
-        context = {"is_header": "header",
+        context = {
+            "is_header": "header",
             "form":SignUpForm(),
             'title':"SignUp"
         }

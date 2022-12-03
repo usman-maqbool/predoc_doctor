@@ -1,6 +1,6 @@
 
-from account.forms import ContactForm, SignUpForm
-from account.models import UserModel
+import json
+
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,13 +13,13 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from qrcode import *
 from xhtml2pdf import pisa
-from .utils import webhookSignature
+
+from account.forms import ContactForm, SignUpForm
+from account.models import UserModel
+
 from .models import Appoinment, QrCode
-import json
 from .parser import Parser
-
-
-
+from .utils import webhookSignature
 
 
 class LandingPageView(View):
@@ -104,7 +104,7 @@ class OnlyQrCodeView(View):
     def post(self, request):
         first_name   = request.POST.get("first_name") 
         last_name    = request.POST.get("last_name") 
-        user  = get_object_or_404(UserModel,id=request.user.id)
+        user  = get_object_or_404(UserModel, id=request.user.id)
         user.first_name = first_name
         user.last_name  = last_name
         user.save()
@@ -158,21 +158,16 @@ class AllPatientView(View):
 @csrf_exempt
 def webhook(request):
     if request.method =='POST':
-        print(request.META ,  ':::::::::::::::::::')
-
         receivedSignature = request.META.get("HTTP_TYPEFORM_SIGNATURE")
         print(receivedSignature,"::::::::::::::::::::::::;;")
-        
         if receivedSignature is None:
             return Exception(403, detail="Permission denied.")
-            
+
         sha_name, signature = receivedSignature.split('=', 1)
         if sha_name != 'sha256':
             return Exception(501, detail="Operation not supported.")
-        
 
         is_valid = webhookSignature(signature, request.body)
-        # raw
         if(is_valid != True):
             return Exception(403, detail="Invalid signature. Permission Denied.")
 

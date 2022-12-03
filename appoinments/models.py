@@ -2,7 +2,6 @@ import random
 from io import BytesIO
 
 import qrcode
-from account.models import UserModel
 from django.core.files import File
 from django.db import models
 from PIL import Image, ImageDraw

@@ -1,6 +1,7 @@
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+
 from .mixins import TimeStampMixin
 from .users import *
 
@@ -41,14 +42,14 @@ class UserModel(TimeStampMixin, AbstractBaseUser):
     location = models.CharField(max_length=255, null=True, blank=True)
     profile_image = models.ImageField(upload_to ='profile_image', null=True, blank=True)
     dob = models.DateField(blank=True,null=True)
-    gender = models.CharField(max_length=10,choices=GENDER_CHOICES,null=True,blank=True)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True, blank=True)
     age = models.IntegerField(blank=True, null=True)
 
     is_agree = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    type = models.CharField(max_length=10,choices=UserTypeChoice.choices(), null=False, blank=False, default=UserTypeChoice.DOCTOR.value,)
+    type = models.CharField(max_length=10, choices=UserTypeChoice.choices(), null=False, blank=False, default=UserTypeChoice.DOCTOR.value,)
     
     @property
     def is_super_admin(self):

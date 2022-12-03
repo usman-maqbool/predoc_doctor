@@ -160,15 +160,16 @@ def webhook(request):
     if request.method =='POST':
         receivedSignature = request.META.get("HTTP_TYPEFORM_SIGNATURE")
         if receivedSignature is None:
-            return HttpResponse("Permission denied.")
+            return HttpResponse("Permission denied.", status=403)
 
         sha_name, signature = receivedSignature.split('=', 1)
         if sha_name != 'sha256':
-            return HttpResponse("Operation not supported.")
+            return HttpResponse("Operation not supported.", status=501)
 
         is_valid = webhookSignature(signature, request.body)
         if(is_valid != True):
-            return HttpResponse("Invalid signature. Permission Denied.")
+            print("SIGNATURE FAILED")
+            return HttpResponse("Invalid signature. Permission Denied.", status=403)
 
         response = request.body.decode()
         payload = json.loads(response)

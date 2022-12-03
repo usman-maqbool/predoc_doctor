@@ -86,7 +86,7 @@ class WaitingRoomView(LoginRequiredMixin, View):
         user.first_name = first_name
         user.last_name  = last_name
         user.save()
-        messages.success(request, "first_name and last_name updated successfully")
+        messages.success(request, "Updated successfully")
         return redirect ("start_here")
 
 class OnlyQrCodeView(View):
@@ -108,7 +108,7 @@ class OnlyQrCodeView(View):
         user.first_name = first_name
         user.last_name  = last_name
         user.save()
-        messages.success(request, "first_name and last_name updated successfully")
+        messages.success(request, "Updated successfully")
         return redirect ("only_qrcode")
 
 class TermsAndCondtionPageView(View):

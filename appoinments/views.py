@@ -159,17 +159,16 @@ class AllPatientView(View):
 def webhook(request):
     if request.method =='POST':
         receivedSignature = request.META.get("HTTP_TYPEFORM_SIGNATURE")
-        print(receivedSignature,"::::::::::::::::::::::::;;")
         if receivedSignature is None:
-            return Exception(403, detail="Permission denied.")
+            return HttpResponse("Permission denied.")
 
         sha_name, signature = receivedSignature.split('=', 1)
         if sha_name != 'sha256':
-            return Exception(501, detail="Operation not supported.")
+            return HttpResponse("Operation not supported.")
 
         is_valid = webhookSignature(signature, request.body)
         if(is_valid != True):
-            return Exception(403, detail="Invalid signature. Permission Denied.")
+            return HttpResponse("Invalid signature. Permission Denied.")
 
         response = request.body.decode()
         payload = json.loads(response)

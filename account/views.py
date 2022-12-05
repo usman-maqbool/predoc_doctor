@@ -155,7 +155,7 @@ def password_reset_request(request, *args, **kwargs):
 						messages.error (request,'Inavlid email')
 					return redirect ("reset_password_done")
 	password_reset_form = ForgetPasswordForm()
-	return render(request, "accounts/forget_password.html", context={"password_reset_form":password_reset_form})
+	return render(request, "accounts/forget_password.html", context={"password_reset_form":password_reset_form, 'title':"Reset Password"})
 
 class ResetPasswordDoneView(View):
     def get(self, request):

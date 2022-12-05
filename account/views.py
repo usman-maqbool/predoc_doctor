@@ -98,7 +98,8 @@ class VerificationView(View):
             id = force_str(urlsafe_base64_decode(uidb64))
             user = UserModel.objects.get(pk=id)
             if not account_activation_token.check_token(user, token):
-                return redirect('login'+'?message='+'User already activated')
+                messages.info(request, 'Account is already activated')    
+                return redirect('login')
             if user.is_active:
                 return redirect('login')
             user.is_active = True

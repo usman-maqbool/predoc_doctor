@@ -67,7 +67,13 @@ class SignUpView(View):
                 activate_url = BASE_LINK_FOR_EMAIL+link
                 email = EmailMessage(
                         email_subject,
-                        f'Hi {user.username}, Please use the link below to activate your account  {activate_url}',
+                        f'''Hi {user.email.split('@')[0].capitalize()}., 
+Please use the link below to activate your account.
+{activate_url}
+Thanks 
+PreDoc
+
+''',
                         'no-reply@predoc.com.au',
                         [email],
                         )

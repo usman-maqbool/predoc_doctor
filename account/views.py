@@ -68,7 +68,7 @@ class SignUpView(View):
                 email = EmailMessage(
                         email_subject,
                         f'Hi {user.username}, Please use the link below to activate your account  {activate_url}',
-                        'support@predoc.com',
+                        'no-reply@predoc.com.au',
                         [email],
                         )
                 email.send(fail_silently=False)
@@ -150,7 +150,7 @@ def password_reset_request(request, *args, **kwargs):
 					}
 					email = render_to_string(email_template_name, c)
 					try:
-						send_mail(subject, email, 'admin@example.com' , [user.email], fail_silently=False)
+						send_mail(subject, email, 'no-reply@predoc.com.au' , [user.email], fail_silently=False)
 					except BadHeaderError:
 						messages.error (request,'Inavlid email')
 					return redirect ("reset_password_done")

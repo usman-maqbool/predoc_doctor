@@ -145,11 +145,11 @@ LOGOUT_URL = 'logout'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'email-smtp.ap-northeast-1.amazonaws.com'
+EMAIL_HOST = 'email-smtp.ap-southeast-2.amazonaws.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "AKIAVHU532MB5PJZCKM4"
-EMAIL_HOST_PASSWORD ="BD4R4b/0QC8WZs+Bf0zoKgUCZlfi318DdjFK4oI8Wx/y"
+EMAIL_HOST_USER = "AKIAVHU532MBR5PX4CNK"
+EMAIL_HOST_PASSWORD ="BCd8DhBq/fP4j9qvetkd/DUOehmeQTLx9t64kmrUB2vK"
 
 
 TYPEFORM_SECRET_KEY = "47aa26f38559b7f6d282b6399ce436998b75e6e9"

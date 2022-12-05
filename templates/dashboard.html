@@ -89,7 +89,7 @@
                     <div class="card">
                       <div class="card-body">
                         <div class="d-flex justify-content-end mb-2">
-                          <button id="cp_btn" class="btn btn-outline-primary ">
+                          <button id="cp_btn" class="btn btn-outline-primary btn-sm">
                             <span><i class="far fa-copy"></i></span>
                             Copy
                           </button>
@@ -325,14 +325,14 @@
   // const answer_array = [];
 
 function copyData (){
-  var ajax_name_intro = document.getElementById("ajax_name-intro").innerText;
-    var ajax_hbd_intro = document.getElementById("ajax_hbd-intro").innerText;
-    var ajax_age_intro = document.getElementById("ajax_age-intro").innerText;
+  // var ajax_name_intro = document.getElementById("ajax_name-intro").innerText;
+  //   var ajax_hbd_intro = document.getElementById("ajax_hbd-intro").innerText;
+  //   var ajax_age_intro = document.getElementById("ajax_age-intro").innerText;
     var ajax_questions = document.querySelectorAll('#ajax_questions_div');
     
     let textArea = document.createElement("textarea");
     let value  = ""; 
-    value = ajax_name_intro + "\n" + ajax_hbd_intro +  "\n" + ajax_age_intro + "\n" ;
+    // value = ajax_name_intro + "\n" + ajax_hbd_intro +  "\n" + ajax_age_intro + "\n" ;
 
     for (const question of ajax_questions){
       var q = question.querySelector('#ajax_questions_id').innerText;
